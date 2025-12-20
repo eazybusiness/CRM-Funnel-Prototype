@@ -63,8 +63,8 @@ crm-funnel/
 
 2. **Set up environment variables**
    ```bash
-   cp .env.example .env
-   # Edit .env with your API keys
+   cp .env.example .env.local
+   # Edit .env.local with your API keys
    ```
 
 3. **Run development server**
@@ -78,7 +78,7 @@ crm-funnel/
 ## ⚙️ Configuration
 
 ### Environment Variables
-Create `.env` file with:
+Create `.env.local` file with:
 
 ```env
 # Stripe
