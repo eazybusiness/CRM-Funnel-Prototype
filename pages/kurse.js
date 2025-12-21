@@ -12,8 +12,30 @@ import {
 } from 'lucide-react'
 import Head from 'next/head'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import FunnelStepper from '../components/FunnelStepper'
+import UtmBanner from '../components/UtmBanner'
+
+function writeDemoEvent(type, payload) {
+  if (typeof window === 'undefined') return
+  const key = 'crm_funnel_demo_events'
+  const events = JSON.parse(localStorage.getItem(key) || '[]')
+  const id = (globalThis.crypto?.randomUUID?.() || String(Date.now()))
+  events.unshift({ id, ts: new Date().toISOString(), type, payload })
+  localStorage.setItem(key, JSON.stringify(events.slice(0, 200)))
+}
+
+function writeDemoLead(lead) {
+  if (typeof window === 'undefined') return
+  const key = 'crm_funnel_demo_leads'
+  const leads = JSON.parse(localStorage.getItem(key) || '[]')
+  const id = (globalThis.crypto?.randomUUID?.() || String(Date.now()))
+  leads.unshift({ id, createdAt: new Date().toISOString(), ...lead })
+  localStorage.setItem(key, JSON.stringify(leads.slice(0, 200)))
+}
 
 export default function Kurse() {
+  const router = useRouter()
   const [selectedCourse, setSelectedCourse] = useState(null)
   const [formData, setFormData] = useState({
     name: '',
@@ -106,6 +128,7 @@ export default function Kurse() {
   const handleCourseSelect = (course) => {
     setSelectedCourse(course.id)
     setFormData({ ...formData, course: course.name })
+    writeDemoEvent('pathway_selected', { pathway: 'courses', offer: course.name, price: course.price })
   }
 
   const handleSubmit = async (e) => {
@@ -125,9 +148,21 @@ export default function Kurse() {
       })
 
       if (response.ok) {
-        alert('Vielen Dank für deine Anmeldung! Wir senden dir alle Details per E-Mail.')
-        setFormData({ name: '', email: '', phone: '', course: '', experience: 'beginner' })
-        setSelectedCourse(null)
+        const chosen = courses.find(c => c.id === selectedCourse)
+        const amount = chosen?.id === 'basic' ? 197 : chosen?.id === 'advanced' ? 497 : chosen?.id === 'master' ? 997 : 197
+
+        writeDemoLead({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          source: 'courses',
+          course: formData.course,
+          offer: formData.course,
+          experience: formData.experience,
+        })
+        writeDemoEvent('form_submitted', { pathway: 'courses', offer: formData.course, email: formData.email })
+
+        await router.push(`/checkout?demo=1&source=courses&offer=${encodeURIComponent(formData.course)}&amount=${encodeURIComponent(String(amount))}&name=${encodeURIComponent(formData.name)}&email=${encodeURIComponent(formData.email)}`)
       }
     } catch (error) {
       alert('Fehler: Bitte versuchen Sie es später erneut.')
@@ -142,6 +177,7 @@ export default function Kurse() {
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
+        <UtmBanner />
         {/* Header */}
         <header className="bg-white shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -152,13 +188,17 @@ export default function Kurse() {
                   <span className="font-semibold">Zurück</span>
                 </div>
               </Link>
-              
+
               <h1 className="text-2xl font-bold text-gray-900">Kurse & Workshops</h1>
-              
-              <div className="w-20"></div>
+
+              <Link href="/demo/crm" className="text-sm font-semibold text-green-700 hover:text-green-900">Demo CRM</Link>
             </div>
           </div>
         </header>
+
+        <div className="max-w-6xl mx-auto px-4 pt-6">
+          <FunnelStepper steps={["Auswahl", "Daten", "Checkout"]} currentStep={selectedCourse ? 2 : 1} />
+        </div>
 
         {/* Hero Section */}
         <section className="py-16 px-4">

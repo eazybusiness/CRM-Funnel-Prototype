@@ -1,16 +1,24 @@
 import { useState } from 'react'
+import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { 
   Package, 
   GraduationCap, 
   Briefcase, 
-  ArrowRight,
-  Instagram,
-  Facebook,
-  MessageCircle
+  ArrowRight
 } from 'lucide-react'
 import Head from 'next/head'
 import Link from 'next/link'
+import UtmBanner from '../components/UtmBanner'
+
+function writeDemoEvent(type, payload) {
+  if (typeof window === 'undefined') return
+  const key = 'crm_funnel_demo_events'
+  const events = JSON.parse(localStorage.getItem(key) || '[]')
+  const id = (globalThis.crypto?.randomUUID?.() || String(Date.now()))
+  events.unshift({ id, ts: new Date().toISOString(), type, payload })
+  localStorage.setItem(key, JSON.stringify(events.slice(0, 200)))
+}
 
 export default function Home() {
   const [selectedPath, setSelectedPath] = useState(null)
@@ -42,26 +50,12 @@ export default function Home() {
     }
   ]
 
-  const socialLinks = [
-    {
-      name: 'Instagram',
-      icon: Instagram,
-      url: 'https://instagram.com/yourprofile',
-      color: 'hover:bg-pink-500'
-    },
-    {
-      name: 'Facebook',
-      icon: Facebook,
-      url: 'https://facebook.com/yourprofile',
-      color: 'hover:bg-blue-600'
-    },
-    {
-      name: 'WhatsApp',
-      icon: MessageCircle,
-      url: 'https://wa.me/49123456789?text=Ich%20interessiere%20mich%20für%20Ihre%20Angebote',
-      color: 'hover:bg-green-500'
-    }
-  ]
+  useEffect(() => {
+    writeDemoEvent('landing_page_visit', {
+      path: '/',
+      referrer: typeof document !== 'undefined' ? document.referrer : null
+    })
+  }, [])
 
   return (
     <>
@@ -73,6 +67,7 @@ export default function Home() {
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+        <UtmBanner />
         {/* Header */}
         <header className="bg-white shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -80,22 +75,10 @@ export default function Home() {
               <div className="flex items-center">
                 <h1 className="text-2xl font-bold text-gray-900">CRM Funnel</h1>
               </div>
-              
-              {/* Social Media Links */}
-              <div className="flex space-x-4">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`p-2 rounded-full bg-gray-100 text-gray-600 transition-colors ${social.color} hover:text-white`}
-                    aria-label={social.name}
-                  >
-                    <social.icon className="w-5 h-5" />
-                  </a>
-                ))}
-              </div>
+
+              <Link href="/demo/crm" className="text-sm font-semibold text-blue-600 hover:text-blue-800">
+                Demo CRM Dashboard
+              </Link>
             </div>
           </div>
         </header>
@@ -174,6 +157,13 @@ export default function Home() {
                       </div>
                     </div>
                   </Link>
+                  <button
+                    type="button"
+                    onClick={() => writeDemoEvent('pathway_selected', { pathway: path.id, href: path.href })}
+                    className="sr-only"
+                  >
+                    Track
+                  </button>
                 </motion.div>
               ))}
             </div>
@@ -225,20 +215,6 @@ export default function Home() {
               <p className="text-gray-400 mb-8">
                 Wähle oben deinen Weg und starte heute deine Erfolgsgeschichte.
               </p>
-              
-              <div className="flex justify-center space-x-6">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    <social.icon className="w-6 h-6" />
-                  </a>
-                ))}
-              </div>
             </div>
             
             <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">

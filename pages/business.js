@@ -9,13 +9,34 @@ import {
   Globe,
   Target,
   Rocket,
-  Handshake,
   Building
 } from 'lucide-react'
 import Head from 'next/head'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import FunnelStepper from '../components/FunnelStepper'
+import UtmBanner from '../components/UtmBanner'
+
+function writeDemoEvent(type, payload) {
+  if (typeof window === 'undefined') return
+  const key = 'crm_funnel_demo_events'
+  const events = JSON.parse(localStorage.getItem(key) || '[]')
+  const id = (globalThis.crypto?.randomUUID?.() || String(Date.now()))
+  events.unshift({ id, ts: new Date().toISOString(), type, payload })
+  localStorage.setItem(key, JSON.stringify(events.slice(0, 200)))
+}
+
+function writeDemoLead(lead) {
+  if (typeof window === 'undefined') return
+  const key = 'crm_funnel_demo_leads'
+  const leads = JSON.parse(localStorage.getItem(key) || '[]')
+  const id = (globalThis.crypto?.randomUUID?.() || String(Date.now()))
+  leads.unshift({ id, createdAt: new Date().toISOString(), ...lead })
+  localStorage.setItem(key, JSON.stringify(leads.slice(0, 200)))
+}
 
 export default function Business() {
+  const router = useRouter()
   const [selectedPlan, setSelectedPlan] = useState(null)
   const [formData, setFormData] = useState({
     name: '',
@@ -42,7 +63,7 @@ export default function Business() {
         'Monatliche Boni',
         'Community Support'
       ],
-      icon: Handshake,
+      icon: Users,
       color: 'from-blue-500 to-blue-600',
       popular: true
     },
@@ -110,6 +131,7 @@ export default function Business() {
   const handlePlanSelect = (plan) => {
     setSelectedPlan(plan.id)
     setFormData({ ...formData, plan: plan.name })
+    writeDemoEvent('pathway_selected', { pathway: 'business', offer: plan.name, price: plan.price })
   }
 
   const handleSubmit = async (e) => {
@@ -129,17 +151,23 @@ export default function Business() {
       })
 
       if (response.ok) {
-        alert('Vielen Dank! Wir kontaktieren dich innerhalb von 24 Stunden für ein persönliches Gespräch.')
-        setFormData({ 
-          name: '', 
-          email: '', 
-          phone: '', 
-          plan: '', 
-          currentSituation: '', 
-          goals: '', 
-          experience: 'none' 
+        const chosen = businessPlans.find(p => p.id === selectedPlan)
+        const amount = chosen?.id === 'partner' ? 0 : chosen?.id === 'franchise' ? 2997 : chosen?.id === 'master' ? 9997 : 0
+
+        writeDemoLead({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          source: 'business',
+          plan: formData.plan,
+          offer: formData.plan,
+          currentSituation: formData.currentSituation,
+          experience: formData.experience,
+          goals: formData.goals,
         })
-        setSelectedPlan(null)
+        writeDemoEvent('form_submitted', { pathway: 'business', offer: formData.plan, email: formData.email })
+
+        await router.push(`/checkout?demo=1&source=business&offer=${encodeURIComponent(formData.plan)}&amount=${encodeURIComponent(String(amount))}&name=${encodeURIComponent(formData.name)}&email=${encodeURIComponent(formData.email)}`)
       }
     } catch (error) {
       alert('Fehler: Bitte versuchen Sie es später erneut.')
@@ -154,6 +182,7 @@ export default function Business() {
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100">
+        <UtmBanner />
         {/* Header */}
         <header className="bg-white shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -164,13 +193,17 @@ export default function Business() {
                   <span className="font-semibold">Zurück</span>
                 </div>
               </Link>
-              
+
               <h1 className="text-2xl font-bold text-gray-900">Business-Möglichkeiten</h1>
-              
-              <div className="w-20"></div>
+
+              <Link href="/demo/crm" className="text-sm font-semibold text-purple-700 hover:text-purple-900">Demo CRM</Link>
             </div>
           </div>
         </header>
+
+        <div className="max-w-6xl mx-auto px-4 pt-6">
+          <FunnelStepper steps={["Auswahl", "Daten", "Checkout"]} currentStep={selectedPlan ? 2 : 1} />
+        </div>
 
         {/* Hero Section */}
         <section className="py-16 px-4">
