@@ -1,0 +1,286 @@
+import nodemailer from 'nodemailer'
+
+export default async function handler(req, res) {
+  if (req.method !== 'GET') {
+    return res.status(405).json({ error: 'Method not allowed' })
+  }
+
+  const { token } = req.query
+
+  if (!token) {
+    return res.status(400).send('Ungültiger Bestätigungslink.')
+  }
+
+  try {
+    const decoded = Buffer.from(token, 'base64').toString('utf-8')
+    const [email, timestamp] = decoded.split(':')
+
+    const tokenAge = Date.now() - parseInt(timestamp)
+    const maxAge = 24 * 60 * 60 * 1000 // 24 Stunden
+
+    if (tokenAge > maxAge) {
+      return res.status(400).send(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <title>Link abgelaufen</title>
+          <style>
+            body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); }
+            .container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; max-width: 500px; }
+            h1 { color: #dc2626; margin-bottom: 20px; }
+            p { color: #4b5563; line-height: 1.6; }
+            a { color: #3b82f6; text-decoration: none; font-weight: bold; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <h1>⏰ Link abgelaufen</h1>
+            <p>Dieser Bestätigungslink ist leider abgelaufen. Bitte melde dich erneut an.</p>
+            <p><a href="/freebie">Zurück zur Anmeldung</a></p>
+          </div>
+        </body>
+        </html>
+      `)
+    }
+
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST || 'smtp.ethereal.email',
+      port: parseInt(process.env.SMTP_PORT || '587'),
+      secure: process.env.SMTP_SECURE === 'true',
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    })
+
+    const downloadLink = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/downloads/freebie.pdf`
+
+    const mailOptions = {
+      from: process.env.SMTP_FROM || '"Deine Marke" <noreply@deinewebsite.de>',
+      to: email,
+      subject: '🎉 Dein Freebie ist bereit zum Download!',
+      html: `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Willkommen!</title>
+        </head>
+        <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f3f4f6;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f3f4f6; padding: 40px 20px;">
+            <tr>
+              <td align="center">
+                <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                  <tr>
+                    <td style="padding: 40px 40px 20px 40px; text-align: center;">
+                      <h1 style="color: #1f2937; margin: 0 0 20px 0; font-size: 28px;">
+                        Willkommen in unserer Community! 🌱
+                      </h1>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 0 40px 30px 40px;">
+                      <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
+                        Herzlich willkommen! Schön, dass du dabei bist. 
+                      </p>
+                      <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
+                        Dein kostenloses Freebie steht jetzt für dich bereit. Klicke einfach auf den Button unten, 
+                        um es herunterzuladen:
+                      </p>
+                      <table width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td align="center" style="padding: 20px 0;">
+                            <a href="${downloadLink}" 
+                               style="background: linear-gradient(to right, #10b981, #3b82f6); 
+                                      color: #ffffff; 
+                                      text-decoration: none; 
+                                      padding: 16px 40px; 
+                                      border-radius: 8px; 
+                                      font-weight: bold; 
+                                      font-size: 16px;
+                                      display: inline-block;">
+                              Jetzt herunterladen
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+                      <div style="background-color: #f0fdf4; border-left: 4px solid #10b981; padding: 20px; margin: 30px 0;">
+                        <h3 style="color: #1f2937; margin: 0 0 10px 0; font-size: 18px;">
+                          Was dich in Zukunft erwartet:
+                        </h3>
+                        <ul style="color: #4b5563; margin: 0; padding-left: 20px; line-height: 1.8;">
+                          <li>Wertvolle Tipps für einen bewussten Lebensstil</li>
+                          <li>Inspirierende Geschichten aus unserer Community</li>
+                          <li>Exklusive Angebote und Einblicke</li>
+                        </ul>
+                      </div>
+                      <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 30px 0 0 0;">
+                        Ich freue mich darauf, dich auf deiner Reise zu mehr Bewusstsein und Minimalismus zu begleiten.
+                      </p>
+                      <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 10px 0 0 0;">
+                        Herzliche Grüße<br>
+                        <strong>[Dein Name]</strong>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 30px 40px; background-color: #f9fafb; border-radius: 0 0 8px 8px;">
+                      <p style="color: #6b7280; font-size: 12px; line-height: 1.6; margin: 0; text-align: center;">
+                        Du erhältst diese E-Mail, weil du dich für unser Freebie angemeldet hast.<br>
+                        <a href="[ABMELDE_LINK]" style="color: #3b82f6; text-decoration: none;">Abmelden</a> | 
+                        <a href="/datenschutz" style="color: #3b82f6; text-decoration: none;">Datenschutz</a>
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
+      `,
+      text: `
+Willkommen in unserer Community!
+
+Herzlich willkommen! Schön, dass du dabei bist.
+
+Dein kostenloses Freebie steht jetzt für dich bereit. Lade es hier herunter: ${downloadLink}
+
+Was dich in Zukunft erwartet:
+- Wertvolle Tipps für einen bewussten Lebensstil
+- Inspirierende Geschichten aus unserer Community
+- Exklusive Angebote und Einblicke
+
+Ich freue mich darauf, dich auf deiner Reise zu mehr Bewusstsein und Minimalismus zu begleiten.
+
+Herzliche Grüße
+[Dein Name]
+      `,
+    }
+
+    await transporter.sendMail(mailOptions)
+
+    console.log('Willkommens-E-Mail mit Download-Link gesendet an:', email)
+
+    return res.status(200).send(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>E-Mail bestätigt!</title>
+        <style>
+          body { 
+            font-family: Arial, sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+            background: linear-gradient(135deg, #f0fdf4 0%, #dbeafe 100%); 
+          }
+          .container { 
+            background: white; 
+            padding: 60px 40px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+            text-align: center; 
+            max-width: 600px; 
+          }
+          .icon { 
+            width: 80px; 
+            height: 80px; 
+            background: linear-gradient(135deg, #10b981, #3b82f6); 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin: 0 auto 30px; 
+            font-size: 40px; 
+          }
+          h1 { 
+            color: #1f2937; 
+            margin-bottom: 20px; 
+            font-size: 32px; 
+          }
+          p { 
+            color: #4b5563; 
+            line-height: 1.8; 
+            font-size: 18px; 
+            margin-bottom: 30px; 
+          }
+          .success-box {
+            background: #f0fdf4;
+            border: 2px solid #10b981;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+          }
+          a { 
+            display: inline-block;
+            background: linear-gradient(to right, #10b981, #3b82f6); 
+            color: white; 
+            text-decoration: none; 
+            padding: 16px 40px; 
+            border-radius: 8px; 
+            font-weight: bold; 
+            font-size: 16px;
+            transition: transform 0.2s;
+          }
+          a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="icon">✓</div>
+          <h1>E-Mail erfolgreich bestätigt! 🎉</h1>
+          <p>
+            Vielen Dank für deine Bestätigung! 
+          </p>
+          <div class="success-box">
+            <p style="margin: 0; font-weight: bold; color: #10b981;">
+              📧 Wir haben dir soeben eine E-Mail mit dem Download-Link gesendet.
+            </p>
+          </div>
+          <p>
+            Überprüfe dein E-Mail-Postfach und lade dein Freebie herunter. 
+            Falls du keine E-Mail siehst, schau bitte auch in deinem Spam-Ordner nach.
+          </p>
+          <a href="/">Zurück zur Startseite</a>
+        </div>
+      </body>
+      </html>
+    `)
+
+  } catch (error) {
+    console.error('Fehler bei der E-Mail-Bestätigung:', error)
+    return res.status(500).send(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <title>Fehler</title>
+        <style>
+          body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); }
+          .container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; max-width: 500px; }
+          h1 { color: #dc2626; margin-bottom: 20px; }
+          p { color: #4b5563; line-height: 1.6; }
+          a { color: #3b82f6; text-decoration: none; font-weight: bold; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>❌ Ein Fehler ist aufgetreten</h1>
+          <p>Leider konnte deine E-Mail-Adresse nicht bestätigt werden. Bitte versuche es erneut oder kontaktiere uns.</p>
+          <p><a href="/freebie">Zurück zur Anmeldung</a></p>
+        </div>
+      </body>
+      </html>
+    `)
+  }
+}
