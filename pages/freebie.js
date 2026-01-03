@@ -27,6 +27,22 @@ export default function Freebie() {
     setLoading(true)
 
     try {
+      // Lead im CRM speichern (client-side für Demo)
+      const leadData = {
+        id: `lead_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        name: formData.firstName,
+        email: formData.email,
+        source: 'freebie',
+        offer: 'Kostenloses Freebie',
+        createdAt: new Date().toISOString()
+      }
+      
+      // Im LocalStorage speichern (für Demo-CRM)
+      const leads = JSON.parse(localStorage.getItem('crm_funnel_demo_leads') || '[]')
+      leads.unshift(leadData)
+      localStorage.setItem('crm_funnel_demo_leads', JSON.stringify(leads.slice(0, 200)))
+
+      // E-Mail-Anmeldung
       const response = await fetch('/api/subscribe', {
         method: 'POST',
         headers: {
