@@ -1,9 +1,14 @@
 # Kundenanforderungen - CRM Funnel
 
+> **⚠️ HINWEIS:** Dieses Dokument enthält die ursprünglichen Anforderungen.  
+> **Für den optimierten Project Scope siehe:** `PROJECT_SCOPE_OPTIMIZED.md`
+
 ## Überblick
 - **Branche**: Persönliche Marke (Minimalismus, Bewusstsein, bewusster Konsum)
 - **Zielgruppe**: Community aus Facebook, Instagram und WhatsApp
 - **Ziel**: Wertebasierter Vertrauensaufbau und Community-Aufbau
+- **Budget**: 500€
+- **Original-Angebot**: Funnel mit E-Mail-Automation, KEINE Mitgliederbereiche oder Admin-Backends
 
 ## Kernanforderungen
 
