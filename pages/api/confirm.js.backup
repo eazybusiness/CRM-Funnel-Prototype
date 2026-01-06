@@ -191,7 +191,6 @@ Ich freue mich darauf, dich auf deiner Reise zu mehr Bewusstsein und Minimalismu
 
 Herzliche Grüße
 Gerd Meyer
-Tutavi Coaching
       `
 
     await apiInstance.sendTransacEmail(sendSmtpEmail)
