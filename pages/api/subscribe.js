@@ -51,7 +51,7 @@ export default async function handler(req, res) {
     const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail()
     
     sendSmtpEmail.subject = 'Bitte bestätige deine E-Mail-Adresse'
-    sendSmtpEmail.sender = { name: 'Einfach Leichter', email: '9f6fd5001@smtp-brevo.com' }
+    sendSmtpEmail.sender = { name: 'Einfach Leichter', email: 'gerd_meyer@tutavi.com' }
     sendSmtpEmail.to = [{ email: email, name: firstName }]
     sendSmtpEmail.htmlContent = `
         <!DOCTYPE html>
