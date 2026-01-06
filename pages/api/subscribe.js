@@ -25,6 +25,27 @@ export default async function handler(req, res) {
     const apiKey = defaultClient.authentications['api-key']
     apiKey.apiKey = process.env.BREVO_API_KEY
 
+    // 1. Kontakt in Brevo anlegen oder aktualisieren
+    const contactsApi = new SibApiV3Sdk.ContactsApi()
+    const createContact = new SibApiV3Sdk.CreateContact()
+    
+    createContact.email = email
+    createContact.attributes = {
+      FIRSTNAME: firstName,
+      DOUBLE_OPT_IN: false // Wird auf true gesetzt nach Bestätigung
+    }
+    createContact.listIds = [2] // Füge zu Liste 2 hinzu (oder erstelle eine Liste in Brevo)
+    createContact.updateEnabled = true // Aktualisiere, falls Kontakt bereits existiert
+
+    try {
+      await contactsApi.createContact(createContact)
+      console.log('Kontakt in Brevo angelegt:', email)
+    } catch (contactError) {
+      // Kontakt existiert möglicherweise bereits - das ist OK
+      console.log('Kontakt-Info:', contactError.response?.body || contactError.message)
+    }
+
+    // 2. Transaktions-E-Mail senden
     const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi()
 
     const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail()
@@ -111,9 +132,10 @@ Klicke auf diesen Link: ${confirmationUrl}
 Falls du dich nicht angemeldet hast, kannst du diese E-Mail ignorieren.
       `
 
-    await apiInstance.sendTransacEmail(sendSmtpEmail)
+    const emailResult = await apiInstance.sendTransacEmail(sendSmtpEmail)
 
     console.log('Double Opt-In E-Mail via Brevo gesendet an:', email)
+    console.log('Brevo Response:', JSON.stringify(emailResult))
 
     return res.status(200).json({ 
       success: true, 
@@ -122,8 +144,11 @@ Falls du dich nicht angemeldet hast, kannst du diese E-Mail ignorieren.
 
   } catch (error) {
     console.error('Fehler beim Versenden der E-Mail:', error)
+    console.error('Error Details:', error.response?.body || error.message)
+    
     return res.status(500).json({ 
-      error: 'Ein Fehler ist aufgetreten. Bitte versuche es später erneut.' 
+      error: 'Ein Fehler ist aufgetreten. Bitte versuche es später erneut.',
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
     })
   }
 }
