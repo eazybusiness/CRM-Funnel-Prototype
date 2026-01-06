@@ -1,224 +1,208 @@
-import { useState } from 'react'
-import { useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { 
-  Package, 
-  GraduationCap, 
-  Briefcase, 
-  ArrowRight
-} from 'lucide-react'
+import { ArrowRight, Sparkles, Heart, Clock } from 'lucide-react'
 import Head from 'next/head'
 import Link from 'next/link'
-import UtmBanner from '../components/UtmBanner'
-
-function writeDemoEvent(type, payload) {
-  if (typeof window === 'undefined') return
-  const key = 'crm_funnel_demo_events'
-  const events = JSON.parse(localStorage.getItem(key) || '[]')
-  const id = (globalThis.crypto?.randomUUID?.() || String(Date.now()))
-  events.unshift({ id, ts: new Date().toISOString(), type, payload })
-  localStorage.setItem(key, JSON.stringify(events.slice(0, 200)))
-}
+import Image from 'next/image'
 
 export default function Home() {
-  const [selectedPath, setSelectedPath] = useState(null)
-
-  const pathways = [
-    {
-      id: 'products',
-      title: 'Produktinformationen',
-      description: 'Entdecke unsere innovativen Produkte und ihre Vorteile',
-      icon: Package,
-      color: 'from-blue-500 to-blue-600',
-      href: '/produkte'
-    },
-    {
-      id: 'courses',
-      title: 'Kurse & Workshops',
-      description: 'Erlange neue Fähigkeiten durch unsere Schulungen',
-      icon: GraduationCap,
-      color: 'from-green-500 to-green-600',
-      href: '/kurse'
-    },
-    {
-      id: 'business',
-      title: 'Business-Möglichkeiten',
-      description: 'Erfahre mehr über unsere Geschäftschancen',
-      icon: Briefcase,
-      color: 'from-purple-500 to-purple-600',
-      href: '/business'
-    }
-  ]
-
-  useEffect(() => {
-    writeDemoEvent('landing_page_visit', {
-      path: '/',
-      referrer: typeof document !== 'undefined' ? document.referrer : null
-    })
-  }, [])
-
   return (
     <>
       <Head>
-        <title>CRM Funnel - Dein Weg zum Erfolg</title>
-        <meta name="description" content="Entdecke Produkte, Kurse und Business-Möglichkeiten" />
+        <title>Minimalismus & bewusstes Leben | Dein Weg zu mehr Leichtigkeit</title>
+        <meta name="description" content="Entdecke, wie Minimalismus und Achtsamkeit dein Leben leichter machen. Starte mit unserem kostenlosen Guide zu mehr Bewusstsein und Klarheit." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-        <UtmBanner />
+      <div className="min-h-screen bg-white">
         {/* Header */}
-        <header className="bg-white shadow-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <header className="bg-white border-b border-gray-100">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center py-6">
-              <div className="flex items-center">
-                <h1 className="text-2xl font-bold text-gray-900">CRM Funnel</h1>
-              </div>
-
-              <Link href="/demo/crm" className="text-sm font-semibold text-blue-600 hover:text-blue-800">
-                Demo CRM Dashboard
+              <Link href="/" className="text-xl font-light tracking-wide text-gray-900">
+                Einfach Leichter
               </Link>
+              <nav className="hidden md:flex space-x-8">
+                <Link href="/freebie" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                  Freebie
+                </Link>
+                <Link href="/datenschutz" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                  Datenschutz
+                </Link>
+              </nav>
             </div>
           </div>
         </header>
 
         {/* Hero Section */}
-        <section className="py-20 px-4">
+        <section className="relative py-20 md:py-32 px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.h1 
-              className="text-4xl md:text-6xl font-bold text-gray-900 mb-6"
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.8 }}
             >
-              Willkommen auf deinem
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-                {' '}Erfolgsweg
-              </span>
-            </motion.h1>
+              <h1 className="text-4xl md:text-6xl font-light text-gray-900 mb-6 leading-tight">
+                Minimalismus, der wirklich zu Dir passt
+              </h1>
+              <p className="text-xl md:text-2xl text-gray-600 font-light mb-4">
+                im Alltag, Zuhause & im Kopf
+              </p>
+            </motion.div>
             
             <motion.p 
-              className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto"
+              className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Wähle den Weg, der am besten zu deinen Zielen passt. 
-              Wir begleiten dich Schritt für Schritt zum Erfolg.
+              Sich von Dingen zu trennen, die man über Jahre angesammelt hat, ist nicht einfach. 
+              Aber was, wenn uns das Aussortieren wirklich Schritt für Schritt dem Leben näher bringt, 
+              das wir uns wirklich wünschen?
             </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <Link 
+                href="/freebie"
+                className="inline-flex items-center px-8 py-4 bg-gray-900 text-white text-lg font-light rounded-sm hover:bg-gray-800 transition-colors"
+              >
+                Kostenlosen Guide sichern
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Link>
+            </motion.div>
           </div>
         </section>
 
-        {/* Selection Area */}
-        <section className="py-16 px-4">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-              Was interessiert dich am meisten?
+        {/* Image Section */}
+        <section className="py-12 px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="relative h-96 md:h-[500px] rounded-sm overflow-hidden">
+              <Image
+                src="https://images.unsplash.com/photo-1484101403633-562f891dc89a?w=1200&h=800&fit=crop"
+                alt="Minimalistisches Zuhause"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Raum für Dich Section */}
+        <section className="py-20 px-4 bg-gray-50">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-8 text-center">
+              Raum für Dich
             </h2>
+            <p className="text-lg text-gray-600 mb-12 text-center leading-relaxed">
+              Stell dir vor, Du lebst in einer Umgebung, in der sich nur Deine Lieblingssachen befinden.
+            </p>
             
             <div className="grid md:grid-cols-3 gap-8">
-              {pathways.map((path, index) => (
-                <motion.div
-                  key={path.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.1 * index }}
-                  onMouseEnter={() => setSelectedPath(path.id)}
-                  onMouseLeave={() => setSelectedPath(null)}
-                >
-                  <Link href={path.href}>
-                    <div className={`
-                      relative bg-white rounded-2xl shadow-lg p-8 cursor-pointer
-                      transform transition-all duration-300 hover:scale-105 hover:shadow-2xl
-                      ${selectedPath === path.id ? 'ring-4 ring-blue-400' : ''}
-                    `}>
-                      {/* Gradient Overlay */}
-                      <div className={`absolute inset-0 bg-gradient-to-br ${path.color} opacity-0 rounded-2xl transition-opacity duration-300`} />
-                      
-                      {/* Content */}
-                      <div className="relative z-10">
-                        <div className={`w-16 h-16 bg-gradient-to-br ${path.color} rounded-xl flex items-center justify-center mb-6 mx-auto`}>
-                          <path.icon className="w-8 h-8 text-white" />
-                        </div>
-                        
-                        <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">
-                          {path.title}
-                        </h3>
-                        
-                        <p className="text-gray-600 text-center mb-6">
-                          {path.description}
-                        </p>
-                        
-                        <div className="flex items-center justify-center text-blue-600 font-semibold">
-                          <span>Jetzt entdecken</span>
-                          <ArrowRight className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" />
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                  <button
-                    type="button"
-                    onClick={() => writeDemoEvent('pathway_selected', { pathway: path.id, href: path.href })}
-                    className="sr-only"
-                  >
-                    Track
-                  </button>
-                </motion.div>
-              ))}
+              <div className="text-center">
+                <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                  <Sparkles className="w-10 h-10 text-gray-700" strokeWidth={1.5} />
+                </div>
+                <h3 className="text-lg font-normal text-gray-900 mb-2">Dein Zuhause fühlt sich leicht und klar an</h3>
+              </div>
+              
+              <div className="text-center">
+                <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                  <Clock className="w-10 h-10 text-gray-700" strokeWidth={1.5} />
+                </div>
+                <h3 className="text-lg font-normal text-gray-900 mb-2">Du gewinnst Zeit für Dich</h3>
+              </div>
+              
+              <div className="text-center">
+                <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                  <Heart className="w-10 h-10 text-gray-700" strokeWidth={1.5} />
+                </div>
+                <h3 className="text-lg font-normal text-gray-900 mb-2">Du weißt, was wirklich wichtig ist</h3>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Trust Indicators */}
-        <section className="py-16 bg-white">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Warum uns vertrauen?
-              </h3>
+        {/* Weniger Zeug. Mehr Du. */}
+        <section className="py-20 px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-5xl font-light text-gray-900 mb-8 text-center">
+              Weniger Zeug. Mehr Du.
+            </h2>
+            <p className="text-lg text-gray-600 mb-12 text-center leading-relaxed max-w-3xl mx-auto">
+              Wenn Du beginnst, Dinge loszulassen, entsteht Raum – für Klarheit, für Zeit und für das, 
+              was Dir wirklich wichtig ist. Genau dabei begleite ich Dich: Schritt für Schritt. 
+              Mit Struktur. Ohne Druck. In Deinem Tempo.
+            </p>
+
+            <div className="space-y-8">
+              <div className="border-l-2 border-gray-200 pl-6">
+                <h3 className="text-xl font-normal text-gray-900 mb-2">Mehr Ordnung</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Wirkliche Ordnung entsteht nicht durch ständiges Aufräumen – sondern durch Loslassen. 
+                  Wenn Du nur noch behältst, was Du wirklich brauchst und liebst, wird Dein Zuhause klarer, 
+                  leichter, freier. Schritt für Schritt.
+                </p>
+              </div>
+
+              <div className="border-l-2 border-gray-200 pl-6">
+                <h3 className="text-xl font-normal text-gray-900 mb-2">Mehr Zeit</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Weniger Dinge bedeuten auch: weniger Entscheidungen, weniger Ablenkung, weniger Aufwand. 
+                  So bleibt Dir mehr Zeit – für Dich, Deine Menschen und das, was Dir wirklich wichtig ist.
+                </p>
+              </div>
+
+              <div className="border-l-2 border-gray-200 pl-6">
+                <h3 className="text-xl font-normal text-gray-900 mb-2">Mehr Leichtigkeit</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Wenn nur noch Deine Lieblingsdinge bleiben, wird auch Dein Alltag leichter. 
+                  Kein Ballast mehr, der Dich ausbremst. Kein schlechtes Gewissen im Regal. 
+                  Sondern Raum – innen wie außen.
+                </p>
+              </div>
             </div>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Package className="w-6 h-6 text-blue-600" />
-                </div>
-                <h4 className="font-semibold text-gray-900 mb-2">Qualitätsprodukte</h4>
-                <p className="text-gray-600">Getestete und zertifizierte Lösungen</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <GraduationCap className="w-6 h-6 text-green-600" />
-                </div>
-                <h4 className="font-semibold text-gray-900 mb-2">Expertenschulungen</h4>
-                <p className="text-gray-600">Von Profis für Profis entwickelt</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Briefcase className="w-6 h-6 text-purple-600" />
-                </div>
-                <h4 className="font-semibold text-gray-900 mb-2">Erfolgschancen</h4>
-                <p className="text-gray-600">Bewährte Geschäftsmodelle</p>
-              </div>
-            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-20 px-4 bg-gray-900 text-white">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-light mb-6">
+              Bist Du bereit?
+            </h2>
+            <p className="text-lg text-gray-300 mb-8 leading-relaxed">
+              Starte jetzt mit unserem kostenlosen Guide zu mehr Bewusstsein und Klarheit in deinem Leben.
+            </p>
+            <Link 
+              href="/freebie"
+              className="inline-flex items-center px-8 py-4 bg-white text-gray-900 text-lg font-light rounded-sm hover:bg-gray-100 transition-colors"
+            >
+              Ja, ich bin bereit!
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Link>
           </div>
         </section>
 
         {/* Footer */}
-        <footer className="bg-gray-900 text-white py-12">
+        <footer className="bg-white border-t border-gray-100 py-12">
           <div className="max-w-6xl mx-auto px-4">
-            <div className="text-center">
-              <h4 className="text-xl font-bold mb-4">Bereit für den nächsten Schritt?</h4>
-              <p className="text-gray-400 mb-8">
-                Wähle oben deinen Weg und starte heute deine Erfolgsgeschichte.
+            <div className="flex flex-col md:flex-row justify-between items-center">
+              <p className="text-sm text-gray-600 mb-4 md:mb-0">
+                © 2026 Einfach Leichter. Alle Rechte vorbehalten.
               </p>
-            </div>
-            
-            <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
-              <p>&copy; 2024 CRM Funnel. Alle Rechte vorbehalten.</p>
+              <div className="flex space-x-6">
+                <Link href="/datenschutz" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                  Datenschutz
+                </Link>
+                <Link href="/impressum" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                  Impressum
+                </Link>
+              </div>
             </div>
           </div>
         </footer>
