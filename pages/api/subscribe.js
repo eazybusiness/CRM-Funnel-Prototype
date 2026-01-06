@@ -36,7 +36,7 @@ export default async function handler(req, res) {
     const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail()
     
     sendSmtpEmail.subject = 'Bitte bestätige deine E-Mail-Adresse'
-    sendSmtpEmail.sender = { name: 'Einfach Leichter', email: 'gerd_meyer@tutavi.com' }
+    sendSmtpEmail.sender = { name: 'Tutavi Coaching', email: 'gerd_meyer@tutavi.com' }
     sendSmtpEmail.to = [{ email: email, name: firstName }]
     sendSmtpEmail.htmlContent = `
         <!DOCTYPE html>
@@ -71,14 +71,15 @@ export default async function handler(req, res) {
                         <tr>
                           <td align="center" style="padding: 20px 0;">
                             <a href="${confirmationUrl}" 
-                               style="background: linear-gradient(to right, #10b981, #3b82f6); 
+                               style="background: #1f2937; 
                                       color: #ffffff; 
                                       text-decoration: none; 
                                       padding: 16px 40px; 
                                       border-radius: 8px; 
                                       font-weight: bold; 
                                       font-size: 16px;
-                                      display: inline-block;">
+                                      display: inline-block;
+                                      transition: background 0.2s;">
                               E-Mail-Adresse bestätigen
                             </a>
                           </td>
