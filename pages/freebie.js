@@ -147,7 +147,7 @@ export default function Freebie() {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center py-6">
               <Link href="/" className="text-xl font-light tracking-wide text-gray-900">
-                Einfach Leichter
+                Minimal GmbH
               </Link>
               
               {/* Desktop Navigation */}

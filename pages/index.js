@@ -23,7 +23,7 @@ export default function Home() {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center py-6">
               <Link href="/" className="text-xl font-light tracking-wide text-gray-900">
-                Einfach Leichter
+                Minimal GmbH
               </Link>
               
               {/* Desktop Navigation */}
@@ -244,8 +244,7 @@ export default function Home() {
           <div className="max-w-6xl mx-auto px-4">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-sm text-gray-600 mb-4 md:mb-0">
-                2026 Einfach Leichter. Alle Rechte vorbehalten.
-                © 2026 Einfach Leichter. Alle Rechte vorbehalten.
+                © 2026 Minimal GmbH. Alle Rechte vorbehalten.
               </p>
               <div className="flex space-x-6">
                 <Link href="/datenschutz" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
