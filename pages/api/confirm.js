@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer'
+const SibApiV3Sdk = require('sib-api-v3-sdk')
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
@@ -44,23 +44,53 @@ export default async function handler(req, res) {
       `)
     }
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'smtp.ethereal.email',
-      port: parseInt(process.env.SMTP_PORT || '587'),
-      secure: process.env.SMTP_SECURE === 'true',
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    })
+    // Brevo API konfigurieren
+    const defaultClient = SibApiV3Sdk.ApiClient.instance
+    const apiKey = defaultClient.authentications['api-key']
+    apiKey.apiKey = process.env.BREVO_API_KEY
 
+    // 1. Kontakt in Brevo als bestätigt markieren und anlegen
+    const contactsApi = new SibApiV3Sdk.ContactsApi()
+    const createContact = new SibApiV3Sdk.CreateContact()
+    
+    createContact.email = email
+    createContact.attributes = {
+      FIRSTNAME: firstName,
+      DOUBLE_OPT_IN: true, // Jetzt bestätigt!
+      OPT_IN_DATE: new Date().toISOString()
+    }
+    createContact.listIds = [2] // Füge zu Liste hinzu
+    createContact.updateEnabled = true
+
+    try {
+      await contactsApi.createContact(createContact)
+      console.log('Kontakt in Brevo bestätigt und angelegt:', email)
+    } catch (contactError) {
+      // Kontakt existiert bereits - aktualisiere ihn
+      try {
+        const updateContact = new SibApiV3Sdk.UpdateContact()
+        updateContact.attributes = {
+          DOUBLE_OPT_IN: true,
+          OPT_IN_DATE: new Date().toISOString()
+        }
+        updateContact.listIds = [2]
+        await contactsApi.updateContact(email, updateContact)
+        console.log('Bestehender Kontakt aktualisiert:', email)
+      } catch (updateError) {
+        console.error('Fehler beim Aktualisieren:', updateError.message)
+      }
+    }
+
+    // 2. Willkommens-E-Mail mit Download-Link senden
     const downloadLink = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/downloads/freebie.pdf`
 
-    const mailOptions = {
-      from: process.env.SMTP_FROM || '"Deine Marke" <noreply@deinewebsite.de>',
-      to: email,
-      subject: '🎉 Dein Freebie ist bereit zum Download!',
-      html: `
+    const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi()
+    const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail()
+    
+    sendSmtpEmail.subject = '🎉 Dein Freebie ist bereit zum Download!'
+    sendSmtpEmail.sender = { name: 'Einfach Leichter', email: 'gerd_meyer@tutavi.com' }
+    sendSmtpEmail.to = [{ email: email }]
+    sendSmtpEmail.htmlContent = `
         <!DOCTYPE html>
         <html>
         <head>
@@ -140,8 +170,8 @@ export default async function handler(req, res) {
           </table>
         </body>
         </html>
-      `,
-      text: `
+      `
+    sendSmtpEmail.textContent = `
 Willkommen in unserer Community!
 
 Herzlich willkommen! Schön, dass du dabei bist.
@@ -156,11 +186,10 @@ Was dich in Zukunft erwartet:
 Ich freue mich darauf, dich auf deiner Reise zu mehr Bewusstsein und Minimalismus zu begleiten.
 
 Herzliche Grüße
-[Dein Name]
-      `,
-    }
+Gerd Meyer
+      `
 
-    await transporter.sendMail(mailOptions)
+    await apiInstance.sendTransacEmail(sendSmtpEmail)
 
     console.log('Willkommens-E-Mail mit Download-Link gesendet an:', email)
 

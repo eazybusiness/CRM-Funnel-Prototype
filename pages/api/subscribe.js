@@ -17,7 +17,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    const confirmationToken = Buffer.from(`${email}:${Date.now()}`).toString('base64')
+    // Token enthält jetzt auch den Vornamen
+    const confirmationToken = Buffer.from(`${email}:${firstName}:${Date.now()}`).toString('base64')
     const confirmationUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/confirm?token=${confirmationToken}`
 
     // Brevo API konfigurieren
@@ -25,25 +26,9 @@ export default async function handler(req, res) {
     const apiKey = defaultClient.authentications['api-key']
     apiKey.apiKey = process.env.BREVO_API_KEY
 
-    // 1. Kontakt in Brevo anlegen oder aktualisieren
-    const contactsApi = new SibApiV3Sdk.ContactsApi()
-    const createContact = new SibApiV3Sdk.CreateContact()
-    
-    createContact.email = email
-    createContact.attributes = {
-      FIRSTNAME: firstName,
-      DOUBLE_OPT_IN: false // Wird auf true gesetzt nach Bestätigung
-    }
-    createContact.listIds = [2] // Füge zu Liste 2 hinzu (oder erstelle eine Liste in Brevo)
-    createContact.updateEnabled = true // Aktualisiere, falls Kontakt bereits existiert
-
-    try {
-      await contactsApi.createContact(createContact)
-      console.log('Kontakt in Brevo angelegt:', email)
-    } catch (contactError) {
-      // Kontakt existiert möglicherweise bereits - das ist OK
-      console.log('Kontakt-Info:', contactError.response?.body || contactError.message)
-    }
+    // 1. Speichere Vorname temporär (wird nach Bestätigung verwendet)
+    // Kontakt wird NICHT sofort angelegt - erst nach E-Mail-Bestätigung!
+    console.log('Double Opt-In initiiert für:', email, 'Name:', firstName)
 
     // 2. Transaktions-E-Mail senden
     const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi()
