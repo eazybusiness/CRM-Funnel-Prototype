@@ -2,6 +2,7 @@
 
 **Projekt:** CRM Funnel System - Kernprojekt (500€)  
 **Start:** 6. Januar 2026  
+**Aktueller Stand:** 6. Januar 2026 - Phase 2 abgeschlossen  
 **Geschätzte Dauer:** 2-3 Wochen  
 **Basierend auf:** PROJECT_SCOPE_FINAL.md
 
@@ -22,26 +23,28 @@ Vollautomatisierter Sales-Funnel mit:
 
 ### 1.1 Projekt-Cleanup ✅
 - [x] Obsolete Dateien identifizieren
-- [ ] Obsolete Dateien in `/obsolete` verschieben
-- [ ] Tailwind Config vereinfachen (Farbschema entfernen)
-- [ ] Git Commit: "Project cleanup for production"
+- [x] Obsolete Dateien in `/obsolete` verschieben
+- [x] Tailwind Config vereinfachen (Farbschema entfernen)
+- [x] Git Commits durchgeführt
 
-### 1.2 E-Mail-Service Entscheidung
-- [ ] **Entscheidung:** Brevo vs MailerLite
+### 1.2 E-Mail-Service Entscheidung ✅
+- [x] **Entscheidung:** Brevo gewählt
   - **Brevo:** Unbegrenzte Kontakte, 9.000 E-Mails/Monat, API verfügbar
-  - **MailerLite:** 500 Kontakte, 12.000 E-Mails/Monat, API verfügbar
-- [ ] Account erstellen (mit Kundin oder für Kundin)
-- [ ] API-Key generieren
-- [ ] In `.env.local` speichern
+- [x] Account erstellt
+- [x] API-Key generiert
+- [x] In `.env` gespeichert
+- [x] Sender-E-Mail verifiziert: gerd_meyer@tutavi.com
 
-### 1.3 Vercel Postgres Setup
-- [ ] Vercel Projekt erstellen/verbinden
+### 1.3 Vercel Postgres Setup ⏳
+- [x] Vercel Projekt erstellt und verbunden
 - [ ] Postgres Database aktivieren
-- [ ] Connection String in `.env.local`
+- [ ] Connection String in `.env`
 - [ ] Datenbank-Schema erstellen:
   - `leads` Tabelle
   - `purchases` Tabelle
   - `funnel_events` Tabelle
+
+**Status:** Deployment läuft auf Vercel, Datenbank noch nicht aktiviert
 
 ### 1.4 PayPal Business Account
 - [ ] Mit Kundin PayPal Business Account erstellen
@@ -54,33 +57,37 @@ Vollautomatisierter Sales-Funnel mit:
 
 ## Phase 2: Landingpage & Freebie-Funnel (Tag 3-5)
 
-### 2.1 Landingpage Design anpassen
-- [ ] **Entfernen:** Farbige Gradienten (Kundin möchte keine Farbspiegel)
-- [ ] **Design:** Minimalistisch, inspiriert von einquadratmeter.com
-- [ ] Neutrale Farbpalette (Grau, Weiß, dezente Akzente)
-- [ ] Willkommensvideo-Einbettung (YouTube/Vimeo)
+### 2.1 Landingpage Design anpassen ✅
+- [x] **Entfernen:** Farbige Gradienten entfernt
+- [x] **Design:** Minimalistisch, inspiriert von einquadratmeter.com
+- [x] Neutrale Farbpalette (Grau, Weiß, dezente Akzente)
+- [x] Responsive Navigation mit Hamburger-Menü
+- [x] Bilder mit runden Ecken und Schatten
+- [ ] Willkommensvideo-Einbettung (YouTube/Vimeo) - noch nicht implementiert
 
 **Dateien:**
 - `pages/index.js` → Vereinfachen, Farbgradienten entfernen
 - `pages/freebie.js` → Anpassen an neues Design
 - `tailwind.config.js` → Farbschema vereinfachen
 
-### 2.2 Freebie-Download-Flow
-- [ ] Formular: Name + E-Mail + DSGVO-Checkboxen
-- [ ] Lead-Speicherung in Vercel Postgres (nicht localStorage)
-- [ ] E-Mail-Service Integration (Brevo/MailerLite)
-- [ ] Double-Opt-In E-Mail automatisch versenden
-- [ ] Download-Link nach Bestätigung
+### 2.2 Freebie-Download-Flow ✅
+- [x] Formular: Name + E-Mail + DSGVO-Checkboxen
+- [x] E-Mail-Service Integration (Brevo)
+- [x] Double-Opt-In E-Mail automatisch versenden
+- [x] Download-Link nach Bestätigung
+- [x] Kontakte werden erst nach E-Mail-Bestätigung in Brevo angelegt
+- [ ] Lead-Speicherung in Vercel Postgres (aktuell nur in Brevo)
 
 **API-Endpunkte:**
 - `POST /api/leads/subscribe` → Lead speichern + E-Mail-Service
 - `GET /api/leads/confirm` → Double-Opt-In Bestätigung
 - `GET /api/freebie/download` → PDF-Download nach Bestätigung
 
-### 2.3 PDF-Hosting
-- [ ] Freebie-PDF von Kundin erhalten
-- [ ] In `/public/downloads/` speichern (geschützt)
-- [ ] Download nur nach E-Mail-Bestätigung
+### 2.3 PDF-Hosting ✅
+- [x] Freebie-PDF erhalten
+- [x] In `/public/downloads/` gespeichert
+- [x] Download nur nach E-Mail-Bestätigung
+- [x] PDF-Größe: 8.6KB
 
 **Deliverable:** Funktionierende Landingpage mit Freebie-Download
 
@@ -90,11 +97,12 @@ Vollautomatisierter Sales-Funnel mit:
 
 ### 3.1 E-Mail-Service Integration
 
-**Brevo (empfohlen):**
-- [ ] API-Integration: `@sendinblue/client`
-- [ ] Kontakte-Listen erstellen
-- [ ] Double-Opt-In Template
-- [ ] Automation-Workflows konfigurieren
+**Brevo (implementiert):** ✅
+- [x] API-Integration: `sib-api-v3-sdk`
+- [x] Kontakte-Listen erstellt (Liste ID: 2)
+- [x] Double-Opt-In E-Mail implementiert
+- [x] Willkommens-E-Mail mit Download-Link
+- [ ] Weitere Automation-Workflows konfigurieren (Follow-up E-Mails)
 
 **MailerLite (Alternative):**
 - [ ] API-Integration: `@mailerlite/mailerlite-nodejs`
@@ -295,19 +303,67 @@ Vollautomatisierter Sales-Funnel mit:
 | **Frontend** | Next.js + TailwindCSS | ✅ Vorhanden |
 | **Hosting** | Vercel | ⏳ Setup nötig |
 | **Datenbank** | Vercel Postgres | ⏳ Setup nötig |
-| **E-Mail** | Brevo oder MailerLite | ⏳ Entscheidung + Setup |
+| **E-Mail** | Brevo | ✅ Implementiert |
 | **Zahlungen** | PayPal | ⏳ Setup nötig |
-| **Design** | Minimalistisch, keine Farbgradienten | ⏳ Anpassung nötig |
+| **Design** | Minimalistisch, keine Farbgradienten | ✅ Implementiert |
 
 ---
 
-## Nächste Schritte (Sofort)
+## ✅ Abgeschlossen (6. Januar 2026)
 
-1. **Projekt aufräumen:** Obsolete Dateien verschieben
-2. **Tailwind Config:** Farbschema vereinfachen
-3. **E-Mail-Service:** Entscheidung Brevo vs MailerLite
-4. **Git Commit:** "Project cleanup and work plan"
-5. **Phase 1 starten:** Infrastruktur-Setup
+1. ✅ **Projekt aufgeräumt:** Obsolete Dateien verschoben
+2. ✅ **Tailwind Config:** Farbschema vereinfacht
+3. ✅ **E-Mail-Service:** Brevo implementiert und getestet
+4. ✅ **Design:** Minimalistisch, responsive, moderne UI
+5. ✅ **Double Opt-In:** Vollständig funktionsfähig
+6. ✅ **Vercel Deployment:** Live auf https://crm-funnel-prototype.vercel.app
+7. ✅ **Freebie-PDF:** Hochgeladen und verfügbar
+
+---
+
+## 🚀 Nächste Schritte (Priorität)
+
+### **Phase 3: Vercel Postgres Datenbank**
+1. **Vercel Postgres aktivieren**
+   - Datenbank im Vercel Dashboard aktivieren
+   - Connection String in Environment Variables
+   - Schema erstellen (`leads`, `purchases`, `funnel_events`)
+
+2. **Lead-Speicherung implementieren**
+   - Leads in Postgres speichern (zusätzlich zu Brevo)
+   - Tracking: UTM-Parameter, Source, Timestamps
+   - API-Endpunkt: `GET /api/crm/leads`
+
+### **Phase 4: E-Mail-Sequenz erweitern**
+3. **Follow-up E-Mails**
+   - Mail 3: Produktvorteile (Tag 2-3)
+   - Mail 4: Business-Chance (Tag 4-5)
+   - Mail 5+: Kurs-Angebote (Tag 7, 14, 21)
+   - Texte von Kundin benötigt
+
+### **Phase 5: PayPal Integration**
+4. **PayPal Business Account Setup**
+   - Mit Kundin PayPal Business Account erstellen
+   - Client ID und Secret generieren
+   - Checkout-Seite implementieren
+   - Webhook für Zahlungsbestätigung
+
+### **Phase 6: Willkommensvideo**
+5. **Video-Einbettung**
+   - YouTube/Vimeo Video von Kundin
+   - Auf Landingpage einbetten
+   - Responsive Design
+
+### **Phase 7: Testing & Optimierung**
+6. **End-to-End Tests**
+   - Kompletter Funnel-Durchlauf
+   - Mobile Testing
+   - Performance-Optimierung
+
+7. **Dokumentation**
+   - README.md aktualisieren
+   - Benutzerhandbuch für Kundin
+   - Social-Media-Links mit UTM-Parametern
 
 ---
 
