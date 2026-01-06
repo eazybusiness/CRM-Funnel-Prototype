@@ -70,6 +70,7 @@ export default async function handler(req, res) {
       try {
         const updateContact = new SibApiV3Sdk.UpdateContact()
         updateContact.attributes = {
+          FIRSTNAME: firstName,
           DOUBLE_OPT_IN: true,
           OPT_IN_DATE: new Date().toISOString()
         }
