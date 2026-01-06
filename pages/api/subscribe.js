@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer'
+const SibApiV3Sdk = require('sib-api-v3-sdk')
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -20,21 +20,19 @@ export default async function handler(req, res) {
     const confirmationToken = Buffer.from(`${email}:${Date.now()}`).toString('base64')
     const confirmationUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/confirm?token=${confirmationToken}`
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'smtp.ethereal.email',
-      port: parseInt(process.env.SMTP_PORT || '587'),
-      secure: process.env.SMTP_SECURE === 'true',
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    })
+    // Brevo API konfigurieren
+    const defaultClient = SibApiV3Sdk.ApiClient.instance
+    const apiKey = defaultClient.authentications['api-key']
+    apiKey.apiKey = process.env.BREVO_API_KEY
 
-    const mailOptions = {
-      from: process.env.SMTP_FROM || '"Deine Marke" <noreply@deinewebsite.de>',
-      to: email,
-      subject: 'Bitte bestätige deine E-Mail-Adresse',
-      html: `
+    const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi()
+
+    const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail()
+    
+    sendSmtpEmail.subject = 'Bitte bestätige deine E-Mail-Adresse'
+    sendSmtpEmail.sender = { name: 'Einfach Leichter', email: '9f6fd5001@smtp-brevo.com' }
+    sendSmtpEmail.to = [{ email: email, name: firstName }]
+    sendSmtpEmail.htmlContent = `
         <!DOCTYPE html>
         <html>
         <head>
@@ -102,21 +100,20 @@ export default async function handler(req, res) {
           </table>
         </body>
         </html>
-      `,
-      text: `
+      `
+    sendSmtpEmail.textContent = `
 Willkommen, ${firstName}!
 
-Vielen Dank für dein Interesse! Um dein kostenloses Freebie zu erhalten, bestätige bitte deine E-Mail-Adresse.
+Vielen Dank für dein Interesse! Um deinen kostenlosen Guide zu erhalten, bestätige bitte deine E-Mail-Adresse.
 
 Klicke auf diesen Link: ${confirmationUrl}
 
 Falls du dich nicht angemeldet hast, kannst du diese E-Mail ignorieren.
-      `,
-    }
+      `
 
-    await transporter.sendMail(mailOptions)
+    await apiInstance.sendTransacEmail(sendSmtpEmail)
 
-    console.log('Double Opt-In E-Mail gesendet an:', email)
+    console.log('Double Opt-In E-Mail via Brevo gesendet an:', email)
 
     return res.status(200).json({ 
       success: true, 

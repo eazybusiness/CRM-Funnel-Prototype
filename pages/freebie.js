@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Download, CheckCircle, Shield, Mail } from 'lucide-react'
+import { Download, CheckCircle, Shield, Mail, Menu, X } from 'lucide-react'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 
 export default function Freebie() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [formData, setFormData] = useState({
     firstName: '',
     email: '',
@@ -148,10 +149,62 @@ export default function Freebie() {
               <Link href="/" className="text-xl font-light tracking-wide text-gray-900">
                 Einfach Leichter
               </Link>
-              <Link href="/" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                Zurück
-              </Link>
+              
+              {/* Desktop Navigation */}
+              <nav className="hidden md:flex items-center space-x-8">
+                <Link href="/" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                  Startseite
+                </Link>
+                <Link href="/datenschutz" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                  Datenschutz
+                </Link>
+                <Link href="/impressum" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                  Impressum
+                </Link>
+              </nav>
+
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="md:hidden p-2 text-gray-600 hover:text-gray-900 transition-colors"
+                aria-label="Menu"
+              >
+                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
             </div>
+
+            {/* Mobile Navigation */}
+            {mobileMenuOpen && (
+              <motion.nav
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="md:hidden py-4 border-t border-gray-100"
+              >
+                <div className="flex flex-col space-y-4">
+                  <Link 
+                    href="/" 
+                    className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Startseite
+                  </Link>
+                  <Link 
+                    href="/datenschutz" 
+                    className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Datenschutz
+                  </Link>
+                  <Link 
+                    href="/impressum" 
+                    className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Impressum
+                  </Link>
+                </div>
+              </motion.nav>
+            )}
           </div>
         </header>
 
@@ -180,18 +233,21 @@ export default function Freebie() {
               </p>
 
               {/* Image */}
-              <div className="relative h-64 md:h-80 rounded-sm overflow-hidden mb-8">
+              <div className="relative h-64 md:h-80 rounded-3xl overflow-hidden mb-8 shadow-2xl">
                 <Image
                   src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=800&h=600&fit=crop"
                   alt="Minimalismus und Achtsamkeit"
                   fill
                   className="object-cover"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
               </div>
 
               <div className="space-y-6 mb-8">
                 <div className="flex items-start">
-                  <CheckCircle className="w-6 h-6 text-gray-700 mr-3 flex-shrink-0 mt-1" strokeWidth={1.5} />
+                  <div className="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full mr-3 flex-shrink-0">
+                    <CheckCircle className="w-6 h-6 text-gray-700" strokeWidth={1.5} />
+                  </div>
                   <div>
                     <h3 className="font-normal text-gray-900 mb-1">Sofort umsetzbar</h3>
                     <p className="text-gray-600">Praktische Übungen für den Alltag</p>
@@ -199,7 +255,9 @@ export default function Freebie() {
                 </div>
                 
                 <div className="flex items-start">
-                  <Download className="w-6 h-6 text-gray-700 mr-3 flex-shrink-0 mt-1" strokeWidth={1.5} />
+                  <div className="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full mr-3 flex-shrink-0">
+                    <Download className="w-6 h-6 text-gray-700" strokeWidth={1.5} />
+                  </div>
                   <div>
                     <h3 className="font-normal text-gray-900 mb-1">Direkt per E-Mail</h3>
                     <p className="text-gray-600">Download-Link nach Bestätigung deiner E-Mail-Adresse</p>
@@ -207,9 +265,11 @@ export default function Freebie() {
                 </div>
               </div>
 
-              <div className="bg-gray-50 border border-gray-200 rounded-sm p-6">
+              <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 shadow-lg">
                 <div className="flex items-start">
-                  <Shield className="w-5 h-5 text-gray-700 mr-3 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
+                  <div className="w-8 h-8 flex items-center justify-center bg-white rounded-full mr-3 flex-shrink-0 shadow-sm">
+                    <Shield className="w-5 h-5 text-gray-700" strokeWidth={1.5} />
+                  </div>
                   <p className="text-sm text-gray-600 leading-relaxed">
                     <strong className="text-gray-900">Deine Daten sind sicher.</strong> Wir respektieren deine Privatsphäre 
                     und versenden nur wertvolle Inhalte. Abmeldung jederzeit möglich.
@@ -225,7 +285,7 @@ export default function Freebie() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="md:sticky md:top-8"
             >
-              <div className="bg-gray-50 border border-gray-200 rounded-sm p-8 md:p-10">
+              <div className="bg-gray-50 border border-gray-200 rounded-3xl p-8 md:p-10 shadow-xl">
                 <h2 className="text-2xl font-light text-gray-900 mb-6 text-center">
                   Jetzt kostenlos sichern
                 </h2>
@@ -242,7 +302,7 @@ export default function Freebie() {
                       required
                       value={formData.firstName}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:outline-none focus:border-gray-900 transition-colors"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-900 transition-colors"
                       placeholder="Dein Vorname"
                     />
                   </div>
@@ -258,7 +318,7 @@ export default function Freebie() {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:outline-none focus:border-gray-900 transition-colors"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-900 transition-colors"
                       placeholder="deine@email.de"
                     />
                   </div>
@@ -310,7 +370,7 @@ export default function Freebie() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-gray-900 text-white font-light py-4 rounded-sm hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-gray-900 text-white font-light py-4 rounded-full hover:bg-gray-800 transition-all hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? 'Wird gesendet...' : 'Jetzt kostenlos sichern'}
                   </button>

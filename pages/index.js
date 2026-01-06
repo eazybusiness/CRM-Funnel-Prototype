@@ -1,10 +1,13 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Sparkles, Heart, Clock } from 'lucide-react'
+import { ArrowRight, Sparkles, Heart, Leaf, Menu, X } from 'lucide-react'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 
 export default function Home() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
   return (
     <>
       <Head>
@@ -22,15 +25,62 @@ export default function Home() {
               <Link href="/" className="text-xl font-light tracking-wide text-gray-900">
                 Einfach Leichter
               </Link>
-              <nav className="hidden md:flex space-x-8">
+              
+              {/* Desktop Navigation */}
+              <nav className="hidden md:flex items-center space-x-8">
                 <Link href="/freebie" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                  Freebie
+                  Kostenloser Guide
                 </Link>
                 <Link href="/datenschutz" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Datenschutz
                 </Link>
+                <Link href="/impressum" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                  Impressum
+                </Link>
               </nav>
+
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="md:hidden p-2 text-gray-600 hover:text-gray-900 transition-colors"
+                aria-label="Menu"
+              >
+                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
             </div>
+
+            {/* Mobile Navigation */}
+            {mobileMenuOpen && (
+              <motion.nav
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="md:hidden py-4 border-t border-gray-100"
+              >
+                <div className="flex flex-col space-y-4">
+                  <Link 
+                    href="/freebie" 
+                    className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Kostenloser Guide
+                  </Link>
+                  <Link 
+                    href="/datenschutz" 
+                    className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Datenschutz
+                  </Link>
+                  <Link 
+                    href="/impressum" 
+                    className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Impressum
+                  </Link>
+                </div>
+              </motion.nav>
+            )}
           </div>
         </header>
 
@@ -80,14 +130,14 @@ export default function Home() {
         {/* Image Section */}
         <section className="py-12 px-4">
           <div className="max-w-5xl mx-auto">
-            <div className="relative h-96 md:h-[500px] rounded-sm overflow-hidden">
+            <div className="relative h-64 md:h-96 rounded-3xl overflow-hidden shadow-2xl">
               <Image
-                src="https://images.unsplash.com/photo-1484101403633-562f891dc89a?w=1200&h=800&fit=crop"
+                src="https://images.unsplash.com/photo-1484101403633-562f891dc89a?w=800&h=600&fit=crop"
                 alt="Minimalistisches Zuhause"
                 fill
                 className="object-cover"
-                priority
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
             </div>
           </div>
         </section>
@@ -102,26 +152,27 @@ export default function Home() {
               Stell dir vor, Du lebst in einer Umgebung, in der sich nur Deine Lieblingssachen befinden.
             </p>
             
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                  <Sparkles className="w-10 h-10 text-gray-700" strokeWidth={1.5} />
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                <div className="w-12 h-12 mb-4 flex items-center justify-center bg-white rounded-full shadow-sm">
+                  <Sparkles className="w-8 h-8 text-gray-700" strokeWidth={1.5} />
                 </div>
-                <h3 className="text-lg font-normal text-gray-900 mb-2">Dein Zuhause fühlt sich leicht und klar an</h3>
+                <h3 className="text-xl font-normal text-gray-900 mb-3">Raum für Dich</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Schaffe Platz für das, was wirklich zählt. Weniger Ballast bedeutet mehr Freiheit 
+                  und Energie für die Dinge, die dir wichtig sind.
+                </p>
               </div>
-              
-              <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                  <Clock className="w-10 h-10 text-gray-700" strokeWidth={1.5} />
+
+              <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                <div className="w-12 h-12 mb-4 flex items-center justify-center bg-white rounded-full shadow-sm">
+                  <Heart className="w-8 h-8 text-gray-700" strokeWidth={1.5} />
                 </div>
-                <h3 className="text-lg font-normal text-gray-900 mb-2">Du gewinnst Zeit für Dich</h3>
-              </div>
-              
-              <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                  <Heart className="w-10 h-10 text-gray-700" strokeWidth={1.5} />
-                </div>
-                <h3 className="text-lg font-normal text-gray-900 mb-2">Du weißt, was wirklich wichtig ist</h3>
+                <h3 className="text-xl font-normal text-gray-900 mb-3">Weniger Zeug. Mehr Du.</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Entdecke, wie du mit weniger Besitz mehr Lebensqualität gewinnst. 
+                  Minimalismus ist keine Verzicht, sondern bewusste Entscheidung.
+                </p>
               </div>
             </div>
           </div>
@@ -180,7 +231,7 @@ export default function Home() {
             </p>
             <Link 
               href="/freebie"
-              className="inline-flex items-center px-8 py-4 bg-white text-gray-900 text-lg font-light rounded-sm hover:bg-gray-100 transition-colors"
+              className="inline-flex items-center bg-gray-50 text-gray-900 font-light px-8 py-4 rounded-full hover:bg-gray-100 transition-all hover:shadow-lg"
             >
               Ja, ich bin bereit!
               <ArrowRight className="ml-2 w-5 h-5" />
@@ -193,6 +244,7 @@ export default function Home() {
           <div className="max-w-6xl mx-auto px-4">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-sm text-gray-600 mb-4 md:mb-0">
+                2026 Einfach Leichter. Alle Rechte vorbehalten.
                 © 2026 Einfach Leichter. Alle Rechte vorbehalten.
               </p>
               <div className="flex space-x-6">
