@@ -323,47 +323,106 @@ Vollautomatisierter Sales-Funnel mit:
 
 ## 🚀 Nächste Schritte (Priorität)
 
-### **Phase 3: Vercel Postgres Datenbank**
-1. **Vercel Postgres aktivieren**
-   - Datenbank im Vercel Dashboard aktivieren
-   - Connection String in Environment Variables
-   - Schema erstellen (`leads`, `purchases`, `funnel_events`)
+### **Phase 3: E-Mail-Automation mit Brevo** ⏳
+1. **Brevo Marketing Automation Workflows einrichten**
+   - Workflow 1: Freebie-Sequenz (Mail 1-2) ✅ Bereits implementiert
+   - Workflow 2: Follow-up Sequenz (Mail 3-5)
+     - Mail 3: Produktvorteile (Tag +2)
+     - Mail 4: Business-Chance (Tag +4)
+     - Mail 5: Kurs-Angebot (Tag +7)
+   - Trigger: Contact attribute `DOUBLE_OPT_IN=true`
+   - Beispiel-Texte erstellen (später von Kundin ersetzen)
 
-2. **Lead-Speicherung implementieren**
-   - Leads in Postgres speichern (zusätzlich zu Brevo)
-   - Tracking: UTM-Parameter, Source, Timestamps
-   - API-Endpunkt: `GET /api/crm/leads`
+2. **E-Mail-Templates in Brevo erstellen**
+   - Template 3: Produktvorteile
+   - Template 4: Business-Chance
+   - Template 5: Kurs-Angebot mit PayPal-Link
+   - Minimalistisches Design (wie Mail 1-2)
 
-### **Phase 4: E-Mail-Sequenz erweitern**
-3. **Follow-up E-Mails**
-   - Mail 3: Produktvorteile (Tag 2-3)
-   - Mail 4: Business-Chance (Tag 4-5)
-   - Mail 5+: Kurs-Angebote (Tag 7, 14, 21)
-   - Texte von Kundin benötigt
-
-### **Phase 5: PayPal Integration**
-4. **PayPal Business Account Setup**
+### **Phase 4: PayPal Integration für Kurs-Buchung** ⏳
+3. **PayPal Business Account Setup**
    - Mit Kundin PayPal Business Account erstellen
    - Client ID und Secret generieren
-   - Checkout-Seite implementieren
-   - Webhook für Zahlungsbestätigung
+   - In Vercel Environment Variables speichern
 
-### **Phase 6: Willkommensvideo**
-5. **Video-Einbettung**
+4. **Checkout-Seite implementieren**
+   - Seite: `/pages/checkout.js`
+   - PayPal Smart Buttons einbinden
+   - Kurs-Preis konfigurierbar
+   - Nach Zahlung: Bestätigungs-E-Mail
+
+5. **PayPal Webhook**
+   - API: `/api/payment/webhook`
+   - Bei erfolgreicher Zahlung:
+     - Brevo: Tag "CUSTOMER" hinzufügen
+     - E-Mail: Zahlungsbestätigung + Zugangs-Info
+     - (Später: Zugang zu Kurs-Plattform freischalten)
+
+### **Phase 5: Willkommensvideo** ⏳
+6. **Video-Einbettung auf Landingpage**
    - YouTube/Vimeo Video von Kundin
-   - Auf Landingpage einbetten
-   - Responsive Design
+   - Responsive iframe-Einbettung
+   - Oberhalb oder neben Freebie-Formular
 
-### **Phase 7: Testing & Optimierung**
-6. **End-to-End Tests**
-   - Kompletter Funnel-Durchlauf
-   - Mobile Testing
+### **Phase 6: Testing & Optimierung** ⏳
+7. **End-to-End Tests**
+   - Kompletter Funnel: Freebie → E-Mails → Checkout → Zahlung
+   - Mobile Testing (iOS & Android)
    - Performance-Optimierung
 
-7. **Dokumentation**
+8. **Dokumentation**
    - README.md aktualisieren
    - Benutzerhandbuch für Kundin
    - Social-Media-Links mit UTM-Parametern
+   - Anleitung: E-Mail-Texte in Brevo ändern
+
+---
+
+## 📚 Zukunfts-Features (Optional - Extra-Buchungen)
+
+### **Advanced CRM Dashboard** (Extra 1)
+- Vercel Postgres Datenbank
+- Lead-Tracking mit UTM-Parametern
+- Dashboard: `/pages/crm/dashboard.js`
+- Analytics: Conversion-Rates, Traffic-Quellen
+
+### **Video-Kurs-Plattform** (Extra - Nach Kurs-Fertigstellung)
+**Architektur-Konzept:**
+
+**Phase 1: MVP (Einfach)**
+- Videos auf Vimeo Pro/Wistia hosten (Domain-Restriction)
+- Mitgliederbereich mit Login (NextAuth.js)
+- Nach PayPal-Zahlung: Zugang freischalten
+- Videos per geschütztem iframe einbetten
+
+**Phase 2: Professional**
+- Vercel Postgres für User-Management
+- Videos auf Cloudflare Stream/Mux (besserer Schutz)
+- Fortschritts-Tracking pro Video
+- Zertifikate nach Abschluss
+- Wasserzeichen mit User-E-Mail
+
+**Technischer Ablauf:**
+```
+1. User kauft Kurs (PayPal)
+2. Webhook → User-Account erstellen in DB
+3. E-Mail mit Login-Daten
+4. User loggt ein → Zugang zu Kurs-Seiten
+5. Videos nur für eingeloggte User sichtbar
+6. Fortschritt wird gespeichert
+```
+
+**Kopierschutz:**
+- Domain-Restriction (Videos nur auf deiner Domain)
+- DRM (Digital Rights Management) - optional
+- Wasserzeichen mit User-E-Mail
+- Download-Verhinderung (technisch nie 100%)
+- Rechtsklick deaktiviert
+
+**Geschätzte Kosten:**
+- Vimeo Pro: ~$20/Monat
+- Cloudflare Stream: ~$1/1000 Minuten
+- Entwicklung: 8-12 Stunden (320-480€)
 
 ---
 
