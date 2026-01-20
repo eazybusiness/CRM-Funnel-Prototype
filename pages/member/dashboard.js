@@ -13,6 +13,11 @@ export default function MemberDashboard() {
   const [enrollments, setEnrollments] = useState([])
   const [loading, setLoading] = useState(true)
 
+  // Prevent SSR issues
+  if (typeof window === 'undefined') {
+    return null
+  }
+
   useEffect(() => {
     if (status === 'unauthenticated') {
       router.push('/login')
@@ -204,4 +209,10 @@ export default function MemberDashboard() {
       </div>
     </>
   )
+}
+
+export async function getServerSideProps() {
+  return {
+    props: {},
+  }
 }

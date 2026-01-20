@@ -15,6 +15,11 @@ export default function CoursePage() {
   const [loading, setLoading] = useState(true)
   const [selectedLesson, setSelectedLesson] = useState(null)
 
+  // Prevent SSR issues
+  if (typeof window === 'undefined') {
+    return null
+  }
+
   useEffect(() => {
     if (status === 'unauthenticated') {
       router.push('/login')
@@ -227,4 +232,10 @@ export default function CoursePage() {
       </div>
     </>
   )
+}
+
+export async function getServerSideProps() {
+  return {
+    props: {},
+  }
 }
