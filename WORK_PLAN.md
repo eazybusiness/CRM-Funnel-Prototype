@@ -1,9 +1,9 @@
-# Arbeitsplan - CRM Funnel Kernprojekt
+# Arbeitsplan - CRM Funnel Kernprojekt + Extra 1
 
-**Projekt:** CRM Funnel System - Kernprojekt (500€)  
+**Projekt:** CRM Funnel System - Kernprojekt (500€) + Extra 1 Lernbereich (+400-500€)  
 **Start:** 6. Januar 2026  
-**Aktueller Stand:** 6. Januar 2026 - Phase 2 abgeschlossen  
-**Geschätzte Dauer:** 2-3 Wochen  
+**Aktueller Stand:** 20. Januar 2026 - Kernprojekt Phase 2 abgeschlossen, Extra 1 geplant  
+**Geschätzte Dauer:** 4-5 Wochen gesamt (2-3 Wochen Kernprojekt + 1-2 Wochen Extra 1)  
 **Basierend auf:** PROJECT_SCOPE_FINAL.md
 
 ---
@@ -16,6 +16,7 @@ Vollautomatisierter Sales-Funnel mit:
 - PayPal-Integration
 - Vercel Postgres Datenbank
 - DSGVO-konform
+- **Extra 1:** Geschützter Lernbereich mit Kurs-Verwaltungssystem
 
 ---
 
@@ -271,6 +272,90 @@ Vollautomatisierter Sales-Funnel mit:
 
 ---
 
+## Phase 9: Extra 1 - Geschützter Lernbereich mit Kursen (Tag 17-22)
+**Zusatzkosten:** +400-500€  
+**Zusätzlicher Zeitaufwand:** +10-12 Stunden
+
+### 9.1 Passwortgeschützter Mitgliederbereich
+- [ ] **Login-System implementieren**
+  - NextAuth.js oder custom JWT-Auth
+  - Registrierung nach PayPal-Zahlung
+  - Individuelle Login-Daten per E-Mail
+- [ ] **Mitglieder-Dashboard**
+  - Übersicht gekaufter Kurse
+  - Fortschritts-Tracking
+  - Profil-Verwaltung
+
+**Dateien:**
+- `pages/login.js` → Login-Seite
+- `pages/register.js` → Registrierung nach Kauf
+- `pages/member/dashboard.js` → Mitglieder-Übersicht
+- `pages/api/auth/[...nextauth].js` → Auth-Endpunkte
+
+### 9.2 Kurs-Verwaltungssystem
+- [ ] **Kurs-Datenbank-Schema**
+  - `courses` Tabelle (Titel, Beschreibung, Preis)
+  - `modules` Tabelle (Kurs-Struktur)
+  - `lessons` Tabelle (Einzelne Videos/PDFs)
+  - `user_progress` Tabelle (Fortschritt pro User)
+- [ ] **Kurs-Display-Seiten**
+  - `/kurse/[slug]` → Kurs-Übersicht
+  - `/kurse/[slug]/lesson/[id]` → Einzelne Lektion
+  - Modulare Struktur (Videos + PDFs)
+
+**API-Endpunkte:**
+- `GET /api/courses` → Alle Kurse
+- `GET /api/courses/[slug]` → Kurs-Details
+- `POST /api/courses/[slug]/enroll` → Einschreibung nach Kauf
+- `GET /api/courses/[slug]/progress` → Fortschritt abrufen
+- `POST /api/courses/[slug]/progress` → Fortschritt speichern
+
+### 9.3 Content-Upload-Interface
+- [ ] **Admin-Interface für Kundin**
+  - Einfaches Hochladen von Videos (YouTube/Vimeo embed)
+  - PDF-Upload und Verwaltung
+  - Kurs-Struktur selbst erstellen (Drag & Drop)
+  - Preis-Management
+- [ ] **Datei-Management**
+  - Video-Hosting via Vimeo Pro oder Cloudflare Stream
+  - PDF-Hosting in Vercel Storage
+  - Domain-Restriction für Video-Schutz
+
+**Dateien:**
+- `pages/admin/courses.js` → Kurs-Management
+- `pages/admin/upload.js` → Content-Upload
+- `components/CourseBuilder.js` → Drag & Drop Interface
+
+### 9.4 Zugriffskontrolle & Sicherheit
+- [ ] **Automatische Freischaltung nach Zahlung**
+  - PayPal Webhook → User-Account erstellen
+  - Kurs-Zugriff zuweisen
+  - Willkommens-E-Mail mit Login-Daten
+- [ ] **Kopierschutz**
+  - Domain-Restriction für Videos
+  - Wasserzeichen mit User-E-Mail (optional)
+  - Download-Verhinderung
+  - Rechtsklick deaktiviert
+
+**API-Endpunkte:**
+- `POST /api/payment/webhook` → PayPal Webhook mit Account-Erstellung
+- `POST /api/auth/register` → Account nach Kauf erstellen
+- `GET /api/auth/access/[courseId]` → Zugang prüfen
+
+### 9.5 Integration mit PayPal
+- [ ] **Kurs-Kauf-Flow**
+  - Kurs-Seite → PayPal-Button
+  - Nach Zahlung → Account erstellen
+  - Automatische E-Mail mit Zugangsdaten
+- [ ] **Abo-Verwaltung (optional)**
+  - Monatliche/Jährliche Abos
+  - Automatische Verlängerung
+  - Zugang endet bei Nicht-Zahlung
+
+**Deliverable:** Vollständige Kurs-Plattform mit Mitgliederbereich
+
+---
+
 ## Obsolete Dateien (zu verschieben)
 
 ### Nicht benötigt für Kernprojekt:
@@ -301,10 +386,12 @@ Vollautomatisierter Sales-Funnel mit:
 | Komponente | Technologie | Status |
 |------------|-------------|--------|
 | **Frontend** | Next.js + TailwindCSS | ✅ Vorhanden |
-| **Hosting** | Vercel | ⏳ Setup nötig |
+| **Hosting** | Vercel | ✅ Live |
 | **Datenbank** | Vercel Postgres | ⏳ Setup nötig |
 | **E-Mail** | Brevo | ✅ Implementiert |
 | **Zahlungen** | PayPal | ⏳ Setup nötig |
+| **Authentifizierung** | NextAuth.js/JWT | ⏳ Extra 1 |
+| **Video-Hosting** | Vimeo Pro/Cloudflare Stream | ⏳ Extra 1 |
 | **Design** | Minimalistisch, keine Farbgradienten | ✅ Implementiert |
 
 ---
@@ -428,6 +515,7 @@ Vollautomatisierter Sales-Funnel mit:
 
 ## Erfolgsmetriken
 
+### Kernprojekt (500€)
 - ✅ Landingpage live
 - ✅ Freebie-Download funktioniert
 - ✅ E-Mail-Sequenz läuft automatisch
@@ -436,4 +524,12 @@ Vollautomatisierter Sales-Funnel mit:
 - ✅ Kundin kann selbstständig arbeiten
 - ✅ Dokumentation vollständig
 
-**Geschätzter Zeitaufwand:** 12-15 Stunden (passt zu 500€ bei 40-45€/Std.)
+### Extra 1 - Lernbereich (+400-500€)
+- [ ] Geschützter Mitgliederbereich
+- [ ] Kurs-Upload-Interface
+- [ ] Video-Hosting integriert
+- [ ] Fortschritts-Tracking
+- [ ] Automatische Zugangsfreischaltung
+- [ ] Kopierschutz implementiert
+
+**Geschätzter Zeitaufwand:** 22-27 Stunden gesamt (12-15 Stunden Kernprojekt + 10-12 Stunden Extra 1)
