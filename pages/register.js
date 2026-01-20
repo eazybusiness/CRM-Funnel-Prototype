@@ -21,7 +21,7 @@ export default function Register() {
   const [success, setSuccess] = useState(false)
   const router = useRouter()
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
@@ -29,7 +29,7 @@ export default function Register() {
     }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setIsLoading(true)
     setError('')
