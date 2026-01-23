@@ -277,11 +277,11 @@ Vollautomatisierter Sales-Funnel mit:
 **Zusätzlicher Zeitaufwand:** +10-12 Stunden
 
 ### 9.1 Passwortgeschützter Mitgliederbereich
-- [ ] **Login-System implementieren**
-  - NextAuth.js oder custom JWT-Auth
-  - Registrierung nach PayPal-Zahlung
-  - Individuelle Login-Daten per E-Mail
-- [ ] **Mitglieder-Dashboard**
+- [x] **Login-System implementieren**
+  - NextAuth.js (Credentials)
+  - Registrierung nach PayPal-Zahlung (API-Flow vorbereitet)
+  - Individuelle Login-Daten per E-Mail (PayPal Capture)
+- [x] **Mitglieder-Dashboard**
   - Übersicht gekaufter Kurse
   - Fortschritts-Tracking
   - Profil-Verwaltung
@@ -293,14 +293,14 @@ Vollautomatisierter Sales-Funnel mit:
 - `pages/api/auth/[...nextauth].js` → Auth-Endpunkte
 
 ### 9.2 Kurs-Verwaltungssystem
-- [ ] **Kurs-Datenbank-Schema**
+- [x] **Kurs-Datenbank-Schema**
   - `courses` Tabelle (Titel, Beschreibung, Preis)
   - `modules` Tabelle (Kurs-Struktur)
   - `lessons` Tabelle (Einzelne Videos/PDFs)
   - `user_progress` Tabelle (Fortschritt pro User)
-- [ ] **Kurs-Display-Seiten**
-  - `/kurse/[slug]` → Kurs-Übersicht
-  - `/kurse/[slug]/lesson/[id]` → Einzelne Lektion
+- [x] **Kurs-Display-Seiten**
+  - `/member/course/[slug]` → Kurs-Viewer
+  - Modul/Lektion-Navigation integriert
   - Modulare Struktur (Videos + PDFs)
 
 **API-Endpunkte:**
@@ -327,8 +327,8 @@ Vollautomatisierter Sales-Funnel mit:
 - `components/CourseBuilder.js` → Drag & Drop Interface
 
 ### 9.4 Zugriffskontrolle & Sicherheit
-- [ ] **Automatische Freischaltung nach Zahlung**
-  - PayPal Webhook → User-Account erstellen
+- [~] **Automatische Freischaltung nach Zahlung**
+  - PayPal Capture → User-Account erstellen
   - Kurs-Zugriff zuweisen
   - Willkommens-E-Mail mit Login-Daten
 - [ ] **Kopierschutz**
@@ -343,9 +343,9 @@ Vollautomatisierter Sales-Funnel mit:
 - `GET /api/auth/access/[courseId]` → Zugang prüfen
 
 ### 9.5 Integration mit PayPal
-- [ ] **Kurs-Kauf-Flow**
-  - Kurs-Seite → PayPal-Button
-  - Nach Zahlung → Account erstellen
+- [~] **Kurs-Kauf-Flow**
+  - Checkout-Seite mit PayPal/Kreditkarte
+  - Nach Zahlung → Account erstellen (Capture)
   - Automatische E-Mail mit Zugangsdaten
 - [ ] **Abo-Verwaltung (optional)**
   - Monatliche/Jährliche Abos
@@ -362,12 +362,8 @@ Vollautomatisierter Sales-Funnel mit:
 - `pages/business.js` → Nicht im Scope (nur Freebie-Landingpage)
 - `pages/kurse.js` → Nicht im Scope
 - `pages/produkte.js` → Nicht im Scope
-- `pages/login.js` → Nicht im Scope (kein Mitgliederbereich)
 - `pages/request-reset.js` → Nicht im Scope
 - `pages/reset-password.js` → Nicht im Scope
-- `pages/member/*` → Nicht im Scope (Extra 1)
-- `pages/api/auth/*` → Nicht im Scope
-- `pages/api/member/*` → Nicht im Scope
 - `pages/api/stripe.js` → Nur PayPal im Scope
 - `pages/api/payment/create-stripe-session.js` → Nur PayPal
 - `pages/demo/crm.js` → Demo, nicht Production
