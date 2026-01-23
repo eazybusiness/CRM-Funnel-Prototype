@@ -232,3 +232,12 @@ Bei Fragen oder Problemen:
 - Dokumentation: `/docs`
 - GitHub Issues: Repository Issues
 - E-Mail: support@deine-domain.com
+
+---
+
+## Brevo E-Mail-Automation
+
+Die E-Mail-Sequenzen (Mail 1–6) werden **manuell in Brevo** unter „Automations“ eingerichtet.
+Eine vollständige Copy/Paste Anleitung inkl. Templates findest du hier:
+
+- `/docs/BREVO_AUTOMATION_GUIDE.md`
