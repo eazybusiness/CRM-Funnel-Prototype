@@ -11,19 +11,20 @@ Die Inhalte sind so vorbereitet, dass du sie direkt in Brevo als Templates einf�
 2. Gehe zu **Kontakte → Listen**
 3. Erstelle eine Liste, z. B. **Freebie-Interessenten**
 4. Stelle sicher, dass neue Leads (Freebie-Formular) in diese Liste laufen
+5. **Wichtig:** Die Freebie-Auslieferung erfolgt **nicht** in Brevo, sondern im Funnel (Formular + Freebie-Download)
 
 ---
 
 ## 2) Automation Workflow erstellen
 
 1. **Automations → Create a workflow**
-2. **Start-Trigger:** „Contact added to a list“
+2. **Start-Trigger:** **Welcome message**
    - Wähle die Liste **Freebie-Interessenten**
+   - Dieser Trigger ist korrekt für Listenbeitritt (statt “Contact added to a list”)
 3. Füge die folgenden Schritte hinzu:
-   - **E-Mail 1**: sofort senden
-   - **Wartezeit 2–3 Tage** → **E-Mail 2**
-   - **Wartezeit 2–3 Tage** → **E-Mail 3**
-   - **Wartezeit 2–3 Tage** → **E-Mail 4**
+   - **E-Mail 1**: Produktvorteile (Tag 2–3)
+   - **Wartezeit 2–3 Tage** → **E-Mail 2** (Business-Chance)
+   - **Wartezeit 2–3 Tage** → **E-Mail 3** (Kursangebot)
    - Optional: weitere Mails (Tag 14 / 21)
 
 > Tipp: Nutze Brevos „Delay“ Step (z. B. 2 Tage + 1 Tag Variation)
@@ -35,34 +36,7 @@ Die Inhalte sind so vorbereitet, dass du sie direkt in Brevo als Templates einf�
 > Platzhalter: Ersetze `{{firstName}}` wenn Brevo Vorname-Feld verwendet wird.
 > Falls du keinen Vornamen hast, kannst du die Anrede entfernen.
 
-### Mail 1 (sofort) – Begrüßung + Freebie
-**Betreff:** Dein Freebie ist da, {{firstName}}!
-
-**Text (Plain):**
-```
-Hallo {{firstName}},
-
-wie schön, dass du da bist! Hier ist dein Freebie:
-👉 [Freebie herunterladen](https://deine-domain.com/freebie-download)
-
-Ich wünsche dir viel Freude damit!
-
-Herzliche Grüße
-Dein Team von Einfach bewusster leben
-```
-
-**HTML:**
-```html
-<p>Hallo {{firstName}},</p>
-<p>wie schön, dass du da bist! Hier ist dein Freebie:</p>
-<p><a href="https://deine-domain.com/freebie-download">👉 Freebie herunterladen</a></p>
-<p>Ich wünsche dir viel Freude damit!</p>
-<p>Herzliche Grüße<br>Dein Team von Einfach bewusster leben</p>
-```
-
----
-
-### Mail 2 (Tag 2–3) – Produktvorteile
+### Mail 1 (Tag 2–3) – Produktvorteile
 **Betreff:** 3 Vorteile, die dein Alltag sofort spürt
 
 **Text (Plain):**
@@ -98,7 +72,7 @@ Dein Team von Einfach bewusster leben
 
 ---
 
-### Mail 3 (Tag 4–5) – Business-Chance
+### Mail 2 (Tag 4–5) – Business-Chance
 **Betreff:** Deine Möglichkeit für ein bewusstes Business
 
 **Text (Plain):**
@@ -127,7 +101,7 @@ sondern bauen sich damit auch ein bewusstes Business auf.</p>
 
 ---
 
-### Mail 4 (Tag 7) – Kursangebot + Zahlungslink
+### Mail 3 (Tag 7) – Kursangebot + Zahlungslink
 **Betreff:** Starte jetzt mit dem Kurs „Minimalismus Grundlagen“
 
 **Text (Plain):**
@@ -158,7 +132,7 @@ Dein Team von Einfach bewusster leben
 
 ---
 
-### Mail 5 (Tag 14) – Reminder + Social Proof
+### Mail 4 (Tag 14) – Reminder + Social Proof
 **Betreff:** Noch unsicher? Hier ist, was andere sagen
 
 **Text (Plain):**
@@ -194,7 +168,7 @@ Dein Team von Einfach bewusster leben
 
 ---
 
-### Mail 6 (Tag 21) – Letzter Reminder
+### Mail 5 (Tag 21) – Letzter Reminder
 **Betreff:** Letzte Erinnerung – Start jederzeit möglich
 
 **Text (Plain):**
@@ -223,7 +197,7 @@ Dein Team von Einfach bewusster leben
 
 - [ ] Liste „Freebie-Interessenten“ in Brevo erstellt
 - [ ] Automations-Workflow gebaut
-- [ ] Mail 1–6 eingefügt
+- [ ] Mail 1–5 eingefügt
 - [ ] Links auf Live-Domain angepasst
 - [ ] Absendername + Reply-To geprüft
 
