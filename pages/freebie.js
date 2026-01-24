@@ -164,6 +164,9 @@ export default function Freebie() {
                 <Link href="/" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Startseite
                 </Link>
+                <Link href="/login" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                  Login
+                </Link>
                 <Link href="/datenschutz" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Datenschutz
                 </Link>
@@ -196,6 +199,13 @@ export default function Freebie() {
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Startseite
+                  </Link>
+                  <Link 
+                    href="/login" 
+                    className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Login
                   </Link>
                   <Link 
                     href="/datenschutz" 

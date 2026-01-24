@@ -40,6 +40,9 @@ export default function Home() {
                 <Link href="/freebie" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Kostenloser Guide
                 </Link>
+                <Link href="/login" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                  Login
+                </Link>
                 <Link href="/datenschutz" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Datenschutz
                 </Link>
@@ -72,6 +75,13 @@ export default function Home() {
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Kostenloser Guide
+                  </Link>
+                  <Link 
+                    href="/login" 
+                    className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Login
                   </Link>
                   <Link 
                     href="/datenschutz" 
