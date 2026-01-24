@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs'
+import { query } from '../../../lib/db.js'
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -49,11 +50,4 @@ export default async function handler(req, res) {
     console.error('Registration error:', error)
     res.status(500).json({ error: 'Ein Fehler ist aufgetreten. Bitte versuche es erneut.' })
   }
-}
-
-// Helper function for database queries
-async function query(text, params) {
-  // This would be replaced with actual database connection
-  // For now, return mock result
-  return { rows: [] }
 }
