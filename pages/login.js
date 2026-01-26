@@ -30,26 +30,18 @@ export default function Login() {
       const result = await signIn('credentials', {
         email,
         password,
+        redirect: true,
         callbackUrl: '/member/dashboard'
       })
 
+      // If redirect is false, we need to handle it manually
       if (result?.error) {
         setError('Ungültige E-Mail oder Passwort')
-      } else if (result?.url) {
-        // Let NextAuth handle the redirect
-        console.log('Redirecting to:', result.url)
-        window.location.href = result.url
-      } else if (result?.ok) {
-        // Success but no URL, redirect manually
-        console.log('Login successful, redirecting manually')
-        router.push('/member/dashboard')
-      } else {
-        console.log('Login result:', result)
-        setError('Unbekannter Fehler beim Login')
+        setIsLoading(false)
       }
     } catch (error) {
+      console.error('Login error:', error)
       setError('Ein Fehler ist aufgetreten. Bitte versuche es erneut.')
-    } finally {
       setIsLoading(false)
     }
   }
@@ -86,7 +78,7 @@ export default function Login() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-sm font-normal text-gray-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-normal text-gray-700 mb-2 dark:text-gray-300">
                 E-Mail-Adresse
               </label>
               <div className="relative">
@@ -108,7 +100,7 @@ export default function Login() {
 
             {/* Password */}
             <div>
-              <label htmlFor="password" className="block text-sm font-normal text-gray-700 mb-2">
+              <label htmlFor="password" className="block text-sm font-normal text-gray-700 mb-2 dark:text-gray-300">
                 Passwort
               </label>
               <div className="relative">
