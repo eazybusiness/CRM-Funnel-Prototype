@@ -238,6 +238,71 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Courses Section */}
+        <section className="py-20 px-4 bg-gray-50">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-12 text-center">
+              Unsere Kurse
+            </h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {/* Demo Course Card */}
+              <div className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+                <h3 className="text-xl font-semibold mb-4">Minimalismus-Grundlagen</h3>
+                <p className="text-gray-600 mb-6">Lerne die Grundlagen des Minimalismus und finde mehr Leichtigkeit in deinem Leben.</p>
+                <div className="flex justify-between items-center mb-6">
+                  <span className="text-2xl font-bold">€49,00</span>
+                  <span className="text-sm text-gray-500">3 Module • 6 Lektionen</span>
+                </div>
+                <Link 
+                  href="/checkout?courseId=1&courseName=Minimalismus-Grundlagen&price=49&description=Lerne die Grundlagen des Minimalismus&duration=3 Stunden&modules=3&lessons=6"
+                  className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition text-center block"
+                >
+                  Jetzt anmelden
+                </Link>
+              </div>
+
+              {/* Placeholder for future courses */}
+              <div className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow opacity-75">
+                <h3 className="text-xl font-semibold mb-4">Digitaler Minimalismus</h3>
+                <p className="text-gray-600 mb-6">Bald verfügbar: Räume auch dein digitales Leben auf.</p>
+                <div className="flex justify-between items-center mb-6">
+                  <span className="text-2xl font-bold text-gray-400">Demnächst</span>
+                  <span className="text-sm text-gray-400">4 Module • 8 Lektionen</span>
+                </div>
+                <button 
+                  disabled
+                  className="w-full bg-gray-300 text-gray-500 py-3 rounded-lg cursor-not-allowed"
+                >
+                  Demnächst verfügbar
+                </button>
+              </div>
+
+              <div className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow opacity-75">
+                <h3 className="text-xl font-semibold mb-4">Nachhaltig leben</h3>
+                <p className="text-gray-600 mb-6">Bald verfügbar: Verbinde Minimalismus mit Nachhaltigkeit.</p>
+                <div className="flex justify-between items-center mb-6">
+                  <span className="text-2xl font-bold text-gray-400">Demnächst</span>
+                  <span className="text-sm text-gray-400">5 Module • 10 Lektionen</span>
+                </div>
+                <button 
+                  disabled
+                  className="w-full bg-gray-300 text-gray-500 py-3 rounded-lg cursor-not-allowed"
+                >
+                  Demnächst verfügbar
+                </button>
+              </div>
+            </div>
+            <div className="text-center mt-12">
+              <Link 
+                href="/courses"
+                className="inline-flex items-center text-gray-600 hover:text-gray-900 transition"
+              >
+                Alle Kurse ansehen →
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* CTA Section */}
         <section className="py-20 px-4 bg-gray-900 text-white">
           <div className="max-w-4xl mx-auto text-center">
