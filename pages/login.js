@@ -30,13 +30,23 @@ export default function Login() {
       const result = await signIn('credentials', {
         email,
         password,
-        redirect: true,
+        redirect: false,
         callbackUrl: '/member/dashboard'
       })
 
-      // If redirect is false, we need to handle it manually
+      console.log('Sign in result:', result)
+
       if (result?.error) {
         setError('Ungültige E-Mail oder Passwort')
+        setIsLoading(false)
+      } else if (result?.ok) {
+        // Success - redirect after a short delay to ensure session is set
+        console.log('Login successful, redirecting...')
+        setTimeout(() => {
+          window.location.href = '/member/dashboard'
+        }, 500)
+      } else {
+        setError('Unbekannter Fehler beim Login')
         setIsLoading(false)
       }
     } catch (error) {
