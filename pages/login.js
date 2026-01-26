@@ -24,13 +24,16 @@ export default function Login() {
       const result = await signIn('credentials', {
         email,
         password,
-        redirect: false
+        callbackUrl: '/member/dashboard'
       })
 
       if (result?.error) {
         setError('Ungültige E-Mail oder Passwort')
+      } else if (result?.url) {
+        // Let NextAuth handle the redirect
+        window.location.href = result.url
       } else {
-        // Redirect to member dashboard
+        // Fallback redirect
         router.push('/member/dashboard')
       }
     } catch (error) {
