@@ -1,3 +1,5 @@
+import { query } from '../../lib/db.js';
+
 export default function handler(req, res) {
   const authInfo = {
     hasNextAuth: true,
@@ -17,8 +19,7 @@ export default function handler(req, res) {
 
   // Test db import
   try {
-    const { query } = require('../../../lib/db');
-    authInfo.dbLoaded = 'Yes';
+    authInfo.dbLoaded = 'Yes - ES6 import worked';
   } catch (e) {
     authInfo.dbLoaded = 'Error: ' + e.message;
   }
