@@ -1,6 +1,6 @@
 # Projekt-Status für Kundin – Einfach bewusster leben
 
-**Stand:** Januar 2024  
+**Stand:** Januar 2026  
 **Projekt:** CRM-Funnel mit Mitgliederbereich und Zahlungssystem
 
 ---
