@@ -21,6 +21,12 @@ export default function Login() {
     setError('')
 
     try {
+      if (!email || !password) {
+        setError('Bitte füllen Sie alle Felder aus')
+        setIsLoading(false)
+        return
+      }
+
       const result = await signIn('credentials', {
         email,
         password,
@@ -31,10 +37,15 @@ export default function Login() {
         setError('Ungültige E-Mail oder Passwort')
       } else if (result?.url) {
         // Let NextAuth handle the redirect
+        console.log('Redirecting to:', result.url)
         window.location.href = result.url
-      } else {
-        // Fallback redirect
+      } else if (result?.ok) {
+        // Success but no URL, redirect manually
+        console.log('Login successful, redirecting manually')
         router.push('/member/dashboard')
+      } else {
+        console.log('Login result:', result)
+        setError('Unbekannter Fehler beim Login')
       }
     } catch (error) {
       setError('Ein Fehler ist aufgetreten. Bitte versuche es erneut.')
@@ -155,7 +166,7 @@ export default function Login() {
             </p>
             <p className="text-sm text-gray-600 mt-2">
               <Link href="/forgot-password" className="text-gray-900 hover:text-gray-700 underline">
-                Passwort vergessen?
+                Hier zurücksetzen
               </Link>
             </p>
           </div>
