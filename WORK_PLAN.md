@@ -544,7 +544,7 @@ Vollautomatisierter Sales-Funnel mit:
 4. **PayPal-Integration**: Sandbox voll funktionsfähig
 5. **DSGVO**: Alle Checkboxen und Rechtliches
 
-#### Extra 1 - Lernbereich (400-500€) - 80% Complete
+#### Extra 1 - Lernbereich (250€) - 80% Complete
 1. **Authentifizierung**: NextAuth.js voll implementiert
 2. **Mitgliederbereich**: Dashboard mit Kursübersicht
 3. **Kurs-System**: Datenbank, API, Checkout
@@ -554,13 +554,12 @@ Vollautomatisierter Sales-Funnel mit:
 
 #### Hochpriorität
 1. **PayPal Live-Modus**: Sandbox → Produktion
-2. **Brevo E-Mails**: Templates und Automationen einrichten
+2. **Brevo E-Mails**: Templates und Automationen testen
 3. **Demo-Kurs entfernen**: Echte Kursinhalte einfügen
 
 #### Mittlere Priorität
 1. **Kursübersichtsseite**: /courses Seite erstellen
 2. **Admin-Interface**: Einfache Kursverwaltung
-3. **Google Analytics**: Tracking einrichten
 
 ### 🚀 Nächste Schritte (Reihenfolge)
 
@@ -582,14 +581,79 @@ Vollautomatisierter Sales-Funnel mit:
 - ✅ PayPal Sandbox: Zahlung erfolgreich
 - ✅ Dashboard: Zeigt Kurse an
 - ✅ Responsive: Mobile & Desktop
-- ⚠️ E-Mails: Nur Demo, Brevo nicht konfiguriert
+- ⚠️ E-Mails: Nur Demo, Brevo konfiguriert, noch nicht getestet.
 
 ### 📝 Dokumentation
 
 - `task.md` - Aktuelle Task-Liste
 - `docs/PAYPAL_SETUP_GUIDE.md` - PayPal Anleitung
 - `docs/MILESTONE1_CHECKLIST.md` - Abnahmeliste
+- `docs/SECURITY_CHECKLIST.md` - Sicherheitshinweise
 - `README.md` - Vollständig aktualisiert
+
+---
+
+## 🔒 Sicherheit & Best Practices (Stand: 27. Januar 2026)
+
+### Implementierte Sicherheitsmaßnahmen
+
+#### ✅ Datenbanksicherheit
+- **Parameterized Queries**: Alle DB-Abfragen verwenden `$1, $2` Platzhalter (SQL-Injection-Schutz)
+- **Vercel Postgres**: Automatische SSL-Verschlüsselung der Verbindung
+- **Environment Variables**: Sensitive Daten ausschließlich in `.env`/Vercel
+
+#### ✅ Authentifizierung
+- **NextAuth.js**: Bewährte Auth-Lösung mit Session-Management
+- **bcrypt**: Passwörter mit Salt-Hash (12 Runden)
+- **Session Timeout**: 24 Stunden automatisch
+- **Secure Cookies**: In Produktion nur über HTTPS
+
+#### ✅ PayPal-Integration
+- **PayPal SDK**: Offizielles SDK mit Webhook-Verifizierung
+- **Server-seitige Validierung**: Alle Beträge/Kurs-IDs werden geprüft
+- **Custom ID**: Kurs-Info verschlüsselt in PayPal-Transaktion
+
+#### ✅ Input-Validierung
+- **API-Endpunkte**: Alle Eingaben validiert (Typ, Länge, Format)
+- **Email-Validierung**: Regex-Prüfung bei Registrierung
+- **Betrag-Validierung**: Nur positive Zahlen bei PayPal
+
+### ⚠️ Offene Sicherheitsthemen
+
+#### Hochpriorität
+1. **Rate Limiting**: API-Endpunkte gegen Brute-Force schützen
+2. **CSRF-Schutz**: Bei Formularen implementieren
+3. **Content Security Policy**: In Next.js konfigurieren
+
+#### Mittlere Priorität
+1. **XSS-Schutz**: User-Content sanitizen
+2. **File Upload**: Wenn Admin-Interface fertig
+3. **Logging**: Security-Events protokollieren
+
+### 🔍 Sicherheits-Checkliste
+
+#### Payment Flow
+- [ ] PayPal Webhook-Signatur verifizieren
+- [ ] Doppelte Zahlungen verhindern
+- [ ] Refund-Handling implementieren
+
+#### Login System
+- [ ] Account-Lockout nach 5 Fehlversuchen
+- [ ] Password-Strength-Anforderungen
+- [ ] 2FA Option (optional)
+
+#### DSGVO
+- [ ] Recht auf Löschung implementieren
+- [ ] Daten-Export Funktion
+- [ ] Cookie-Banner (falls benötigt)
+
+### 📋 Empfohlene Verbesserungen
+
+1. **Helmet.js**: HTTP-Header absichern
+2. **express-rate-limit**: API-Rate limiting
+3. **DOMPurify**: XSS-Schutz für User-Content
+4. **Winston**: Security-Logging
+5. **Monatliche Security-Reviews**: Prüfen auf neue Vulnerabilities
 
 ---
 
