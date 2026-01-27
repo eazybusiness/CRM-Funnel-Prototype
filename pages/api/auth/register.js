@@ -14,8 +14,26 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Alle Felder sind erforderlich' })
     }
 
-    if (password.length < 6) {
-      return res.status(400).json({ error: 'Passwort muss mindestens 6 Zeichen lang sein' })
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: 'Ungültige E-Mail-Adresse' })
+    }
+
+    // Password strength validation
+    if (password.length < 8) {
+      return res.status(400).json({ error: 'Passwort muss mindestens 8 Zeichen lang sein' })
+    }
+    
+    // Check for at least one number and one letter
+    if (!/(?=.*[a-zA-Z])(?=.*\d)/.test(password)) {
+      return res.status(400).json({ error: 'Passwort muss mindestens einen Buchstaben und eine Zahl enthalten' })
+    }
+    
+    // Check for common weak passwords
+    const weakPasswords = ['password', '12345678', 'qwerty123', 'admin123', 'passwort123']
+    if (weakPasswords.includes(password.toLowerCase())) {
+      return res.status(400).json({ error: 'Bitte wählen Sie ein sichereres Passwort' })
     }
 
     // Check if user already exists

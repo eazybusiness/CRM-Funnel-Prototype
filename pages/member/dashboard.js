@@ -5,13 +5,16 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
-import { BookOpen, PlayCircle, FileText, LogOut, User, Clock, CheckCircle } from 'lucide-react'
+import { BookOpen, PlayCircle, FileText, LogOut, User, Clock, CheckCircle, Settings, Download, Trash2 } from 'lucide-react'
 
 export default function MemberDashboard() {
   const { data: session, status } = useSession()
   const router = useRouter()
   const [enrollments, setEnrollments] = useState([])
   const [loading, setLoading] = useState(true)
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
+  const [isExporting, setIsExporting] = useState(false)
 
   // Prevent SSR issues
   if (typeof window === 'undefined') {
@@ -46,6 +49,53 @@ export default function MemberDashboard() {
 
   const handleSignOut = () => {
     signOut({ callbackUrl: '/' })
+  }
+
+  const handleExportData = async () => {
+    setIsExporting(true)
+    try {
+      const response = await fetch('/api/user/export-data')
+      if (response.ok) {
+        const blob = await response.blob()
+        const url = window.URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = `meine_daten_${new Date().toISOString().split('T')[0]}.json`
+        document.body.appendChild(a)
+        a.click()
+        window.URL.revokeObjectURL(url)
+        document.body.removeChild(a)
+      } else {
+        alert('Fehler beim Exportieren Ihrer Daten')
+      }
+    } catch (error) {
+      console.error('Export error:', error)
+      alert('Fehler beim Exportieren Ihrer Daten')
+    } finally {
+      setIsExporting(false)
+    }
+  }
+
+  const handleDeleteAccount = async () => {
+    setIsDeleting(true)
+    try {
+      const response = await fetch('/api/user/delete-account', {
+        method: 'DELETE'
+      })
+      if (response.ok) {
+        alert('Ihr Account wurde erfolgreich gelöscht.')
+        signOut({ callbackUrl: '/' })
+      } else {
+        const data = await response.json()
+        alert(data.error || 'Fehler beim Löschen des Accounts')
+      }
+    } catch (error) {
+      console.error('Delete error:', error)
+      alert('Fehler beim Löschen des Accounts')
+    } finally {
+      setIsDeleting(false)
+      setShowDeleteConfirm(false)
+    }
   }
 
   if (status === 'loading' || loading) {
@@ -114,6 +164,39 @@ export default function MemberDashboard() {
             <p className="text-gray-600">
               Hier findest du alle deine Kurse und deinen Lernfortschritt.
             </p>
+          </div>
+
+          {/* Settings Section */}
+          <div className="bg-white rounded-2xl shadow-sm p-8 mb-8">
+            <div className="flex items-center space-x-3 mb-6">
+              <Settings className="w-6 h-6 text-gray-700" />
+              <h2 className="text-xl font-light text-gray-900">Account-Einstellungen</h2>
+            </div>
+            
+            <div className="space-y-4">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button
+                  onClick={handleExportData}
+                  disabled={isExporting}
+                  className="flex items-center justify-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>{isExporting ? 'Exportiere...' : 'Meine Daten exportieren'}</span>
+                </button>
+                
+                <button
+                  onClick={() => setShowDeleteConfirm(true)}
+                  className="flex items-center justify-center space-x-2 px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition-colors"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  <span>Account löschen</span>
+                </button>
+              </div>
+              
+              <p className="text-sm text-gray-600">
+                Gemäß DSGVO haben Sie das Recht auf Ihre Daten und deren Löschung.
+              </p>
+            </div>
           </div>
 
           {/* Courses Grid */}
@@ -206,6 +289,36 @@ export default function MemberDashboard() {
             </div>
           )}
         </main>
+
+        {/* Delete Confirmation Modal */}
+        {showDeleteConfirm && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="bg-white rounded-2xl p-8 max-w-md w-full">
+              <h3 className="text-xl font-light text-gray-900 mb-4">
+                Account wirklich löschen?
+              </h3>
+              <p className="text-gray-600 mb-6">
+                Dies kann nicht rückgängig gemacht werden. Alle Ihre Daten einschließlich Kursfortschritte und Käufe werden permanent gelöscht.
+              </p>
+              <div className="flex gap-4">
+                <button
+                  onClick={() => setShowDeleteConfirm(false)}
+                  disabled={isDeleting}
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
+                >
+                  Abbrechen
+                </button>
+                <button
+                  onClick={handleDeleteAccount}
+                  disabled={isDeleting}
+                  className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50"
+                >
+                  {isDeleting ? 'Lösche...' : 'Ja, löschen'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   )

@@ -640,7 +640,6 @@ Vollautomatisierter Sales-Funnel mit:
 #### Login System
 - [ ] Account-Lockout nach 5 Fehlversuchen
 - [ ] Password-Strength-Anforderungen
-- [ ] 2FA Option (optional)
 
 #### DSGVO
 - [ ] Recht auf Löschung implementieren

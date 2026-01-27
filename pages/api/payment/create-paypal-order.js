@@ -3,6 +3,27 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
+  // Rate limiting for payment endpoints
+  const ip = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.connection?.remoteAddress || 'unknown'
+  
+  // Simple in-memory rate limit check
+  const rateLimit = {}
+  const now = Date.now()
+  const key = ip
+  
+  if (!rateLimit[key]) {
+    rateLimit[key] = { count: 1, firstAttempt: now }
+  } else {
+    if (now - rateLimit[key].firstAttempt > 300000) { // 5 minutes
+      rateLimit[key] = { count: 1, firstAttempt: now }
+    } else {
+      rateLimit[key].count++
+      if (rateLimit[key].count > 10) {
+        return res.status(429).json({ error: 'Zu viele Anfragen. Bitte versuchen Sie es später erneut.' })
+      }
+    }
+  }
+
   const { amount, currency = 'EUR', description, courseId, courseName } = req.body
 
   if (!amount || amount <= 0) {

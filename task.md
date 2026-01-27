@@ -69,11 +69,13 @@
 - [ ] Set up automated email sequences
 
 #### 4. Security Enhancements
-- [ ] Implement rate limiting for API endpoints
-- [ ] Add account lockout after failed login attempts
-- [ ] Configure Content Security Policy (CSP)
-- [ ] Add CSRF protection for forms
-- [ ] Implement security logging for monitoring
+- [x] Implement rate limiting for API endpoints
+- [x] Add account lockout after failed login attempts
+- [x] Add password strength requirements
+- [x] Configure Content Security Policy (CSP)
+- [x] Implement right to data deletion (DSGVO)
+- [x] Implement data export function (DSGVO)
+- [ ] Add security logging for monitoring
 
 ### 🐛 Known Issues
 
@@ -81,6 +83,7 @@
 2. **Emails not sending**: Need Brevo API key configuration
 3. **Course overview page**: /courses route doesn't exist yet
 4. **Admin interface**: Basic structure only, needs full implementation
+5. **Database Migration**: Security columns need to be added to users table
 
 ### 📊 Current Status
 

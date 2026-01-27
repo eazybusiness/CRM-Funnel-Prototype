@@ -1,5 +1,6 @@
 import { query } from '../../../lib/db'
 import bcrypt from 'bcryptjs'
+import { checkRateLimit, getClientIP } from '../../../lib/rateLimit.js'
 
 // Generate random password for new users
 function generateRandomPassword(length = 12) {
@@ -44,6 +45,14 @@ async function sendEmail(to, subject, html, text) {
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
+  }
+
+  // Rate limiting for payment endpoints
+  const ip = getClientIP(req)
+  const rateLimitResult = checkRateLimit(ip, 10, 300000) // 10 attempts per 5 minutes
+  
+  if (!rateLimitResult.allowed) {
+    return res.status(429).json({ error: rateLimitResult.error })
   }
 
   const { orderId } = req.body
