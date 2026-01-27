@@ -1,130 +1,181 @@
-# CRM Funnel Prototype
+# CRM Funnel - Einfach bewusster leben
 
-Complete automated CRM funnel system with social media integration and email sequences for lead generation and conversion.
+Complete automated CRM funnel system with course sales, member area, and email automation for "Einfach bewusster leben".
 
-## 🚀 Features
+## 🚀 Current Features
 
-- **Multi-Platform Integration**: Instagram, Facebook, WhatsApp click-to-action with tracking
-- **Automated Funnel**: Step-by-step customer journey from social media to purchase
-- **Email Automation**: 4+ email sequence triggered by CRM
-- **Payment Processing**: Integrated Stripe payment system
-- **Responsive Design**: Mobile-first modern UI with Tailwind CSS
-- **CRM Integration**: Full contact tracking and follow-up automation
+### ✅ Fully Implemented
+- **User Authentication**: Registration, login, password reset
+- **Course System**: Course display, checkout, enrollment
+- **Member Area**: Protected dashboard with course access
+- **Payment Processing**: PayPal integration (sandbox ready)
+- **Database**: PostgreSQL with user and course management
+- **Responsive Design**: Mobile-first modern UI
 
-## 📋 Funnel Structure
+### 🔄 In Progress
+- **Email Automation**: Brevo integration setup needed
+- **Course Management**: Admin interface for content
+- **Analytics**: Google Analytics 4 integration
 
-### Landing Page
-- Clear selection area with three main pathways:
-  - 📦 Product Information
-  - 🎓 Courses & Workshops  
-  - 💼 Business Opportunities
+## 📋 System Overview
 
-### Pathway Pages
-Each pathway includes:
-- Information pages with navigation
-- Lead capture forms
-- Payment processing
-- Automated CRM triggers
+### Customer Journey
+1. **Homepage** → Course overview
+2. **Course Page** → Detailed information
+3. **Checkout** → PayPal payment
+4. **Success** → Course access granted
+5. **Member Dashboard** → Course access & progress
 
-### Email Sequence
-1. **Mail 1** - Welcome & First Information
-2. **Mail 2** - Product Benefits
-3. **Mail 3** - Business Opportunity
-4. **Additional Mails** - Course Offers & Upsells
+### Pages Structure
+```
+/                    - Homepage with course section
+/register           - User registration
+/login              - User login
+/forgot-password    - Password reset
+/checkout           - Course checkout with PayPal
+/member/dashboard   - Protected member area
+/payment/success    - Payment confirmation
+/payment/cancel     - Payment cancellation
+/auth/error         - Authentication errors
+```
 
 ## 🛠 Tech Stack
 
 - **Frontend**: Next.js 14, React 18, Tailwind CSS
-- **Backend**: Express.js, Node.js
-- **Payments**: Stripe
-- **Email**: Nodemailer
-- **Animations**: Framer Motion
-- **Icons**: Lucide React
+- **Backend**: Next.js API Routes
+- **Database**: PostgreSQL (Neon on Vercel)
+- **Authentication**: NextAuth.js
+- **Payments**: PayPal REST API
+- **Email**: Brevo (ready for setup)
+- **Deployment**: Vercel
 
 ## 📁 Project Structure
 
 ```
 crm-funnel/
 ├── pages/              # Next.js pages
-├── components/         # React components
+│   ├── api/           # API routes
+│   ├── auth/          # Authentication pages
+│   ├── member/        # Protected member area
+│   └── payment/       # Payment pages
+├── lib/               # Utilities (auth, db)
 ├── styles/            # CSS & Tailwind
-├── lib/               # Utilities & configurations
-├── api/               # API routes
 ├── public/            # Static assets
-└── docs/              # Documentation
+├── docs/              # Documentation
+├── scripts/           # Database scripts
+└── middleware.js      # Route protection
 ```
 
 ## 🚀 Quick Start
 
-1. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-2. **Set up environment variables**
-   ```bash
-   cp .env.example .env.local
-   # Edit .env.local with your API keys
-   ```
-
-3. **Run development server**
-   ```bash
-   npm run dev
-   ```
-
-4. **Open browser**
-   Navigate to `http://localhost:3000`
-
-## ⚙️ Configuration
-
-### Environment Variables
-Create `.env.local` file with:
-
-```env
-# Stripe
-STRIPE_PUBLIC_KEY=pk_test_...
-STRIPE_SECRET_KEY=sk_test_...
-
-# Email
-EMAIL_HOST=smtp.gmail.com
-EMAIL_PORT=587
-EMAIL_USER=your-email@gmail.com
-EMAIL_PASS=your-app-password
-
-# Database (optional)
-DATABASE_URL=sqlite:./crm.db
+### 1. Install dependencies
+```bash
+npm install
 ```
 
-### Social Media Setup
-1. **Instagram**: Add link in bio pointing to your funnel
-2. **Facebook**: Set up CTA buttons with tracking parameters
-3. **WhatsApp**: Create click-to-chat links with UTM tracking
+### 2. Set up environment variables
+```bash
+cp .env.example .env.local
+# Edit .env.local with your API keys
+```
 
-## 📊 Tracking & Analytics
+### 3. Database setup
+See: `/docs/VERCEL_DATABASE_SETUP.md`
 
-- UTM parameters for all social media traffic
-- Conversion tracking at each funnel step
-- Email open and click tracking
-- Payment completion analytics
+### 4. Run development server
+```bash
+npm run dev
+```
 
-## 🤝 Contributing
+### 5. Open browser
+Navigate to `http://localhost:3000`
 
-1. Fork the repository
-2. Create feature branch
-3. Commit your changes
-4. Push to branch
-5. Open Pull Request
+## ⚙️ Environment Variables
 
-## 📄 License
+```env
+# Database (Neon)
+POSTGRES_URL=postgres://user:pass@host/db
+POSTGRES_PRISMA_URL=postgres://user:pass@host/db?pgbouncer=true
+POSTGRES_URL_NON_POOLING=postgres://user:pass@host/db
 
-MIT License - see LICENSE file for details
+# PayPal
+PAYPAL_CLIENT_ID=your-paypal-client-id
+PAYPAL_CLIENT_SECRET=your-paypal-client-secret
+PAYPAL_API_URL=https://api-m.sandbox.paypal.com
+PAYPAL_WEBHOOK_ID=your-webhook-id
 
-## 🆘 Support
+# Email (Brevo)
+BREVO_API_KEY=your-brevo-api-key
+EMAIL_FROM="Dein Name" <noreply@yourdomain.com>
 
-For issues and questions:
-- Create GitHub Issue
-- Email: support@yourdomain.com
+# NextAuth
+NEXTAUTH_SECRET=your-secret-key
+NEXTAUTH_URL=https://yourdomain.com
+```
+
+## 📊 Current Status
+
+### ✅ Working Features
+- User registration and login
+- Course purchase with PayPal
+- Member dashboard
+- Database operations
+- Responsive design
+
+### 🔄 Setup Required
+- Brevo email configuration
+- PayPal live credentials
+- Google Analytics (optional)
+
+## 📚 Documentation
+
+- `/docs/PAYPAL_SETUP_GUIDE.md` - PayPal configuration
+- `/docs/BREVO_AUTOMATION_GUIDE.md` - Email setup
+- `/docs/VERCEL_DATABASE_SETUP.md` - Database setup
+- `/docs/MILESTONE1_CHECKLIST.md` - Project milestones
+- `/task.md` - Current task log
+
+## 🧪 Testing
+
+### Test Accounts
+1. **Registration**: Create test account at `/register`
+2. **Login**: Use credentials at `/login`
+3. **Purchase**: Test course flow with PayPal sandbox
+4. **Member Area**: Access dashboard after purchase
+
+### PayPal Sandbox
+- Use PayPal developer sandbox for testing
+- See `/docs/PAYPAL_SETUP_GUIDE.md` for details
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+1. Connect repository to Vercel
+2. Add environment variables
+3. Deploy automatically
+
+### Manual
+```bash
+npm run build
+npm start
+```
+
+## 📋 Next Steps
+
+1. Configure Brevo for emails
+2. Add real course content
+3. Set up PayPal live mode
+4. Implement course management
+5. Add analytics tracking
+
+## 🆘 Troubleshooting
+
+See documentation in `/docs/` folder:
+- Database issues: `VERCEL_DATABASE_SETUP.md`
+- Registration problems: `REGISTRATION_FIX.md`
+- PayPal issues: `PAYPAL_SETUP_GUIDE.md`
 
 ---
 
-**Built with ❤️ for automated marketing success**
+**Last updated**: 2026-01-27
+**Version**: 1.0.0-beta
