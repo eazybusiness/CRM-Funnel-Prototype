@@ -8,6 +8,7 @@ Complete automated CRM funnel system with course sales, member area, and email a
 - **User Authentication**: Registration, login, password reset
 - **Course System**: Course display, checkout, enrollment
 - **Member Area**: Protected dashboard with course access
+- **Public Course Overview**: `/courses` Seite (öffentlich erreichbar, nicht im Menü verlinkt)
 - **Payment Processing**: PayPal integration (sandbox ready)
 - **Database**: PostgreSQL with user and course management
 - **Responsive Design**: Mobile-first modern UI
@@ -29,6 +30,7 @@ Complete automated CRM funnel system with course sales, member area, and email a
 ### Pages Structure
 ```
 /                    - Homepage with course section
+/courses             - Public course overview (direct link only)
 /register           - User registration
 /login              - User login
 /forgot-password    - Password reset
@@ -123,7 +125,7 @@ NEXTAUTH_URL=https://yourdomain.com
 - Responsive design
 
 ### 🔄 Setup Required
-- Brevo email configuration
+- Brevo email configuration (inkl. Live-API-Key und finalen Templates)
 - PayPal live credentials
 - Google Analytics (optional)
 

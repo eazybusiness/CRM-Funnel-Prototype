@@ -5,17 +5,26 @@ export default function Impressum() {
   return (
     <>
       <Head>
-        <title>Impressum | Minimal GmbH</title>
+        <title>Impressum - Einfach bewusster leben</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-gray-50">
         {/* Header */}
         <header className="bg-white border-b border-gray-100">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center py-6">
-              <Link href="/" className="text-xl font-light tracking-wide text-gray-900">
-                Minimal GmbH
+              <Link href="/" className="flex items-center">
+                <img 
+                  src="/logo.svg" 
+                  alt="Einfach bewusster leben" 
+                  width={32} 
+                  height={32} 
+                  className="mr-2"
+                />
+                <span className="text-xl font-light tracking-wide text-gray-900">
+                  Einfach bewusster leben
+                </span>
               </Link>
               <Link href="/" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                 Zurück
@@ -30,22 +39,22 @@ export default function Impressum() {
           <div className="prose prose-gray max-w-none">
             <h2 className="text-2xl font-light text-gray-900 mt-8 mb-4">Angaben gemäß § 5 TMG</h2>
             <p className="text-gray-600 mb-4">
-              [Name der Kundin]<br />
-              [Straße und Hausnummer]<br />
-              [PLZ und Ort]
+              <strong>PLATZHALTER - Name der Kundin</strong><br />
+              PLATZHALTER - Straße und Hausnummer<br />
+              PLATZHALTER - PLZ und Ort
             </p>
 
             <h2 className="text-2xl font-light text-gray-900 mt-8 mb-4">Kontakt</h2>
             <p className="text-gray-600 mb-4">
-              E-Mail: [E-Mail-Adresse]<br />
-              Telefon: [Telefonnummer]
+              <strong>E-Mail:</strong> PLATZHALTER - E-Mail-Adresse<br />
+              <strong>Telefon:</strong> PLATZHALTER - Telefonnummer
             </p>
 
             <h2 className="text-2xl font-light text-gray-900 mt-8 mb-4">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
             <p className="text-gray-600 mb-4">
-              [Name der Kundin]<br />
-              [Straße und Hausnummer]<br />
-              [PLZ und Ort]
+              <strong>PLATZHALTER - Name der Kundin</strong><br />
+              PLATZHALTER - Straße und Hausnummer<br />
+              PLATZHALTER - PLZ und Ort
             </p>
 
             <h2 className="text-2xl font-light text-gray-900 mt-8 mb-4">EU-Streitschlichtung</h2>
@@ -87,7 +96,7 @@ export default function Impressum() {
             </p>
 
             <p className="text-sm text-gray-500 mt-12">
-              Quelle: <a href="https://www.e-recht24.de" target="_blank" rel="noopener noreferrer" className="underline">e-recht24.de</a>
+              Stand: {new Date().toLocaleDateString('de-DE')}
             </p>
           </div>
         </div>
@@ -97,7 +106,7 @@ export default function Impressum() {
           <div className="max-w-6xl mx-auto px-4">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-sm text-gray-600 mb-4 md:mb-0">
-                © 2026 Minimal GmbH. Alle Rechte vorbehalten.
+                © 2026 Einfach bewusster leben. Alle Rechte vorbehalten.
               </p>
               <div className="flex space-x-6">
                 <Link href="/datenschutz" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">

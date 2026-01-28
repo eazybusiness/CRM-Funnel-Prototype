@@ -1,6 +1,6 @@
 # Arbeitsplan - CRM Funnel Kernprojekt + Extra 1
 
-**Projekt:** CRM Funnel System - Kernprojekt (500€) + Extra 1 Lernbereich (+400-500€)  
+**Projekt:** CRM Funnel System - Kernprojekt (500€) + Extra 1 Lernbereich (+250€)  
 **Start:** 6. Januar 2026  
 **Aktueller Stand:** 27. Januar 2026 - Kernprojekt Phase 1-6 abgeschlossen, Extra 1 zu 80% implementiert  
 **Geschätzte Dauer:** 4-5 Wochen gesamt (2-3 Wochen Kernprojekt + 1-2 Wochen Extra 1)  
@@ -23,8 +23,6 @@ Vollautomatisierter Sales-Funnel mit:
 ## Phase 1: Setup & Infrastruktur (Tag 1-2)
 
 ### 1.1 Projekt-Cleanup ✅
-- [x] Obsolete Dateien identifizieren
-- [x] Obsolete Dateien in `/obsolete` verschieben
 - [x] Tailwind Config vereinfachen (Farbschema entfernen)
 - [x] Git Commits durchgeführt
 
@@ -51,7 +49,7 @@ Vollautomatisierter Sales-Funnel mit:
 ### 1.4 PayPal Business Account
 - [ ] Mit Kundin PayPal Business Account erstellen
 - [ ] Client ID generieren
-- [ ] In `.env.local` speichern
+- [ ] In `.env.local` speichern (auf Vercel)
 
 **Deliverable:** Funktionierende Infrastruktur, alle Services verbunden
 
@@ -59,33 +57,32 @@ Vollautomatisierter Sales-Funnel mit:
 
 ## Phase 2: Landingpage & Freebie-Funnel (Tag 3-5)
 
-### 2.1 Landingpage Design anpassen ✅
+### 2.1 Landingpage Design anpassen 
 - [x] **Entfernen:** Farbige Gradienten entfernt
 - [x] **Design:** Minimalistisch, inspiriert von einquadratmeter.com
 - [x] Neutrale Farbpalette (Grau, Weiß, dezente Akzente)
 - [x] Responsive Navigation mit Hamburger-Menü
 - [x] Bilder mit runden Ecken und Schatten
-- [ ] Willkommensvideo-Einbettung (YouTube/Vimeo) - noch nicht implementiert
+- [ ] Willkommensvideo-Einbettung (YouTube/Vimeo) - optional, nach Freigabe durch Kundin
 
 **Dateien:**
 - `pages/index.js` → Vereinfachen, Farbgradienten entfernen
 - `pages/freebie.js` → Anpassen an neues Design
 - `tailwind.config.js` → Farbschema vereinfachen
 
-### 2.2 Freebie-Download-Flow ✅
+### 2.2 Freebie-Download-Flow 
 - [x] Formular: Name + E-Mail + DSGVO-Checkboxen
 - [x] E-Mail-Service Integration (Brevo)
 - [x] Double-Opt-In E-Mail automatisch versenden
 - [x] Download-Link nach Bestätigung
 - [x] Kontakte werden erst nach E-Mail-Bestätigung in Brevo angelegt
-- [ ] Lead-Speicherung in Vercel Postgres (aktuell nur in Brevo)
 
 **API-Endpunkte:**
 - `POST /api/leads/subscribe` → Lead speichern + E-Mail-Service
 - `GET /api/leads/confirm` → Double-Opt-In Bestätigung
 - `GET /api/freebie/download` → PDF-Download nach Bestätigung
 
-### 2.3 PDF-Hosting ✅
+### 2.3 PDF-Hosting 
 - [x] Freebie-PDF erhalten
 - [x] In `/public/downloads/` gespeichert
 - [x] Download nur nach E-Mail-Bestätigung
@@ -99,18 +96,14 @@ Vollautomatisierter Sales-Funnel mit:
 
 ### 3.1 E-Mail-Service Integration
 
-**Brevo (implementiert):** ✅
+**Brevo (implementiert):** 
 - [x] API-Integration: `sib-api-v3-sdk`
 - [x] Kontakte-Listen erstellt (Liste ID: 2)
 - [x] Double-Opt-In E-Mail implementiert
 - [x] Willkommens-E-Mail mit Download-Link
 - [ ] Weitere Automation-Workflows konfigurieren (Follow-up E-Mails)
 
-**MailerLite (Alternative):**
-- [ ] API-Integration: `@mailerlite/mailerlite-nodejs`
-- [ ] Gruppen erstellen
-- [ ] Double-Opt-In aktivieren
-- [ ] Automation-Workflows konfigurieren
+
 
 ### 3.2 E-Mail-Sequenzen einrichten
 
@@ -134,9 +127,9 @@ Vollautomatisierter Sales-Funnel mit:
 
 ---
 
-## Phase 4: Zahlungsintegration (Tag 9-10) ✅
+## Phase 4: Zahlungsintegration (Tag 9-10) 
 
-### 4.1 PayPal Smart Buttons ✅
+### 4.1 PayPal Smart Buttons 
 - [x] PayPal SDK einbinden
 - [x] Checkout-Seite erstellen
 - [x] PayPal-Button implementieren
@@ -147,7 +140,7 @@ Vollautomatisierter Sales-Funnel mit:
 - `pages/api/payment/create-paypal-order.js` → Implementiert
 - `pages/api/payment/capture-paypal-order.js` → Implementiert
 
-### 4.2 Zahlungsbestätigung ✅
+### 4.2 Zahlungsbestätigung 
 - [x] Webhook-Handler: PayPal → Vercel DB
 - [x] Purchase in `enrollments` Tabelle speichern
 - [x] User-Account erstellen (falls nicht vorhanden)
@@ -157,7 +150,7 @@ Vollautomatisierter Sales-Funnel mit:
 - `POST /api/payment/webhook` → PayPal Webhook
 - `POST /api/payment/confirm` → Zahlungsbestätigung
 
-### 4.3 Zahlungslinks in E-Mails ⏳
+### 4.3 Zahlungslinks in E-Mails 
 - [x] Dynamische Links mit UTM-Parametern
 - [ ] Tracking: Welche E-Mail führt zu Kauf
 
@@ -167,50 +160,39 @@ Vollautomatisierter Sales-Funnel mit:
 
 ## Phase 5: CRM & Tracking (Tag 11-12)
 
-### 5.1 Datenbank-Queries
-- [ ] API-Endpunkt: Alle Leads abrufen
-- [ ] API-Endpunkt: Lead-Details
-- [ ] API-Endpunkt: Funnel-Events tracken
-
-**API-Endpunkte:**
-- `GET /api/crm/leads` → Alle Leads
-- `GET /api/crm/leads/[id]` → Lead-Details
-- `POST /api/tracking/event` → Event tracken
+### 5.1 Lead-Übersicht (optional)
+- Entfällt im Kernprojekt: Lead-Verwaltung erfolgt ausschließlich in Brevo.
+- Eigene CRM-Endpoints (`/api/crm/leads`, `/api/tracking`) werden nur bei Bedarf als separates Extra umgesetzt.
 
 ### 5.2 E-Mail-Benachrichtigung bei neuer Anmeldung
-- [ ] Bei neuer Lead-Anmeldung → E-Mail an Kundin
-- [ ] Brevo/MailerLite Transactional E-Mail
+- [x] Bei neuer Lead-Anmeldung → E-Mail an Kundin
+- [x] Brevo Transactional E-Mail (Double-Opt-In-Bestätigung als Auslöser)
 
-### 5.3 UTM-Tracking
-- [ ] UTM-Parameter aus URL extrahieren
-- [ ] In `leads` Tabelle speichern (source)
-- [ ] Tracking: Instagram, Facebook, WhatsApp
+### 5.3 UTM-Tracking (vereinfacht)
+- [x] UTM-Links für Kampagnen in `docs/UTM_LINKS_PIXEL.md` dokumentiert
 
-**Deliverable:** Vollständiges Lead-Tracking
+**Deliverable:** Einfache Nachvollziehbarkeit der Quellen über E-Mail-Kampagnen und externe Analytics
 
 ---
 
 ## Phase 6: DSGVO & Rechtliches (Tag 13)
 
 ### 6.1 Datenschutzerklärung
-- [ ] Datenschutzerklärung aktualisieren
-- [ ] Brevo/MailerLite erwähnen
-- [ ] Vercel Postgres erwähnen
-- [ ] PayPal erwähnen
+- [x] Datenschutzerklärung aktualisieren
+- [x] Brevo erwähnen
+- [x] Vercel Postgres erwähnen
+- [x] PayPal erwähnen
 
 **Datei:** `pages/datenschutz.js`
 
 ### 6.2 Impressum
-- [ ] Impressum-Seite erstellen
-- [ ] Daten von Kundin
-
-**Datei:** `pages/impressum.js`
+- [x] Impressum-Seite erstellen
 
 ### 6.3 DSGVO-Compliance
-- [ ] Double-Opt-In aktiv
-- [ ] Einwilligungscheckboxen auf allen Formularen
-- [ ] Unsubscribe-Links in allen E-Mails
-- [ ] Cookie-Banner (nur wenn nötig)
+- [x] Double-Opt-In aktiv
+- [x] Einwilligungscheckboxen auf allen Formularen
+- [x] Unsubscribe-Links in allen E-Mails
+- [x] Cookie-Banner (nur wenn nötig)
 
 **Deliverable:** DSGVO-konforme Website
 
@@ -274,7 +256,7 @@ Vollautomatisierter Sales-Funnel mit:
 ---
 
 ## Phase 9: Extra 1 - Geschützter Lernbereich mit Kursen (Tag 17-22)
-**Zusatzkosten:** +400-500€  
+**Zusatzkosten:** +250€  
 **Zusätzlicher Zeitaufwand:** +10-12 Stunden
 
 ### 9.1 Passwortgeschützter Mitgliederbereich
@@ -357,31 +339,6 @@ Vollautomatisierter Sales-Funnel mit:
 
 ---
 
-## Obsolete Dateien (zu verschieben)
-
-### Nicht benötigt für Kernprojekt:
-- `pages/business.js` → Nicht im Scope (nur Freebie-Landingpage)
-- `pages/kurse.js` → Nicht im Scope
-- `pages/produkte.js` → Nicht im Scope
-- `pages/request-reset.js` → Nicht im Scope
-- `pages/reset-password.js` → Nicht im Scope
-- `pages/api/stripe.js` → Nur PayPal im Scope
-- `pages/api/payment/create-stripe-session.js` → Nur PayPal
-- `pages/demo/crm.js` → Demo, nicht Production
-
-### Dokumentation (behalten, aber aufräumen):
-- `docs/PROJECT_SCOPE_FINAL.md` → **BEHALTEN** (aktuelles Scope)
-- `docs/input_kundin.md` → **BEHALTEN** (Kundenanforderungen)
-- `docs/urspruengliche_projektbeschreibung.md` → **BEHALTEN**
-- `docs/kundenanforderungen.md` → **BEHALTEN**
-- Alle anderen `docs/*.md` → In `/obsolete/docs/` verschieben
-
----
-
-## Technologie-Stack (Final)
-
-| Komponente | Technologie | Status |
-|------------|-------------|--------|
 | **Frontend** | Next.js + TailwindCSS | ✅ Vorhanden |
 | **Hosting** | Vercel | ✅ Live |
 | **Datenbank** | Vercel Postgres | ⏳ Setup nötig |
@@ -521,7 +478,7 @@ Vollautomatisierter Sales-Funnel mit:
 - ✅ Kundin kann selbstständig arbeiten
 - ✅ Dokumentation vollständig
 
-### Extra 1 - Lernbereich (+400-500€)
+### Extra 1 - Lernbereich 
 - [ ] Geschützter Mitgliederbereich
 - [ ] Kurs-Upload-Interface
 - [ ] Video-Hosting integriert

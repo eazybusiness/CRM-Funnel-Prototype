@@ -57,7 +57,7 @@
 - [ ] Test complete customer journey
 
 #### 2. Course Management
-- [ ] Create /courses page
+- [x] Create /courses page
 - [ ] Build admin interface for course management
 - [ ] Add course progress tracking
 - [ ] Implement lesson completion

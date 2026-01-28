@@ -70,15 +70,18 @@ export default function Datenschutz() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">2. Hosting</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">2. Hosting & Datenbank</h2>
               <p className="text-gray-700 mb-4">
-                Wir hosten die Inhalte unserer Website bei folgendem Anbieter:
+                Diese Website wird bei dem Dienstleister <strong>Vercel</strong> gehostet. Vercel stellt die
+                technische Infrastruktur zur Verfügung, über die unsere Seiten ausgeliefert werden.
               </p>
               <p className="text-gray-700 mb-4">
-                <strong>[HOSTING-ANBIETER EINFÜGEN]</strong>
+                Für die Speicherung von Daten (z.B. Benutzerkonten, Kursdaten) nutzen wir die Datenbanklösung
+                <strong>Vercel Postgres (Neon)</strong>. Die Daten werden auf Servern der Anbieter gespeichert.
               </p>
               <p className="text-gray-700 mb-4">
-                Details entnehmen Sie der Datenschutzerklärung des Hosting-Anbieters.
+                Details entnehmen Sie den Datenschutzerklärungen der Anbieter:
+                z.B. Vercel: https://vercel.com/legal/privacy-policy.
               </p>
             </section>
 
@@ -182,26 +185,29 @@ export default function Datenschutz() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">5. Plugins und Tools</h2>
-              
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Zahlungsdienstleister</h3>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">5. Dienste von Drittanbietern</h2>
+
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">E-Mail-Versand (Brevo)</h3>
               <p className="text-gray-700 mb-4">
-                Wir binden Zahlungsdienstleister ein, über deren Plattformen die Nutzer und wir Zahlungstransaktionen 
-                vornehmen können. Zu den von den Zahlungsdienstleistern verarbeiteten Daten gehören Bestandsdaten, 
-                wie z.B. der Name und die Adresse, Bankdaten, wie z.B. Kontonummern oder Kreditkartennummern, 
-                Passwörter, TANs und Prüfsummen sowie die Vertrags-, Summen- und empfängerbezogenen Angaben.
+                Für den Versand von E-Mails und Newslettern nutzen wir den Dienst <strong>Brevo</strong>
+                (ehemals Sendinblue). Wenn Sie sich für unseren Newsletter oder ein Freebie anmelden, werden
+                Ihre E-Mail-Adresse und ggf. Ihr Name dort gespeichert.
               </p>
               <p className="text-gray-700 mb-4">
-                Die Angaben sind erforderlich, um die Transaktionen durchzuführen. Die eingegebenen Daten werden 
-                jedoch nur durch die Zahlungsdienstleister verarbeitet und bei diesen gespeichert.
+                Der Versand erfolgt im Double-Opt-In-Verfahren. Sie können den Empfang jederzeit über den
+                Abmeldelink in jeder E-Mail widerrufen.
+              </p>
+
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Zahlungsdienstleister (PayPal)</h3>
+              <p className="text-gray-700 mb-4">
+                Für die Abwicklung von Zahlungen nutzen wir <strong>PayPal</strong>. Wenn Sie einen Kurs kaufen,
+                werden Zahlungsdaten (z.B. Name, Rechnungsadresse, Zahlungsinformationen) direkt von PayPal
+                verarbeitet. Wir erhalten keinen Zugriff auf Ihre vollständigen Zahlungsdaten (z.B. Kreditkarten-Nummern).
               </p>
               <p className="text-gray-700 mb-4">
-                Wir nutzen folgende Zahlungsdienstleister:
+                Details entnehmen Sie der Datenschutzerklärung von PayPal:
+                https://www.paypal.com/de/webapps/mpp/ua/privacy-full.
               </p>
-              <ul className="list-disc list-inside text-gray-700 mb-4 space-y-2">
-                <li><strong>PayPal</strong> - Datenschutzerklärung: https://www.paypal.com/de/webapps/mpp/ua/privacy-full</li>
-                <li><strong>Stripe</strong> - Datenschutzerklärung: https://stripe.com/de/privacy</li>
-              </ul>
             </section>
 
             <section className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded">

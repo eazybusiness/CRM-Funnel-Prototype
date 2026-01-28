@@ -198,6 +198,44 @@ Tutavi Coaching
 
     console.log('Willkommens-E-Mail mit Download-Link gesendet an:', email)
 
+    // Interne Benachrichtigung an die Website-Inhaberin bei neuer bestätigter Anmeldung
+    try {
+      const internalEmail = new SibApiV3Sdk.SendSmtpEmail()
+      internalEmail.subject = 'Neuer bestätigter Kontakt über die Funnel-Seite'
+      internalEmail.sender = { name: 'CRM Funnel System', email: 'noreply@einfachbewussterleben.de' }
+      internalEmail.to = [{ email: 'mail.s.muench@googlemail.com' }]
+      internalEmail.htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <title>Neuer Kontakt</title>
+        </head>
+        <body style="font-family: Arial, sans-serif; color: #111827; background-color: #f9fafb; padding: 24px;">
+          <h1 style="font-size: 20px; font-weight: normal; margin-bottom: 16px;">Neuer bestätigter Kontakt</h1>
+          <p style="margin: 0 0 8px 0;">Es hat sich soeben jemand über deine Funnel-Seite angemeldet.</p>
+          <p style="margin: 0 0 4px 0;"><strong>E-Mail:</strong> ${email}</p>
+          <p style="margin: 0 0 16px 0;"><strong>Vorname (falls bekannt):</strong> ${firstName || 'nicht angegeben'}</p>
+          <p style="font-size: 12px; color: #6b7280; margin-top: 24px;">Diese Nachricht wurde automatisch vom CRM Funnel System gesendet.</p>
+        </body>
+        </html>
+      `
+      internalEmail.textContent = `
+Neuer bestätigter Kontakt über die Funnel-Seite
+
+E-Mail: ${email}
+Vorname (falls bekannt): ${firstName || 'nicht angegeben'}
+
+Diese Nachricht wurde automatisch vom CRM Funnel System gesendet.
+      `
+
+      await apiInstance.sendTransacEmail(internalEmail)
+
+      console.log('Interne Benachrichtigungs-E-Mail an mail.s.muench@googlemail.com gesendet')
+    } catch (internalError) {
+      console.error('Fehler beim Senden der internen Benachrichtigung:', internalError)
+    }
+
     return res.status(200).send(`
       <!DOCTYPE html>
       <html>
