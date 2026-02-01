@@ -14,12 +14,20 @@ export default function Freebie() {
     dataProtection: false
   })
   const [submitted, setSubmitted] = useState(false)
+  const [existingUser, setExistingUser] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
+    
+    // Client-side validation in German
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(formData.email)) {
+      setError('Bitte gib eine gültige E-Mail-Adresse ein.')
+      return
+    }
     
     if (!formData.consent || !formData.dataProtection) {
       setError('Bitte bestätige die erforderlichen Einwilligungen.')
@@ -62,6 +70,9 @@ export default function Freebie() {
       const data = await response.json()
 
       if (response.ok) {
+        if (data.existingUser) {
+          setExistingUser(true)
+        }
         setSubmitted(true)
       } else {
         setError(data.error || 'Ein Fehler ist aufgetreten. Bitte versuche es erneut.')
@@ -85,8 +96,8 @@ export default function Freebie() {
     return (
       <>
         <Head>
-          <title>Bestätige deine E-Mail - Kostenloser Guide</title>
-          <meta name="description" content="Bestätige deine E-Mail-Adresse für den Download" />
+          <title>{existingUser ? 'Guide gesendet - Kostenloser Guide' : 'Bestätige deine E-Mail - Kostenloser Guide'}</title>
+          <meta name="description" content={existingUser ? 'Dein Guide wurde gesendet' : 'Bestätige deine E-Mail-Adresse für den Download'} />
         </Head>
 
         <div className="min-h-screen bg-white flex items-center justify-center px-4">
@@ -100,25 +111,30 @@ export default function Freebie() {
             </div>
             
             <h1 className="text-3xl md:text-4xl font-light text-gray-900 mb-4">
-              Fast geschafft!
+              {existingUser ? 'Willkommen zurück!' : 'Fast geschafft!'}
             </h1>
             
             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              Wir haben dir eine E-Mail an <strong>{formData.email}</strong> gesendet.
+              {existingUser 
+                ? `Dein kostenloser Guide wurde an <strong>${formData.email}</strong> gesendet. Da du bereits in unserer Community bist, brauchst du deine E-Mail nicht mehr zu bestätigen.`
+                : `Wir haben dir eine E-Mail an <strong>${formData.email}</strong> gesendet.`
+              }
             </p>
             
             <div className="bg-gray-50 border border-gray-200 rounded-sm p-8 mb-8">
               <h3 className="font-normal text-gray-900 mb-3 text-lg">
-                Bitte bestätige deine E-Mail-Adresse
+                {existingUser ? 'Dein Guide ist unterwegs' : 'Bitte bestätige deine E-Mail-Adresse'}
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Klicke auf den Link in der E-Mail, um deine Anmeldung zu bestätigen. 
-                Danach erhältst du sofort Zugang zu deinem kostenlosen Guide.
+                {existingUser 
+                  ? 'Schau in deinem Postfach nach der E-Mail mit deinem Download-Link. Du solltest sie in wenigen Minuten erhalten.'
+                  : 'Klicke auf den Link in der E-Mail, um deine Anmeldung zu bestätigen. Danach erhältst du sofort Zugang zu deinem kostenlosen Guide.'
+                }
               </p>
             </div>
 
             <p className="text-sm text-gray-500 mb-8">
-              Keine E-Mail erhalten? Überprüfe deinen Spam-Ordner.
+              {existingUser ? 'Keine E-Mail erhalten? Überprüfe deinen Spam-Ordner.' : 'Keine E-Mail erhalten? Überprüfe deinen Spam-Ordner.'}
             </p>
 
             <Link 
