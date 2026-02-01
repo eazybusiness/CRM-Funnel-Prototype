@@ -207,8 +207,7 @@ Vollautomatisierter Sales-Funnel mit:
   - Anmeldung → Alle E-Mails erhalten
 - [ ] **Test 3:** Zahlungsflow
   - Checkout → PayPal → Bestätigung → E-Mail
-- [ ] **Test 4:** UTM-Tracking
-  - Links mit UTM-Parametern → Tracking in DB
+
 
 ### 7.2 Mobile-Testing
 - [ ] Landingpage responsive

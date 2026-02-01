@@ -253,8 +253,8 @@ export default function Freebie() {
               {/* Image */}
               <div className="relative h-64 md:h-80 rounded-3xl overflow-hidden mb-8 shadow-2xl">
                 <Image
-                  src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=800&h=600&fit=crop"
-                  alt="Minimalismus und Achtsamkeit"
+                  src="/stefanie.jpg"
+                  alt="Stefanie - Minimalismus und Achtsamkeit"
                   fill
                   className="object-cover"
                 />
@@ -320,7 +320,7 @@ export default function Freebie() {
                       required
                       value={formData.firstName}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-900 transition-colors"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-900 transition-colors text-gray-900"
                       placeholder="Dein Vorname"
                     />
                   </div>
@@ -336,7 +336,7 @@ export default function Freebie() {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-900 transition-colors"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-900 transition-colors text-gray-900"
                       placeholder="deine@email.de"
                     />
                   </div>
@@ -350,7 +350,6 @@ export default function Freebie() {
                         checked={formData.consent}
                         onChange={handleChange}
                         className="mt-1 h-4 w-4 text-gray-900 focus:ring-gray-900 border-gray-300 rounded-sm"
-                        required
                       />
                       <label htmlFor="consent" className="ml-3 text-sm text-gray-600 leading-relaxed">
                         Ja, ich möchte den kostenlosen Guide erhalten und bin einverstanden, 
@@ -367,7 +366,6 @@ export default function Freebie() {
                         checked={formData.dataProtection}
                         onChange={handleChange}
                         className="mt-1 h-4 w-4 text-gray-900 focus:ring-gray-900 border-gray-300 rounded-sm"
-                        required
                       />
                       <label htmlFor="dataProtection" className="ml-3 text-sm text-gray-600 leading-relaxed">
                         Ich habe die{' '}
