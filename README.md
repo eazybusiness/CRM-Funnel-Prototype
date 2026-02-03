@@ -9,12 +9,13 @@ Complete automated CRM funnel system with course sales, member area, and email a
 - **Course System**: Course display, checkout, enrollment
 - **Member Area**: Protected dashboard with course access
 - **Public Course Overview**: `/courses` Seite (öffentlich erreichbar, nicht im Menü verlinkt)
+- **Freebie System**: Double opt-in with Brevo automation, existing user detection
 - **Payment Processing**: PayPal integration (sandbox ready)
 - **Database**: PostgreSQL with user and course management
 - **Responsive Design**: Mobile-first modern UI
+- **Email Automation**: Brevo integration with transactional emails
 
 ### 🔄 In Progress
-- **Email Automation**: Brevo integration setup needed
 - **Course Management**: Admin interface for content
 - **Analytics**: Google Analytics 4 integration
 
@@ -30,6 +31,7 @@ Complete automated CRM funnel system with course sales, member area, and email a
 ### Pages Structure
 ```
 /                    - Homepage with course section
+/freebie            - Freebie download with double opt-in
 /courses             - Public course overview (direct link only)
 /register           - User registration
 /login              - User login
@@ -135,7 +137,7 @@ NEXTAUTH_URL=https://yourdomain.com
 - `/docs/BREVO_AUTOMATION_GUIDE.md` - Email setup
 - `/docs/VERCEL_DATABASE_SETUP.md` - Database setup
 - `/docs/MILESTONE1_CHECKLIST.md` - Project milestones
-- `/task.md` - Current task log
+- `/docs/tasks.md` - Current task log
 
 ## 🧪 Testing
 
@@ -179,5 +181,5 @@ See documentation in `/docs/` folder:
 
 ---
 
-**Last updated**: 2026-01-27
+**Last updated**: 2026-02-03
 **Version**: 1.0.0-beta

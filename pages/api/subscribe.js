@@ -29,16 +29,18 @@ export default async function handler(req, res) {
       // Suche nach existierendem Kontakt
       const existingContacts = await contactsApi.getContactInfo(email)
       
-      // Wenn Kontakt existiert und bestätigt ist, sende Freebie direkt
+      // Wenn Kontakt existiert, sende Freebie direkt (OHNE erneute Registrierung in Brevo)
       if (existingContacts && existingContacts.email === email) {
-        console.log('Existierender Kontakt gefunden:', email, '- Sende Freebie direkt')
+        console.log('Existierender Kontakt gefunden:', email, '- Sende Freebie direkt (ohne Brevo-Update)')
         
-        // Freebie direkt senden (ohne Double-Opt-In)
+        // Freebie direkt senden (ohne Double-Opt-In und ohne Brevo-Update)
         const freebieApiInstance = new SibApiV3Sdk.TransactionalEmailsApi()
         const freebieEmail = new SibApiV3Sdk.SendSmtpEmail()
         
+        const downloadLink = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/downloads/freebie.pdf`
+        
         freebieEmail.subject = 'Dein kostenloser Guide ist da!'
-        freebieEmail.sender = { name: 'Tutavi Coaching', email: 'gerd_meyer@tutavi.com' }
+        freebieEmail.sender = { name: 'Einfach Leichter', email: 'gerd_meyer@tutavi.com' }
         freebieEmail.to = [{ email: email, name: firstName || 'Freund' }]
         freebieEmail.htmlContent = `
           <!DOCTYPE html>
@@ -64,7 +66,7 @@ export default async function handler(req, res) {
                       <td style="padding: 0 40px 30px 40px;">
                         <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
                           Schön, dich wiederzusehen! Da du bereits in unserer Community bist, 
-                          erhältst du deinen kostenlosen Guide zur Minimalismus sofort.
+                          erhältst du deinen kostenlosen Guide sofort.
                         </p>
                         <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
                           Hier ist dein Download-Link:
@@ -72,7 +74,7 @@ export default async function handler(req, res) {
                         <table width="100%" cellpadding="0" cellspacing="0">
                           <tr>
                             <td align="center" style="padding: 20px 0;">
-                              <a href="https://deine-website.de/downloads/guide-minimalismus.pdf" 
+                              <a href="${downloadLink}" 
                                  style="background: #1f2937; 
                                         color: #ffffff; 
                                         text-decoration: none; 
@@ -87,6 +89,12 @@ export default async function handler(req, res) {
                             </td>
                           </tr>
                         </table>
+                        <p style="color: #6b7280; font-size: 14px; line-height: 1.6; margin: 30px 0 0 0;">
+                          Falls der Button nicht funktioniert, kopiere bitte diesen Link in deinen Browser:
+                        </p>
+                        <p style="color: #3b82f6; font-size: 12px; word-break: break-all; margin: 10px 0 0 0;">
+                          ${downloadLink}
+                        </p>
                       </td>
                     </tr>
                     <tr>
@@ -103,6 +111,17 @@ export default async function handler(req, res) {
             </table>
           </body>
           </html>
+        `
+        freebieEmail.textContent = `
+Willkommen zurück, ${firstName || 'Freund'}!
+
+Schön, dich wiederzusehen! Da du bereits in unserer Community bist, erhältst du deinen kostenlosen Guide sofort.
+
+Hier ist dein Download-Link: ${downloadLink}
+
+Falls der Link nicht funktioniert, kopiere ihn bitte in deinen Browser.
+
+Schön, dass du Teil unserer Community bist!
         `
         
         await freebieApiInstance.sendTransacEmail(freebieEmail)
