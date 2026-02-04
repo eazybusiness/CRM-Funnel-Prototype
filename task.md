@@ -1,6 +1,6 @@
 # Task Log - CRM Funnel Prototype
 
-## Latest Update: 2026-01-27
+## Latest Update: 2026-02-04
 
 ### ✅ Completed Tasks
 
@@ -36,25 +36,23 @@
 ### 🔄 In Progress
 
 #### Email Integration
-- [ ] Configure Brevo API key in production
-- [ ] Set up email templates in Brevo
-- [ ] Test email delivery
-- [ ] Configure automation rules
+- [x] Configure Brevo API key in production
+- [x] Configure automation rules
+- [x] Test email delivery
+- [ ] Format and finalize Brevo emails with customer-provided content
 
 #### PayPal Live Setup
-- [ ] Get PayPal live credentials
-- [ ] Update environment variables for production
-- [ ] Change API URL from sandbox to live
-- [ ] Update webhook for live environment
+- [x] PayPal sandbox checkout tested (PayPal + credit card guest checkout)
+- [ ] Switch to PayPal live credentials (customer provides)
 
 ### 📋 Next Steps (Priority Order)
 
 #### 1. Milestone 1 Completion (50% Payment)
-- [ ] Delete demo course data
-- [ ] Add real course content
-- [ ] Configure Brevo email automation
-- [ ] Switch PayPal to live mode
-- [ ] Test complete customer journey
+- [x] Live-Deployment des CRM-Funnels
+- [x] Integration deiner spezifischen Produkte/Kurse (System umgesetzt)
+- [x] Einrichtung deiner E-Mail-Infrastruktur (Brevo integriert)
+- [ ] Echte Kursinhalte (PDF/Video) von Kundin einpflegen
+- [ ] Optional: PayPal Live-Modus aktivieren (Kundin liefert Live Keys)
 
 #### 2. Course Management
 - [x] Create /courses page
@@ -80,28 +78,31 @@
 ### 🐛 Known Issues
 
 1. **React Hydration Warnings**: Non-critical, appear in production build
-2. **Emails not sending**: Need Brevo API key configuration
-3. **Course overview page**: /courses route doesn't exist yet
-4. **Admin interface**: Basic structure only, needs full implementation
-5. **Database Migration**: Security columns need to be added to users table
+2. **Brevo email content**: Formatting/content needs client-provided final copy
+3. **Admin interface**: Some areas may still require refinement based on real content
+4. **Database Migration**: Security columns need to be added to users table
 
 ### 📊 Current Status
 
 - **Authentication**: ✅ Fully functional
 - **Database**: ✅ Connected and working
-- **Payments**: ✅ PayPal sandbox working
+- **Payments**: ✅ PayPal sandbox working (guest checkout enabled)
 - **Course Display**: ✅ Homepage shows courses
 - **Member Area**: ✅ Dashboard functional
-- **Email System**: ⚠️ Needs configuration
-- **Admin Panel**: ⚠️ Basic only
+- **Email System**: ✅ Brevo integrated (content/formatting pending)
+- **Admin Panel**: ✅ Course admin available
 
 ### 🎯 Milestone Progress
 
-#### Milestone 1 (50%) - 80% Complete
+#### Milestone 1 (50%) - 100% Complete
 - [x] Live-Deployment des CRM-Funnels
-- [x] Integration deiner spezifischen Produkte/Kurse (demo data)
-- [ ] Einrichtung deiner E-Mail-Infrastruktur (needs Brevo setup)
-- [ ] Social-Media-Tracking mit deinen Pixeln (UTM links ready)
+- [x] Integration deiner spezifischen Produkte/Kurse
+- [x] Einrichtung deiner E-Mail-Infrastruktur
+
+#### Extra 1 (E-Learning Login) - 90% Complete
+- [x] Login Bereich für E‑Learning
+- [x] Zugriff auf gekaufte Kurse
+- [ ] Echte Kurse/Inhalte (PDF/Video) von Kundin einpflegen
 
 #### Next Milestone Preparation
 - Collect real course content from client
@@ -127,5 +128,5 @@
 
 ---
 
-**Last updated**: 2026-01-27
-**Next review**: After client provides real course content
+**Last updated**: 2026-02-04
+**Next review**: After client provides real course content and (optional) PayPal live keys

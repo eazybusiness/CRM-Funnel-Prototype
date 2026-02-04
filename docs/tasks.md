@@ -64,3 +64,24 @@
 - Test the complete freebie flow with new and existing users
 - Verify Brevo automation is properly configured
 - Monitor for any issues with PDF downloads
+
+## 2026-02-04 - Checkout Improvements & Customer Handover Doc
+
+### Completed Tasks
+
+1. **PayPal Checkout improved (credit card without PayPal account)**
+   - Updated PayPal order creation to support guest checkout
+   - Status: ✅ Completed
+
+2. **Checkout page copy adjustments**
+   - Removed money-back guarantee section
+   - Updated payment copy and button text for clarity
+   - Status: ✅ Completed
+
+3. **Freebie page image adjusted**
+   - Reduced cropping to show more of the image without changing the frame size
+   - Status: ✅ Completed
+
+4. **Created customer-facing status document**
+   - Added `docs/KUNDIN_PROJEKTSTAND.md` describing Milestone 1 completion and required client inputs
+   - Status: ✅ Completed
