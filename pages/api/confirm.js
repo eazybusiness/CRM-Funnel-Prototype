@@ -8,7 +8,29 @@ export default async function handler(req, res) {
   const { token } = req.query
 
   if (!token) {
-    return res.status(400).send('Ungültiger Bestätigungslink.')
+    return res.status(400).setHeader('Content-Type', 'text/html').send(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <title>Ungültiger Link</title>
+        <style>
+          body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); }
+          .container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; max-width: 500px; }
+          h1 { color: #dc2626; margin-bottom: 20px; }
+          p { color: #4b5563; line-height: 1.6; }
+          a { color: #3b82f6; text-decoration: none; font-weight: bold; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>❌ Ungültiger Bestätigungslink</h1>
+          <p>Dieser Bestätigungslink ist ungültig. Bitte melde dich erneut an.</p>
+          <p><a href="/freebie">Zurück zur Anmeldung</a></p>
+        </div>
+      </body>
+      </html>
+    `)
   }
 
   try {
@@ -22,7 +44,7 @@ export default async function handler(req, res) {
     const maxAge = 24 * 60 * 60 * 1000 // 24 Stunden
 
     if (tokenAge > maxAge) {
-      return res.status(400).send(`
+      return res.status(400).setHeader('Content-Type', 'text/html').send(`
         <!DOCTYPE html>
         <html>
         <head>
@@ -128,7 +150,7 @@ Diese Nachricht wurde automatisch vom CRM Funnel System gesendet.
       console.error('Fehler beim Senden der internen Benachrichtigung:', internalError)
     }
 
-    return res.status(200).send(`
+    return res.status(200).setHeader('Content-Type', 'text/html').send(`
       <!DOCTYPE html>
       <html>
       <head>
@@ -223,7 +245,7 @@ Diese Nachricht wurde automatisch vom CRM Funnel System gesendet.
 
   } catch (error) {
     console.error('Fehler bei der E-Mail-Bestätigung:', error)
-    return res.status(500).send(`
+    return res.status(500).setHeader('Content-Type', 'text/html').send(`
       <!DOCTYPE html>
       <html>
       <head>
