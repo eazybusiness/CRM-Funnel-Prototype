@@ -254,16 +254,6 @@ export default function CourseCheckout() {
                 </p>
               </div>
 
-              {/* Money Back Guarantee */}
-              <div className="bg-green-50 rounded-2xl p-6 mt-6">
-                <div className="flex items-center mb-2">
-                  <ShieldCheck className="w-5 h-5 text-green-600 mr-2" />
-                  <h4 className="font-normal text-gray-900">14 Tage Geld-zurück-Garantie</h4>
-                </div>
-                <p className="text-sm text-gray-600">
-                  Nicht zufrieden? Du erhältst dein Geld zurück - keine Fragen gestellt.
-                </p>
-              </div>
             </div>
           </div>
         </main>
