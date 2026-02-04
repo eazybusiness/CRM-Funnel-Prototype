@@ -64,11 +64,9 @@ export default async function handler(req, res) {
             cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/payment/cancel`,
             brand_name: 'Einfach bewusster leben',
             locale: 'de-DE',
-            user_action: 'PAY_NOW',
-            payment_method: {
-              payer_selected: 'PAYPAL',
-              payee_preferred: 'IMMEDIATE_PAYMENT_REQUIRED',
-            },
+            user_action: 'CONTINUE', // Zeigt "Weiter" statt "Jetzt bezahlen"
+            landing_page: 'BILLING', // Erlaubt Gast-Checkout
+            shipping_preference: 'NO_SHIPPING', // Keine Versandadresse nötig
           },
         }),
       }

@@ -203,14 +203,15 @@ export default function CourseCheckout() {
                       <CreditCard className="w-8 h-8 text-white" />
                     </div>
                     <h4 className="text-lg font-normal text-gray-900 mb-2">
-                      PayPal & Kreditkarte
+                      Sichere Zahlung
                     </h4>
                     <p className="text-sm text-gray-600 mb-4">
-                      Zahle sicher mit PayPal oder deiner Kreditkarte
+                      Zahle mit Kreditkarte oder PayPal - <strong>kein PayPal-Konto nötig</strong>
                     </p>
                     <ul className="text-xs text-gray-500 space-y-1">
-                      <li>• PayPal Account</li>
-                      <li>• Visa, Mastercard, American Express</li>
+                      <li>• Kreditkarte (Visa, Mastercard, Amex)</li>
+                      <li>• PayPal (optional)</li>
+                      <li>• Ohne Registrierung möglich</li>
                       <li>• Sofortige Aktivierung</li>
                     </ul>
                   </div>
@@ -243,7 +244,7 @@ export default function CourseCheckout() {
                   ) : (
                     <>
                       <CreditCard className="w-5 h-5" />
-                      <span>Mit PayPal bezahlen</span>
+                      <span>Sicher bezahlen</span>
                     </>
                   )}
                 </button>
