@@ -114,6 +114,12 @@
 
 ## Recent Changes Summary
 
+### 2026-02-04
+- Created client status doc (Milestone 1 completed)
+- Improved PayPal checkout (guest checkout / credit card)
+- Adjusted checkout copy
+- Freebie image reverted to cropped horizontal look
+
 ### 2026-01-27
 - Added course section to homepage with demo course
 - Created comprehensive PayPal setup guide

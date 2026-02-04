@@ -85,3 +85,7 @@
 4. **Created customer-facing status document**
    - Added `docs/KUNDIN_PROJEKTSTAND.md` describing Milestone 1 completion and required client inputs
    - Status: ✅ Completed
+
+5. **Freebie image reverted to cropped horizontal look**
+   - Restored `object-cover` styling on `/freebie` page image
+   - Status: ✅ Completed

@@ -269,13 +269,12 @@ export default function Freebie() {
               </p>
 
               {/* Image */}
-              <div className="relative h-64 md:h-80 rounded-3xl overflow-hidden mb-8 shadow-2xl bg-gray-50">
+              <div className="relative h-64 md:h-80 rounded-3xl overflow-hidden mb-8 shadow-2xl">
                 <Image
                   src="/stefanie.jpg"
                   alt="Stefanie - Minimalismus und Achtsamkeit"
                   fill
-                  className="object-contain scale-75"
-                  style={{ objectPosition: 'center' }}
+                  className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
               </div>

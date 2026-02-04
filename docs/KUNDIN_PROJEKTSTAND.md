@@ -1,7 +1,6 @@
 # Projektstand CRM-Funnel – Milestone 1 abgeschlossen
 
 **Stand:** 04.02.2026  
-**Ziel:** Milestone 1 Auszahlung (Milestone 1 ist vollständig umgesetzt)
 
 ## Milestone 1 (abgeschlossen)
 **Preisstruktur Milestone 1:**
@@ -40,7 +39,6 @@ Damit wir von „technisch fertig“ auf „inhaltlich final“ gehen:
    - gewünschtes Layout/Branding (Logo, Farben, Signatur)
    - ggf. Reihenfolge/Timing der Mails (falls noch nicht final)
 
-> **Hinweis:** Pixel / Social-Media-URLs / Video sind **nicht** Teil von Milestone 1.
 
 ## Extra 1 (250€) – E‑Learning / Login Bereich (ca. 90% fertig)
 - ✅ Login-Bereich vorhanden
