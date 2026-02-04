@@ -114,12 +114,14 @@ export default function Freebie() {
               {existingUser ? 'Willkommen zurück!' : 'Fast geschafft!'}
             </h1>
             
-            <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              {existingUser 
-                ? `Dein kostenloser Guide wurde an <strong>${formData.email}</strong> gesendet. Da du bereits in unserer Community bist, brauchst du deine E-Mail nicht mehr zu bestätigen.`
-                : `Wir haben dir eine E-Mail an <strong>${formData.email}</strong> gesendet.`
-              }
-            </p>
+            <p 
+              className="text-lg text-gray-600 mb-6 leading-relaxed"
+              dangerouslySetInnerHTML={{
+                __html: existingUser 
+                  ? `Dein kostenloser Guide wurde an <strong>${formData.email}</strong> gesendet. Da du bereits in unserer Community bist, brauchst du deine E-Mail nicht mehr zu bestätigen.`
+                  : `Wir haben dir eine E-Mail an <strong>${formData.email}</strong> gesendet.`
+              }}
+            />
             
             <div className="bg-gray-50 border border-gray-200 rounded-sm p-8 mb-8">
               <h3 className="font-normal text-gray-900 mb-3 text-lg">
