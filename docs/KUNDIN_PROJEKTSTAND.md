@@ -19,9 +19,11 @@
   - Brevo-Anbindung aktiv
   - Double-Opt-In Flow funktioniert
   - Versand/Automation technisch umgesetzt und getestet
+  - Ich brauche deine Email-Adresse. 
 - **Zahlung (PayPal):**
   - Checkout live getestet
   - Zahlung mit **PayPal oder Kreditkarte (Gast-Checkout ohne PayPal-Konto)** funktioniert
+  - Ich brauche deine Live-PayPal-Integration (Client ID und Client Secret)
 - **Login-/Member-Bereich (Extra 1 – siehe unten):**
   - Login funktioniert
   - Zugriffskontrolle technisch vorhanden

@@ -5,9 +5,9 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
-  const { firstName, email, source, consent, dataProtection } = req.body
+  const { firstName, lastName, email, source, consent, dataProtection } = req.body
 
-  if (!firstName || !email || !consent || !dataProtection) {
+  if (!firstName || !lastName || !email || !consent || !dataProtection) {
     return res.status(400).json({ error: 'Alle Pflichtfelder müssen ausgefüllt werden.' })
   }
 
@@ -41,7 +41,7 @@ export default async function handler(req, res) {
         
         freebieEmail.subject = 'Dein kostenloser Guide ist da!'
         freebieEmail.sender = { name: 'Einfach Leichter', email: 'gerd_meyer@tutavi.com' }
-        freebieEmail.to = [{ email: email, name: firstName || 'Freund' }]
+        freebieEmail.to = [{ email: email, name: `${firstName} ${lastName}`.trim() || 'Freund' }]
         freebieEmail.htmlContent = `
           <!DOCTYPE html>
           <html>
@@ -59,6 +59,7 @@ export default async function handler(req, res) {
                       <td style="padding: 40px 40px 20px 40px; text-align: center;">
                         <h1 style="color: #1f2937; margin: 0 0 20px 0; font-size: 28px;">
                           Willkommen zurück, ${firstName || 'Freund'}! 🎉
+
                         </h1>
                       </td>
                     </tr>
@@ -138,7 +139,7 @@ Schön, dass du Teil unserer Community bist!
     }
 
     // Normaler Double-Opt-In für neue Nutzer
-    const confirmationToken = Buffer.from(`${email}:${firstName}:${Date.now()}`).toString('base64')
+    const confirmationToken = Buffer.from(`${email}:${firstName}:${lastName}:${Date.now()}`).toString('base64')
     const confirmationUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/confirm?token=${confirmationToken}`
 
     // 1. Speichere Vorname temporär (wird nach Bestätigung verwendet)
@@ -152,7 +153,7 @@ Schön, dass du Teil unserer Community bist!
     
     sendSmtpEmail.subject = 'Bitte bestätige deine E-Mail-Adresse'
     sendSmtpEmail.sender = { name: 'Tutavi Coaching', email: 'gerd_meyer@tutavi.com' }
-    sendSmtpEmail.to = [{ email: email, name: firstName }]
+    sendSmtpEmail.to = [{ email: email, name: `${firstName} ${lastName}`.trim() }]
     sendSmtpEmail.htmlContent = `
         <!DOCTYPE html>
         <html>

@@ -1,6 +1,6 @@
 # Task Log - CRM Funnel Prototype
 
-## Latest Update: 2026-02-04
+## Latest Update: 2026-02-09
 
 ### ✅ Completed Tasks
 
@@ -114,6 +114,18 @@
 
 ## Recent Changes Summary
 
+### 2026-02-09
+- Updated Startseite: new hero text ("Einfach. Bewusst. Leben."), quote section, feature boxes, courses section
+- Updated Datenschutz page with complete client-provided privacy policy (real contact data)
+- Created About Me page (/about) with Stefanie's personal story
+- Added "About me" navigation link to all pages (index, freebie, about)
+- Added Nachname (last name) field to freebie signup form
+- Updated subscribe.js API to handle lastName
+- Updated confirm.js API to parse lastName from token and store in Brevo (LASTNAME attribute)
+- Updated internal notification email to include Nachname
+- Course section renamed to "Meine weiterführenden Inhalte für ein bewusstes Leben"
+- Courses updated: Videokurs, Stoffwechselkur Ebook, Achtsames Essen Ebook (demnächst)
+
 ### 2026-02-04
 - Created client status doc (Milestone 1 completed)
 - Improved PayPal checkout (guest checkout / credit card)
@@ -134,5 +146,5 @@
 
 ---
 
-**Last updated**: 2026-02-04
+**Last updated**: 2026-02-09
 **Next review**: After client provides real course content and (optional) PayPal live keys

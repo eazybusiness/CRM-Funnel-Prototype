@@ -37,8 +37,21 @@ export default async function handler(req, res) {
     const decoded = Buffer.from(token, 'base64').toString('utf-8')
     const parts = decoded.split(":")
     const email = parts[0]
-    const firstName = parts.length >= 3 ? parts[1] : "Freund"
-    const timestamp = parts.length >= 3 ? parts[2] : parts[1]
+    // Token format: email:firstName:lastName:timestamp (new) or email:firstName:timestamp (old)
+    let firstName, lastName, timestamp
+    if (parts.length >= 4) {
+      firstName = parts[1]
+      lastName = parts[2]
+      timestamp = parts[3]
+    } else if (parts.length >= 3) {
+      firstName = parts[1]
+      lastName = ''
+      timestamp = parts[2]
+    } else {
+      firstName = 'Freund'
+      lastName = ''
+      timestamp = parts[1]
+    }
 
     const tokenAge = Date.now() - parseInt(timestamp)
     const maxAge = 24 * 60 * 60 * 1000 // 24 Stunden
@@ -81,6 +94,7 @@ export default async function handler(req, res) {
     createContact.email = email
     createContact.attributes = {
       FIRSTNAME: firstName,
+      LASTNAME: lastName,
       DOUBLE_OPT_IN: true, // Jetzt bestätigt!
       OPT_IN_DATE: new Date().toISOString()
     }
@@ -96,6 +110,7 @@ export default async function handler(req, res) {
         const updateContact = new SibApiV3Sdk.UpdateContact()
         updateContact.attributes = {
           FIRSTNAME: firstName,
+          LASTNAME: lastName,
           DOUBLE_OPT_IN: true,
           OPT_IN_DATE: new Date().toISOString()
         }
@@ -129,7 +144,8 @@ export default async function handler(req, res) {
           <h1 style="font-size: 20px; font-weight: normal; margin-bottom: 16px;">Neuer bestätigter Kontakt</h1>
           <p style="margin: 0 0 8px 0;">Es hat sich soeben jemand über deine Funnel-Seite angemeldet.</p>
           <p style="margin: 0 0 4px 0;"><strong>E-Mail:</strong> ${email}</p>
-          <p style="margin: 0 0 16px 0;"><strong>Vorname (falls bekannt):</strong> ${firstName || 'nicht angegeben'}</p>
+          <p style="margin: 0 0 4px 0;"><strong>Vorname:</strong> ${firstName || 'nicht angegeben'}</p>
+          <p style="margin: 0 0 16px 0;"><strong>Nachname:</strong> ${lastName || 'nicht angegeben'}</p>
           <p style="font-size: 12px; color: #6b7280; margin-top: 24px;">Diese Nachricht wurde automatisch vom CRM Funnel System gesendet.</p>
         </body>
         </html>
@@ -138,7 +154,8 @@ export default async function handler(req, res) {
 Neuer bestätigter Kontakt über die Funnel-Seite
 
 E-Mail: ${email}
-Vorname (falls bekannt): ${firstName || 'nicht angegeben'}
+Vorname: ${firstName || 'nicht angegeben'}
+Nachname: ${lastName || 'nicht angegeben'}
 
 Diese Nachricht wurde automatisch vom CRM Funnel System gesendet.
       `

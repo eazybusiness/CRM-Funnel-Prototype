@@ -9,6 +9,7 @@ export default function Freebie() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [formData, setFormData] = useState({
     firstName: '',
+    lastName: '',
     email: '',
     consent: false,
     dataProtection: false
@@ -40,7 +41,7 @@ export default function Freebie() {
       // Lead im CRM speichern (client-side für Demo)
       const leadData = {
         id: `lead_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-        name: formData.firstName,
+        name: `${formData.firstName} ${formData.lastName}`.trim(),
         email: formData.email,
         source: 'freebie',
         offer: 'Kostenloses Freebie',
@@ -60,6 +61,7 @@ export default function Freebie() {
         },
         body: JSON.stringify({
           firstName: formData.firstName,
+          lastName: formData.lastName,
           email: formData.email,
           source: 'freebie',
           consent: formData.consent,
@@ -182,6 +184,9 @@ export default function Freebie() {
                 <Link href="/" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Startseite
                 </Link>
+                <Link href="/about" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                  About me
+                </Link>
                 <Link href="/login" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Login
                 </Link>
@@ -217,6 +222,13 @@ export default function Freebie() {
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Startseite
+                  </Link>
+                  <Link 
+                    href="/about" 
+                    className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    About me
                   </Link>
                   <Link 
                     href="/login" 
@@ -340,6 +352,22 @@ export default function Freebie() {
                       onChange={handleChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-900 transition-colors text-gray-900"
                       placeholder="Dein Vorname"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="lastName" className="block text-sm font-normal text-gray-700 mb-2">
+                      Nachname *
+                    </label>
+                    <input
+                      type="text"
+                      id="lastName"
+                      name="lastName"
+                      required
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-900 transition-colors text-gray-900"
+                      placeholder="Dein Nachname"
                     />
                   </div>
 

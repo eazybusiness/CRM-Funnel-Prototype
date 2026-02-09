@@ -40,6 +40,9 @@ export default function Home() {
                 <Link href="/freebie" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Kostenloser Guide
                 </Link>
+                <Link href="/about" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                  About me
+                </Link>
                 <Link href="/login" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Login
                 </Link>
@@ -77,6 +80,13 @@ export default function Home() {
                     Kostenloser Guide
                   </Link>
                   <Link 
+                    href="/about" 
+                    className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    About me
+                  </Link>
+                  <Link 
                     href="/login" 
                     className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
@@ -111,11 +121,11 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-4xl md:text-6xl font-light text-gray-900 mb-6 leading-tight">
-                Minimalismus, der wirklich zu Dir passt
+              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                Einfach. Bewusst. Leben.
               </h1>
               <p className="text-xl md:text-2xl text-gray-600 font-light mb-4">
-                im Alltag, Zuhause & im Kopf
+                <strong>Einfachbewussterleben</strong> ist ein Platz für Achtsamkeit, Klarheit und einen bewussten Weg hin zu mehr Einfachheit (innerlich &amp; äußerlich)
               </p>
             </motion.div>
             
@@ -160,130 +170,91 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Raum für Dich Section */}
-        <section className="py-20 px-4 bg-gray-50">
+        {/* Quote Section */}
+        <section className="py-20 px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-8 text-center">
-              Raum für Dich
+              Achtsamkeit ist der Anfang von allem.
             </h2>
-            <p className="text-lg text-gray-600 mb-12 text-center leading-relaxed">
-              Stell dir vor, Du lebst in einer Umgebung, in der sich nur Deine Lieblingssachen befinden.
+            <p className="text-lg text-gray-600 mb-12 text-center leading-relaxed max-w-3xl mx-auto">
+              Wenn du lernst wirklich präsent zu sein, erkennst du, was dir gut tut und was dir nur Energie raubt. 
+              Genau hier hat mein persönlicher Weg zum Minimalismus begonnen. Minimalismus bedeutet nicht weniger um jeden Preis sondern mehr Raum für das Wesentliche.
             </p>
-            
+          </div>
+        </section>
+
+        {/* Feature Boxes Section */}
+        <section className="py-20 px-4 bg-gray-50">
+          <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="w-12 h-12 mb-4 flex items-center justify-center bg-white rounded-full shadow-sm">
+              <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                <div className="w-12 h-12 mb-4 flex items-center justify-center bg-gray-100 rounded-full shadow-sm">
                   <Sparkles className="w-8 h-8 text-gray-700" strokeWidth={1.5} />
                 </div>
-                <h3 className="text-xl font-normal text-gray-900 mb-3">Raum für Dich</h3>
+                <h3 className="text-xl font-normal text-gray-900 mb-3">Raum für dich</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Schaffe Platz für das, was wirklich zählt. Weniger Ballast bedeutet mehr Freiheit 
-                  und Energie für die Dinge, die dir wichtig sind.
+                  Mit jedem bewussten Schritt entsteht Klarheit und Leichtigkeit.
                 </p>
               </div>
 
-              <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="w-12 h-12 mb-4 flex items-center justify-center bg-white rounded-full shadow-sm">
+              <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                <div className="w-12 h-12 mb-4 flex items-center justify-center bg-gray-100 rounded-full shadow-sm">
                   <Heart className="w-8 h-8 text-gray-700" strokeWidth={1.5} />
                 </div>
                 <h3 className="text-xl font-normal text-gray-900 mb-3">Weniger Zeug. Mehr Du.</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Entdecke, wie du mit weniger Besitz mehr Lebensqualität gewinnst. 
-                  Minimalismus ist keine Verzicht, sondern bewusste Entscheidung.
+                  Wenn Du beginnst, Dinge loszulassen, entsteht Raum für Klarheit, für Zeit und für das, was dir wirklich wichtig ist.
                 </p>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* Weniger Zeug. Mehr Du. */}
-        <section className="py-20 px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-5xl font-light text-gray-900 mb-8 text-center">
-              Weniger Zeug. Mehr Du.
-            </h2>
-            <p className="text-lg text-gray-600 mb-12 text-center leading-relaxed max-w-3xl mx-auto">
-              Wenn Du beginnst, Dinge loszulassen, entsteht Raum – für Klarheit, für Zeit und für das, 
-              was Dir wirklich wichtig ist. Genau dabei begleite ich Dich: Schritt für Schritt. 
-              Mit Struktur. Ohne Druck. In Deinem Tempo.
+            <p className="text-lg text-gray-600 mt-12 text-center leading-relaxed max-w-3xl mx-auto">
+              Loslassen, Ausmisten und Achtsamkeit kann Menschen helfen sich von materiellem Ballast zu befreien, Klarheit im Leben zu schaffen und bewusster im Moment zu leben. Genau dabei begleite ich Dich: Schritt für Schritt.
             </p>
-
-            <div className="space-y-8">
-              <div className="border-l-2 border-gray-200 pl-6">
-                <h3 className="text-xl font-normal text-gray-900 mb-2">Mehr Ordnung</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Wirkliche Ordnung entsteht nicht durch ständiges Aufräumen – sondern durch Loslassen. 
-                  Wenn Du nur noch behältst, was Du wirklich brauchst und liebst, wird Dein Zuhause klarer, 
-                  leichter, freier. Schritt für Schritt.
-                </p>
-              </div>
-
-              <div className="border-l-2 border-gray-200 pl-6">
-                <h3 className="text-xl font-normal text-gray-900 mb-2">Mehr Zeit</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Weniger Dinge bedeuten auch: weniger Entscheidungen, weniger Ablenkung, weniger Aufwand. 
-                  So bleibt Dir mehr Zeit – für Dich, Deine Menschen und das, was Dir wirklich wichtig ist.
-                </p>
-              </div>
-
-              <div className="border-l-2 border-gray-200 pl-6">
-                <h3 className="text-xl font-normal text-gray-900 mb-2">Mehr Leichtigkeit</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Wenn nur noch Deine Lieblingsdinge bleiben, wird auch Dein Alltag leichter. 
-                  Kein Ballast mehr, der Dich ausbremst. Kein schlechtes Gewissen im Regal. 
-                  Sondern Raum – innen wie außen.
-                </p>
-              </div>
-            </div>
           </div>
         </section>
 
         {/* Courses Section */}
-        <section className="py-20 px-4 bg-gray-50">
+        <section className="py-20 px-4">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-12 text-center">
-              Unsere Kurse
+            <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-2 text-center">
+              Meine weiterführenden Inhalte für ein bewusstes Leben
             </h2>
+            <p className="text-base text-gray-500 mb-12 text-center">
+              so kann ich dich begleiten
+            </p>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Demo Course Card */}
+              {/* Videokurs */}
               <div className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow">
-                <h3 className="text-xl font-semibold mb-4">Minimalismus-Grundlagen</h3>
-                <p className="text-gray-600 mb-6">Lerne die Grundlagen des Minimalismus und finde mehr Leichtigkeit in deinem Leben.</p>
-                <div className="flex justify-between items-center mb-6">
-                  <span className="text-2xl font-bold">€49,00</span>
-                  <span className="text-sm text-gray-500">3 Module • 6 Lektionen</span>
-                </div>
+                <span className="inline-block text-xs font-medium text-gray-500 uppercase tracking-wider mb-3">Videokurs mit Bonusmaterial und Checklisten</span>
+                <h3 className="text-xl font-bold mb-2">Der Einstieg in ein leichtes Leben</h3>
+                <p className="text-sm text-gray-600 mb-6">Loslassen - die stille Wirkung von Ballast</p>
                 <Link 
-                  href="/checkout?courseId=1&courseName=Minimalismus-Grundlagen&price=49&description=Lerne die Grundlagen des Minimalismus&duration=3 Stunden&modules=3&lessons=6"
+                  href="/checkout?courseId=1&courseName=Der+Einstieg+in+ein+leichtes+Leben&price=49&description=Videokurs+mit+Bonusmaterial+und+Checklisten&duration=3+Stunden&modules=3&lessons=6"
                   className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition text-center block"
                 >
                   Jetzt anmelden
                 </Link>
               </div>
 
-              {/* Placeholder for future courses */}
-              <div className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow opacity-75">
-                <h3 className="text-xl font-semibold mb-4">Digitaler Minimalismus</h3>
-                <p className="text-gray-600 mb-6">Bald verfügbar: Räume auch dein digitales Leben auf.</p>
-                <div className="flex justify-between items-center mb-6">
-                  <span className="text-2xl font-bold text-gray-400">Demnächst</span>
-                  <span className="text-sm text-gray-400">4 Module • 8 Lektionen</span>
-                </div>
-                <button 
-                  disabled
-                  className="w-full bg-gray-300 text-gray-500 py-3 rounded-lg cursor-not-allowed"
+              {/* Ebook 1 */}
+              <div className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+                <span className="inline-block text-xs font-medium text-gray-500 uppercase tracking-wider mb-3">Ebook</span>
+                <h3 className="text-xl font-bold mb-2">Reset für Körper und Geist: Die Stoffwechselkur</h3>
+                <p className="text-sm text-gray-600 mb-6">&nbsp;</p>
+                <Link 
+                  href="/checkout?courseId=2&courseName=Reset+für+Körper+und+Geist&price=29&description=Ebook+Stoffwechselkur"
+                  className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition text-center block"
                 >
-                  Demnächst verfügbar
-                </button>
+                  Jetzt anmelden
+                </Link>
               </div>
 
+              {/* Ebook 2 - demnächst */}
               <div className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow opacity-75">
-                <h3 className="text-xl font-semibold mb-4">Nachhaltig leben</h3>
-                <p className="text-gray-600 mb-6">Bald verfügbar: Verbinde Minimalismus mit Nachhaltigkeit.</p>
-                <div className="flex justify-between items-center mb-6">
-                  <span className="text-2xl font-bold text-gray-400">Demnächst</span>
-                  <span className="text-sm text-gray-400">5 Module • 10 Lektionen</span>
-                </div>
+                <span className="inline-block text-xs font-medium text-gray-500 uppercase tracking-wider mb-3">Ebook</span>
+                <h3 className="text-xl font-bold mb-2">Bewusster leben durch achtsames Essen</h3>
+                <p className="text-sm text-gray-400 mb-6">demnächst verfügbar</p>
                 <button 
                   disabled
                   className="w-full bg-gray-300 text-gray-500 py-3 rounded-lg cursor-not-allowed"
@@ -291,14 +262,6 @@ export default function Home() {
                   Demnächst verfügbar
                 </button>
               </div>
-            </div>
-            <div className="text-center mt-12">
-              <Link 
-                href="/courses"
-                className="inline-flex items-center text-gray-600 hover:text-gray-900 transition"
-              >
-                Alle Kurse ansehen →
-              </Link>
             </div>
           </div>
         </section>
