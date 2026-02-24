@@ -3,8 +3,8 @@
 > **Purpose:** Prevents context rot between Cascade sessions. Read this file at the start of every new conversation.
 
 ## Last Updated
-- **Date:** 2026-02-24
-- **Session:** Normalize `.planning/` + `.windsurf/` to match this CRM Funnel repo
+- **Date:** 2026-02-24 (afternoon)
+- **Session:** Fixed dashboard issues + created demo course content
 
 ## Current Phase
 - **Active Milestone:** Project hygiene + planning alignment
@@ -16,17 +16,18 @@
 - **Deploy target:** Vercel
 - **State:** Core flows implemented; remaining work mostly content + email template finalization + optional PayPal live keys
 
-## What Was Done This Session (2026-02-24)
-- Renamed `task.md` -> `TASK.md`
-- Fixed `.windsurf` workflows/rules to reference `TASK.md`
-- Removed unrelated planning files from `.planning/`
-- Started rewriting `.planning/PROJECT.md` to match this repository
+## What Was Done This Session (2026-02-24 afternoon)
+- Fixed dashboard "Zu den Kursen" button (now links to `/courses` instead of homepage)
+- Fixed data export error with improved error handling and fallback queries
+- Created demo course content structure (PDFs + SQL script for modules/lessons)
+- Updated TASK.md and REQUIREMENTS.md with clarified project status
+- Committed all changes to git
 
 ## What Needs Attention Next
-1. Finish rewriting `.planning/STATE.md`, `.planning/ROADMAP.md`, `.planning/REQUIREMENTS.md`
-2. Decide whether to remove unrelated workspace rule files (`python_rules.md`, `dart_flutter_rules.md`)
-3. Commit the planning/rules cleanup milestone
-4. (Next product work) finalize Brevo templates and optionally switch PayPal to live keys
+1. Run SQL script to populate database with demo course content: `scripts/add-demo-course-content.sql`
+2. Test full purchase-to-viewing flow with demo content
+3. Wait for client to provide: 3 Brevo email templates, real course content, video hosting decision
+4. Optional: Format 3 Brevo placeholder emails (blocked by MCP connection)
 
 ## Current Blockers
 - None
@@ -48,6 +49,6 @@
 - **Key files to re-read:** `.planning/PROJECT.md`, `.planning/REQUIREMENTS.md`, `.planning/ROADMAP.md`, `TASK.md`
 
 ## Session Handoff Checklist
-✅ **What was accomplished:** Task tracking + workflow references normalized; unrelated planning docs removed; PROJECT.md rewritten
-🔄 **What is in progress:** Rewriting remaining `.planning/` core docs and cleaning workspace rules
-🎯 **Next priority actions:** Update ROADMAP/REQUIREMENTS; commit cleanup; then proceed with Brevo template finalization
+✅ **What was accomplished:** Fixed dashboard export bug + button link; created demo course content (PDFs + SQL script); updated planning docs
+🔄 **What is in progress:** Demo content ready but not yet loaded into database
+🎯 **Next priority actions:** Run SQL script to populate demo content; test purchase flow; wait for client deliverables (emails, videos, PDFs)
