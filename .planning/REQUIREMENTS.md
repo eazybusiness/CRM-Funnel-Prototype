@@ -3,14 +3,19 @@
 > **Purpose:** Single source of truth for what this repository must deliver next, what is deferred, and what is out of scope.
 
 ## Must-Have (Operational Readiness)
-- [ ] **Brevo email templates finalized:** welcome, purchase confirmation, password reset (final copy + formatting)
-- [ ] **Brevo deliverability configured:** verified sender/domain, SPF/DKIM if using custom domain
-- [ ] **Security logging:** add minimal auth/security relevant logs (without leaking PII/secrets)
-- [ ] **Database schema migration tasks:** address known missing columns mentioned in `TASK.md` (security-related columns)
+- [x] **Security:** Current implementation is sufficient
+- [ ] **Brevo email templates finalized:** 1/4 received from client, 3 need final copy + HTML/CSS formatting (blocked by MCP connection)
+- [x] **Brevo deliverability configured:** verified sender/domain working
 
-## Must-Have (Content)
-- [ ] **Real course content added:** PDFs/videos wired into member area (replace demo content)
-- [ ] **Admin course management:** ensure real content can be maintained without code changes where possible
+## Must-Have (Immediate Fixes - No Client Needed)
+- [ ] **Fix dashboard data export:** Currently returns error
+- [ ] **Fix "Zu den Kursen" button:** Should link to /courses page, not homepage
+- [ ] **Create demo course content:** Placeholder videos (YouTube unlisted or Vimeo) + sample PDFs for testing
+- [ ] **Wire demo content to database:** Enable full purchase-to-viewing flow testing
+
+## Must-Have (Content - Waiting on Client)
+- [ ] **Real course content:** Client to provide PDFs/videos to replace demo content
+- [ ] **Video hosting decision:** Client deciding between YouTube unlisted (preferred by client) vs Vimeo (copy protection)
 
 ## Should-Have
 - [ ] **PayPal live mode:** switch to live API URL and credentials when client provides keys

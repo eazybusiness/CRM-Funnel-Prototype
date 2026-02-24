@@ -281,7 +281,7 @@ export default function MemberDashboard() {
                 Du hast noch keine Kurse gekauft. Schau dir unsere Angebote an!
               </p>
               <Link
-                href="/"
+                href="/courses"
                 className="inline-flex items-center bg-gray-900 text-white font-light px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors"
               >
                 Zu den Kursen

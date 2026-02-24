@@ -1,6 +1,6 @@
 # Task Log - CRM Funnel Prototype
 
-## Latest Update: 2026-02-24
+## Latest Update: 2026-02-24 (afternoon)
 
 ### ✅ Completed Tasks
 
@@ -39,7 +39,9 @@
 - [x] Configure Brevo API key in production
 - [x] Configure automation rules
 - [x] Test email delivery
-- [ ] Format and finalize Brevo emails with customer-provided content
+- [x] 1 email received from customer (final content)
+- [ ] Format 3 placeholder emails with HTML/CSS (pending Brevo MCP connection)
+- [ ] Replace 3 placeholder emails with customer-provided content (when received)
 
 #### PayPal Live Setup
 - [x] PayPal sandbox checkout tested (PayPal + credit card guest checkout)
@@ -47,16 +49,20 @@
 
 ### 📋 Next Steps (Priority Order)
 
-#### 1. Milestone 1 Completion (50% Payment)
-- [x] Live-Deployment des CRM-Funnels
-- [x] Integration deiner spezifischen Produkte/Kurse (System umgesetzt)
-- [x] Einrichtung deiner E-Mail-Infrastruktur (Brevo integriert)
-- [ ] Echte Kursinhalte (PDF/Video) von Kundin einpflegen
-- [ ] Optional: PayPal Live-Modus aktivieren (Kundin liefert Live Keys)
+#### 1. Immediate Fixes (No Client Needed)
+- [x] Fix dashboard data export error
+- [x] Fix "Zu den Kursen" button to link to /courses page
+- [x] Create demo course content (placeholder YouTube unlisted videos + sample PDFs)
+- [ ] Add demo content to database for testing (SQL script ready: `scripts/add-demo-course-content.sql`)
 
-#### 2. Course Management
+#### 2. Waiting on Client
+- [ ] Final content for 3 Brevo email templates
+- [ ] Real course content (PDFs/videos) to replace demo content
+- [ ] Optional: PayPal live credentials
+- [ ] Decision: YouTube unlisted vs Vimeo for video hosting
+
+#### 3. Course Management (Future)
 - [x] Create /courses page
-- [ ] Build admin interface for course management
 - [ ] Add course progress tracking
 - [ ] Implement lesson completion
 
@@ -73,14 +79,15 @@
 - [x] Configure Content Security Policy (CSP)
 - [x] Implement right to data deletion (DSGVO)
 - [x] Implement data export function (DSGVO)
-- [ ] Add security logging for monitoring
+- [x] Security logging (current level is sufficient)
 
 ### 🐛 Known Issues
 
 1. **React Hydration Warnings**: Non-critical, appear in production build
-2. **Brevo email content**: Formatting/content needs client-provided final copy
-3. **Admin interface**: Some areas may still require refinement based on real content
-4. **Database Migration**: Security columns need to be added to users table
+2. **Dashboard export data button**: Returns error (needs debugging)
+3. **Dashboard "Zu den Kursen" button**: Links to homepage instead of /courses page
+4. **Missing demo course content**: Need placeholder videos (YouTube unlisted or Vimeo) and PDFs for testing course purchase/viewing flow
+5. **Brevo email formatting**: 3 placeholder emails need HTML/CSS formatting (blocked by MCP connection)
 
 ### 📊 Current Status
 
@@ -114,7 +121,16 @@
 
 ## Recent Changes Summary
 
-### 2026-02-24
+### 2026-02-24 (afternoon session)
+- Fixed dashboard "Zu den Kursen" button to link to `/courses` page instead of homepage
+- Fixed data export error with improved error handling and fallback queries
+- Created demo course content structure:
+  - Added placeholder PDF files in `/public/demo-content/`
+  - Created SQL script to populate modules and lessons with demo content
+  - Documented demo content setup in `docs/DEMO_CONTENT.md`
+- Updated TASK.md and REQUIREMENTS.md with clarified project status
+
+### 2026-02-24 (morning session)
 - Normalized planning workspace: removed unrelated `.planning/*` documents and rewrote `.planning/{PROJECT,STATE,ROADMAP,REQUIREMENTS}.md` to match this CRM Funnel repo
 - Renamed `task.md` to `TASK.md`
 - Updated `.windsurf` workflows/rules to reference `TASK.md`

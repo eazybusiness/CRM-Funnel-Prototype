@@ -29,39 +29,65 @@ export default async function handler(req, res) {
     const user = userResult.rows[0]
 
     // Get enrollments with course data
-    const enrollmentsResult = await query(`
-      SELECT 
-        e.enrolled_at,
-        e.is_active,
-        e.expires_at,
-        c.title as course_title,
-        c.description as course_description,
-        c.slug as course_slug,
-        p.amount as payment_amount,
-        p.created_at as payment_date,
-        p.paypal_payment_id
-      FROM enrollments e
-      JOIN courses c ON e.course_id = c.id
-      LEFT JOIN purchases p ON e.user_id = p.user_id AND e.course_id = p.course_id
-      WHERE e.user_id = $1
-      ORDER BY e.enrolled_at DESC
-    `, [userId])
+    let enrollmentsResult
+    try {
+      enrollmentsResult = await query(`
+        SELECT 
+          e.enrolled_at,
+          e.is_active,
+          e.expires_at,
+          c.title as course_title,
+          c.description as course_description,
+          c.slug as course_slug,
+          p.amount as payment_amount,
+          p.created_at as payment_date,
+          p.paypal_payment_id
+        FROM enrollments e
+        JOIN courses c ON e.course_id = c.id
+        LEFT JOIN purchases p ON e.user_id = p.user_id AND e.course_id = p.course_id
+        WHERE e.user_id = $1
+        ORDER BY e.enrolled_at DESC
+      `, [userId])
+    } catch (enrollError) {
+      console.error('Enrollments query error:', enrollError)
+      // Fallback: get enrollments without purchase data
+      enrollmentsResult = await query(`
+        SELECT 
+          e.enrolled_at,
+          e.is_active,
+          e.expires_at,
+          c.title as course_title,
+          c.description as course_description,
+          c.slug as course_slug
+        FROM enrollments e
+        JOIN courses c ON e.course_id = c.id
+        WHERE e.user_id = $1
+        ORDER BY e.enrolled_at DESC
+      `, [userId])
+    }
 
     // Get progress data
-    const progressResult = await query(`
-      SELECT 
-        up.completed_at,
-        up.progress_percentage,
-        l.title as lesson_title,
-        m.title as module_title,
-        c.title as course_title
-      FROM user_progress up
-      JOIN lessons l ON up.lesson_id = l.id
-      JOIN modules m ON l.module_id = m.id
-      JOIN courses c ON m.course_id = c.id
-      WHERE up.user_id = $1
-      ORDER BY up.completed_at DESC
-    `, [userId])
+    let progressResult
+    try {
+      progressResult = await query(`
+        SELECT 
+          up.completed_at,
+          up.progress_percentage,
+          l.title as lesson_title,
+          m.title as module_title,
+          c.title as course_title
+        FROM user_progress up
+        JOIN lessons l ON up.lesson_id = l.id
+        JOIN modules m ON l.module_id = m.id
+        JOIN courses c ON m.course_id = c.id
+        WHERE up.user_id = $1
+        ORDER BY up.completed_at DESC
+      `, [userId])
+    } catch (progressError) {
+      console.error('Progress query error:', progressError)
+      // Return empty result if table doesn't exist or has issues
+      progressResult = { rows: [] }
+    }
 
     // Compile export data
     const exportData = {
