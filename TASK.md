@@ -1,6 +1,6 @@
 # Task Log - CRM Funnel Prototype
 
-## Latest Update: 2026-02-09
+## Latest Update: 2026-02-24
 
 ### ✅ Completed Tasks
 
@@ -113,6 +113,12 @@
 ---
 
 ## Recent Changes Summary
+
+### 2026-02-24
+- Normalized planning workspace: removed unrelated `.planning/*` documents and rewrote `.planning/{PROJECT,STATE,ROADMAP,REQUIREMENTS}.md` to match this CRM Funnel repo
+- Renamed `task.md` to `TASK.md`
+- Updated `.windsurf` workflows/rules to reference `TASK.md`
+- Added `.windsurf/rules/workspace_rules/nextjs_rules.md` and updated `/init` workflow to use it
 
 ### 2026-02-09
 - Updated Startseite: new hero text ("Einfach. Bewusst. Leben."), quote section, feature boxes, courses section
