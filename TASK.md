@@ -121,7 +121,16 @@
 
 ## Recent Changes Summary
 
-### 2026-02-24 (afternoon session)
+### 2026-02-24 (afternoon session - part 2)
+- Fixed `/courses` page with proper purchase flow:
+  - Changed text from "nur per E-Mail Link" to proper course catalog description
+  - Added "Mehr Infos & Kaufen" button instead of "Mehr erfahren"
+  - Created comprehensive course info modal with demo content
+  - Modal shows: modules, lessons, duration, benefits, full course outline
+  - Proper flow: /courses → modal → checkout → PayPal → member area
+- Investigated entire purchase logic (homepage, /courses, checkout, member area)
+
+### 2026-02-24 (afternoon session - part 1)
 - Fixed dashboard "Zu den Kursen" button to link to `/courses` page instead of homepage
 - Fixed data export error with improved error handling and fallback queries
 - Created demo course content structure:
