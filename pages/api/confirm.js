@@ -13,20 +13,22 @@ export default async function handler(req, res) {
       <html>
       <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Ungültiger Link</title>
         <style>
-          body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); }
-          .container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; max-width: 500px; }
-          h1 { color: #dc2626; margin-bottom: 20px; }
-          p { color: #4b5563; line-height: 1.6; }
-          a { color: #3b82f6; text-decoration: none; font-weight: bold; }
+          * { box-sizing: border-box; margin: 0; padding: 0; }
+          body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f9fafb; }
+          .container { background: white; padding: 60px 40px; border: 1px solid #e5e7eb; border-radius: 8px; text-align: center; max-width: 500px; width: 90%; }
+          h1 { color: #1f2937; font-size: 22px; font-weight: 400; margin-bottom: 16px; }
+          p { color: #6b7280; line-height: 1.7; font-size: 15px; margin-bottom: 24px; }
+          a { display: inline-block; color: #1f2937; text-decoration: none; border-bottom: 1px solid #1f2937; padding-bottom: 1px; font-size: 14px; }
         </style>
       </head>
       <body>
         <div class="container">
-          <h1>❌ Ungültiger Bestätigungslink</h1>
+          <h1>Ungültiger Bestätigungslink</h1>
           <p>Dieser Bestätigungslink ist ungültig. Bitte melde dich erneut an.</p>
-          <p><a href="/freebie">Zurück zur Anmeldung</a></p>
+          <a href="/freebie">Zurück zur Anmeldung</a>
         </div>
       </body>
       </html>
@@ -62,20 +64,22 @@ export default async function handler(req, res) {
         <html>
         <head>
           <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <title>Link abgelaufen</title>
           <style>
-            body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); }
-            .container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; max-width: 500px; }
-            h1 { color: #dc2626; margin-bottom: 20px; }
-            p { color: #4b5563; line-height: 1.6; }
-            a { color: #3b82f6; text-decoration: none; font-weight: bold; }
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f9fafb; }
+            .container { background: white; padding: 60px 40px; border: 1px solid #e5e7eb; border-radius: 8px; text-align: center; max-width: 500px; width: 90%; }
+            h1 { color: #1f2937; font-size: 22px; font-weight: 400; margin-bottom: 16px; }
+            p { color: #6b7280; line-height: 1.7; font-size: 15px; margin-bottom: 24px; }
+            a { display: inline-block; color: #1f2937; text-decoration: none; border-bottom: 1px solid #1f2937; padding-bottom: 1px; font-size: 14px; }
           </style>
         </head>
         <body>
           <div class="container">
-            <h1>⏰ Link abgelaufen</h1>
+            <h1>Bestätigungslink abgelaufen</h1>
             <p>Dieser Bestätigungslink ist leider abgelaufen. Bitte melde dich erneut an.</p>
-            <p><a href="/freebie">Zurück zur Anmeldung</a></p>
+            <a href="/freebie">Zurück zur Anmeldung</a>
           </div>
         </body>
         </html>
@@ -173,87 +177,27 @@ Diese Nachricht wurde automatisch vom CRM Funnel System gesendet.
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>E-Mail bestätigt!</title>
+        <title>E-Mail bestätigt</title>
         <style>
-          body { 
-            font-family: Arial, sans-serif; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-            margin: 0; 
-            background: linear-gradient(135deg, #f0fdf4 0%, #dbeafe 100%); 
-          }
-          .container { 
-            background: white; 
-            padding: 60px 40px; 
-            border-radius: 16px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
-            text-align: center; 
-            max-width: 600px; 
-          }
-          .icon { 
-            width: 80px; 
-            height: 80px; 
-            background: linear-gradient(135deg, #10b981, #3b82f6); 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            margin: 0 auto 30px; 
-            font-size: 40px; 
-          }
-          h1 { 
-            color: #1f2937; 
-            margin-bottom: 20px; 
-            font-size: 32px; 
-          }
-          p { 
-            color: #4b5563; 
-            line-height: 1.8; 
-            font-size: 18px; 
-            margin-bottom: 30px; 
-          }
-          .success-box {
-            background: #f0fdf4;
-            border: 2px solid #10b981;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 30px 0;
-          }
-          a { 
-            display: inline-block;
-            background: linear-gradient(to right, #10b981, #3b82f6); 
-            color: white; 
-            text-decoration: none; 
-            padding: 16px 40px; 
-            border-radius: 8px; 
-            font-weight: bold; 
-            font-size: 16px;
-            transition: transform 0.2s;
-          }
-          a:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
-          }
+          * { box-sizing: border-box; margin: 0; padding: 0; }
+          body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f9fafb; }
+          .container { background: white; padding: 60px 40px; border: 1px solid #e5e7eb; border-radius: 8px; text-align: center; max-width: 520px; width: 90%; }
+          .check { width: 48px; height: 48px; border: 1px solid #1f2937; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 32px; font-size: 20px; color: #1f2937; }
+          h1 { color: #1f2937; font-size: 22px; font-weight: 400; margin-bottom: 16px; }
+          p { color: #6b7280; line-height: 1.7; font-size: 15px; margin-bottom: 16px; }
+          .note { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; padding: 16px; margin: 24px 0; font-size: 14px; color: #4b5563; }
+          a { display: inline-block; color: #1f2937; text-decoration: none; border-bottom: 1px solid #1f2937; padding-bottom: 1px; font-size: 14px; margin-top: 8px; }
         </style>
       </head>
       <body>
         <div class="container">
-          <div class="icon">✓</div>
-          <h1>E-Mail erfolgreich bestätigt! 🎉</h1>
-          <p>
-            Vielen Dank für deine Bestätigung! 
-          </p>
-          <div class="success-box">
-            <p style="margin: 0; font-weight: bold; color: #10b981;">
-              📧 Du erhältst in Kürze eine E-Mail mit dem Download-Link.
-            </p>
-          </div>
-          <p>
-            Überprüfe dein E-Mail-Postfach und lade dein Freebie herunter. 
+          <div class="check">&#10003;</div>
+          <h1>E-Mail bestätigt</h1>
+          <p>Vielen Dank für deine Bestätigung.</p>
+          <div class="note">
+            Du erhältst in Kürze eine E-Mail mit dem Download-Link.<br>
             Falls du keine E-Mail siehst, schau bitte auch in deinem Spam-Ordner nach.
-          </p>
+          </div>
           <a href="/">Zurück zur Startseite</a>
         </div>
       </body>
@@ -267,20 +211,22 @@ Diese Nachricht wurde automatisch vom CRM Funnel System gesendet.
       <html>
       <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Fehler</title>
         <style>
-          body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); }
-          .container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; max-width: 500px; }
-          h1 { color: #dc2626; margin-bottom: 20px; }
-          p { color: #4b5563; line-height: 1.6; }
-          a { color: #3b82f6; text-decoration: none; font-weight: bold; }
+          * { box-sizing: border-box; margin: 0; padding: 0; }
+          body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f9fafb; }
+          .container { background: white; padding: 60px 40px; border: 1px solid #e5e7eb; border-radius: 8px; text-align: center; max-width: 500px; width: 90%; }
+          h1 { color: #1f2937; font-size: 22px; font-weight: 400; margin-bottom: 16px; }
+          p { color: #6b7280; line-height: 1.7; font-size: 15px; margin-bottom: 24px; }
+          a { display: inline-block; color: #1f2937; text-decoration: none; border-bottom: 1px solid #1f2937; padding-bottom: 1px; font-size: 14px; }
         </style>
       </head>
       <body>
         <div class="container">
-          <h1>❌ Ein Fehler ist aufgetreten</h1>
+          <h1>Ein Fehler ist aufgetreten</h1>
           <p>Leider konnte deine E-Mail-Adresse nicht bestätigt werden. Bitte versuche es erneut oder kontaktiere uns.</p>
-          <p><a href="/freebie">Zurück zur Anmeldung</a></p>
+          <a href="/freebie">Zurück zur Anmeldung</a>
         </div>
       </body>
       </html>
