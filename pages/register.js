@@ -209,7 +209,7 @@ export default function Register() {
             {/* Password */}
             <div>
               <label htmlFor="password" className="block text-sm font-normal text-gray-700 mb-2">
-                Passwort (min. 6 Zeichen)
+                Passwort (min. 8 Zeichen)
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
