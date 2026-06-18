@@ -1,5 +1,58 @@
 # Task Log - CRM Funnel Prototype
 
+## Latest Update: 2026-06-18
+
+---
+
+### ✅ Erledigt – Session 18. Juni 2026
+
+#### Brevo / E-Mail-Flow
+- [x] Brevo API Key reaktiviert (war deaktiviert)
+- [x] Brevo IP-Blocking deaktiviert (blockierte Vercels dynamische AWS-IPs)
+- [x] Kontakt-Attribute `DOUBLE_OPT_IN` (Boolean) und `OPT_IN_DATE` (Date) in Brevo angelegt (fehlten komplett)
+- [x] Automation-Trigger auf Liste #2 (`Freebie-Interessenten`) gesetzt – war fälschlicherweise auf Liste #3
+- [x] Automation läuft jetzt korrekt: Kontakt in Liste #2 → Willkommens-Mail wird gesendet ✅
+- [x] Freebie-Download-Mail wird jetzt direkt aus `confirm.js` gesendet (nicht mehr auf Brevo-Automation angewiesen)
+- [x] Sender-Name in allen transaktionalen E-Mails auf `Stefanie Dinçer` geändert (war `Tutavi Coaching` / `Einfach Leichter`)
+
+#### Design
+- [x] Bestätigungsseite (`/api/confirm`) komplett überarbeitet: minimalistisch, keine Emojis, kein bunter Button
+
+#### Dokumentation
+- [x] `PROJECT_INFO.md` erstellt mit allen Account-Infos (Vercel, GitHub, Brevo, Neon, IONOS)
+
+### ⏳ Noch offen – direkt nach Freitag
+
+#### Brevo / E-Mail
+- [ ] Domain `einfachbewussterleben.de` in Brevo authentifizieren (DKIM/DMARC bei IONOS eintragen) → Absender-E-Mail von `gerd_meyer@tutavi.com` auf `@einfachbewussterleben.de` umstellen
+- [ ] 5 Brevo Automation-Mails (Freebie 1) mit Stefanies finalen Texten ersetzen (Datei: `client_input/neue_emaistrecke_...Bewusstsein.txt`) – Mail 4 hat noch keinen Betreff (bei Stefanie erfragen)
+- [ ] Bestätigungs-Mail (`subscribe.js`) Design auf Website-Stil anpassen (aktuell noch alter Placeholder-Text)
+
+#### Zweiter Funnel (Stoffwechsel)
+- [ ] Eigene Landingpage bauen
+- [ ] 5 neue Brevo-Templates anlegen + eigene Automation (Datei: `client_input/Stoffwechsel_emails.txt`)
+
+#### PayPal
+- [ ] PayPal Live-Credentials von Stefanie einholen und in Vercel eintragen
+- [ ] `PAYPAL_API_URL` auf Live-Endpoint umstellen
+
+#### Übergabe
+- [ ] Vercel-Projekt auf Stefanies Account übertragen
+- [ ] GitHub-Repo auf Stefanies Account übertragen
+- [ ] Brevo-Account Owner-E-Mail auf Stefanies Adresse ändern (oder neuen Account + Migration)
+- [ ] Neon-Datenbank auf Stefanies Account übertragen
+
+#### Vimeo / Kursinhalte
+- [ ] Echte Kursvideos von Stefanie via Vimeo einbetten
+- [ ] Vimeo: „Bei Vimeo ausblenden" + Domain-Restriction konfigurieren
+
+### 💰 Offene Rechnungen (Stand 18. Juni 2026)
+- Kernprojekt Restbetrag: **250€**
+- Extra 1 (Mitgliederbereich, gebaut aber nicht abgenommen): **250€**
+- Neu zu besprechen Freitag: ~380–510€ (Funnel 2, E-Mails, Übergabe, Vimeo)
+
+---
+
 ## Latest Update: 2026-02-24 (afternoon)
 
 ### ✅ Completed Tasks
