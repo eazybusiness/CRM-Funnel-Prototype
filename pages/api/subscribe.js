@@ -40,7 +40,7 @@ export default async function handler(req, res) {
         const downloadLink = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/downloads/freebie.pdf`
         
         freebieEmail.subject = 'Dein kostenloser Guide ist da!'
-        freebieEmail.sender = { name: 'Einfach Leichter', email: 'gerd_meyer@tutavi.com' }
+        freebieEmail.sender = { name: 'Stefanie Dinçer', email: 'gerd_meyer@tutavi.com' }
         freebieEmail.to = [{ email: email, name: `${firstName} ${lastName}`.trim() || 'Freund' }]
         freebieEmail.htmlContent = `
           <!DOCTYPE html>
@@ -152,7 +152,7 @@ Schön, dass du Teil unserer Community bist!
     const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail()
     
     sendSmtpEmail.subject = 'Bitte bestätige deine E-Mail-Adresse'
-    sendSmtpEmail.sender = { name: 'Tutavi Coaching', email: 'gerd_meyer@tutavi.com' }
+    sendSmtpEmail.sender = { name: 'Stefanie Dinçer', email: 'gerd_meyer@tutavi.com' }
     sendSmtpEmail.to = [{ email: email, name: `${firstName} ${lastName}`.trim() }]
     sendSmtpEmail.htmlContent = `
         <!DOCTYPE html>
