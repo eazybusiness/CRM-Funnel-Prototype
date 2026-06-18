@@ -126,11 +126,72 @@ export default async function handler(req, res) {
       }
     }
 
-    // 2. Brevo automation will send the welcome email with download link
-    // No need to send email from here - Brevo handles it automatically
-    console.log('Kontakt bestätigt - Brevo Automation wird Willkommens-E-Mail senden:', email)
+    // 2. Freebie-Download-Mail direkt senden
+    try {
+      const freebieApi = new SibApiV3Sdk.TransactionalEmailsApi()
+      const freebieEmail = new SibApiV3Sdk.SendSmtpEmail()
+      const downloadLink = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://crm-funnel-prototype.vercel.app'}/downloads/freebie.pdf`
 
-    // Interne Benachrichtigung an die Website-Inhaberin bei neuer bestätigter Anmeldung
+      freebieEmail.subject = 'Dein kostenloser Guide ist da'
+      freebieEmail.sender = { name: 'Stefanie Dinçer', email: 'noreply@einfachbewussterleben.de' }
+      freebieEmail.to = [{ email: email, name: `${firstName} ${lastName}`.trim() }]
+      freebieEmail.htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+        <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f9fafb;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f9fafb; padding: 40px 20px;">
+            <tr>
+              <td align="center">
+                <table width="560" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px;">
+                  <tr>
+                    <td style="padding: 48px 40px 32px 40px;">
+                      <p style="color: #1f2937; font-size: 18px; margin: 0 0 24px 0;">Hallo ${firstName},</p>
+                      <p style="color: #4b5563; font-size: 15px; line-height: 1.7; margin: 0 0 24px 0;">
+                        vielen Dank für deine Bestätigung. Hier ist dein kostenloser Guide:
+                      </p>
+                      <table cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td>
+                            <a href="${downloadLink}" style="display: inline-block; background: #1f2937; color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 6px; font-size: 15px;">
+                              Guide herunterladen
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+                      <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 32px 0 0 0;">
+                        Falls der Button nicht funktioniert, kopiere diesen Link in deinen Browser:<br>
+                        <a href="${downloadLink}" style="color: #4b5563;">${downloadLink}</a>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 24px 40px; border-top: 1px solid #f3f4f6;">
+                      <p style="color: #9ca3af; font-size: 12px; margin: 0;">
+                        Viele Grüße<br>Stefanie Dinçer<br>
+                        <a href="{{unsubscribe}}" style="color: #9ca3af;">Abmelden</a>
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
+      `
+      freebieEmail.textContent = `Hallo ${firstName},\n\nvielen Dank für deine Bestätigung. Hier ist dein Download-Link:\n\n${downloadLink}\n\nViele Grüße\nStefanie Dinçer`
+
+      await freebieApi.sendTransacEmail(freebieEmail)
+      console.log('Freebie-Download-Mail gesendet an:', email)
+    } catch (freebieError) {
+      console.error('Fehler beim Senden der Freebie-Mail:', freebieError.message)
+    }
+
+    // 3. Interne Benachrichtigung an die Website-Inhaberin bei neuer bestätigter Anmeldung
     try {
       const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi()
       const internalEmail = new SibApiV3Sdk.SendSmtpEmail()
