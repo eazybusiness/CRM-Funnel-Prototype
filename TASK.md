@@ -29,8 +29,10 @@
 - [ ] Bestätigungs-Mail (`subscribe.js`) Design auf Website-Stil anpassen (aktuell noch alter Placeholder-Text)
 
 #### Zweiter Funnel (Stoffwechsel)
-- [ ] Eigene Landingpage bauen
-- [ ] 5 neue Brevo-Templates anlegen + eigene Automation (Datei: `client_input/Stoffwechsel_emails.txt`)
+- [x] 5 Brevo-Templates erstellt (IDs 13–17): `Stoffwechsel_Mail1` bis `Stoffwechsel_Mail5`
+- [ ] **Template 17 (Mail 5):** E-Book-Link einsetzen – aktuell Platzhalter `LINK_EBOOK_HIER_EINSETZEN`. Stefanie muss zuerst den Link in Canva ins PDF einbauen, dann neues PDF hochladen, dann Link per API updaten (1 Minute Aufwand)
+- [ ] Neue Brevo Automation anlegen für Stoffwechsel-Funnel und Templates 13–17 zuordnen
+- [ ] Eigene Landingpage für Stoffwechsel-Freebie bauen (`client_input/Freebie2_Stoffwechsel.pdf` liegt bereits vor)
 
 #### PayPal
 - [ ] PayPal Live-Credentials von Stefanie einholen und in Vercel eintragen
