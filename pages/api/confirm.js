@@ -133,7 +133,7 @@ export default async function handler(req, res) {
       const downloadLink = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://crm-funnel-prototype.vercel.app'}/downloads/freebie.pdf`
 
       freebieEmail.subject = 'Dein kostenloser Guide ist da'
-      freebieEmail.sender = { name: 'Stefanie Dinçer', email: 'noreply@einfachbewussterleben.de' }
+      freebieEmail.sender = { name: 'Stefanie Dinçer', email: 'gerd_meyer@tutavi.com' }
       freebieEmail.to = [{ email: email, name: `${firstName} ${lastName}`.trim() }]
       freebieEmail.htmlContent = `
         <!DOCTYPE html>
@@ -196,7 +196,7 @@ export default async function handler(req, res) {
       const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi()
       const internalEmail = new SibApiV3Sdk.SendSmtpEmail()
       internalEmail.subject = 'Neuer bestätigter Kontakt über die Funnel-Seite'
-      internalEmail.sender = { name: 'CRM Funnel System', email: 'noreply@einfachbewussterleben.de' }
+      internalEmail.sender = { name: 'CRM Funnel System', email: 'gerd_meyer@tutavi.com' }
       internalEmail.to = [{ email: 'mail.s.muench@googlemail.com' }]
       internalEmail.htmlContent = `
         <!DOCTYPE html>
