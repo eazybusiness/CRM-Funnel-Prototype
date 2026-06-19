@@ -1,12 +1,24 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Sparkles, Heart, Leaf, Menu, X } from 'lucide-react'
+import { ArrowRight, Sparkles, Heart, Leaf, Menu, X, ChevronDown } from 'lucide-react'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [guideDropdownOpen, setGuideDropdownOpen] = useState(false)
+  const dropdownRef = useRef(null)
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setGuideDropdownOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   return (
     <>
@@ -37,9 +49,33 @@ export default function Home() {
               
               {/* Desktop Navigation */}
               <nav className="hidden md:flex items-center space-x-8">
-                <Link href="/freebie" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                  Kostenloser Guide
-                </Link>
+                <div className="relative" ref={dropdownRef}>
+                  <button
+                    onClick={() => setGuideDropdownOpen(!guideDropdownOpen)}
+                    className="flex items-center space-x-1 text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                  >
+                    <span>Kostenloser Guide</span>
+                    <ChevronDown className={`w-4 h-4 transition-transform ${guideDropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  {guideDropdownOpen && (
+                    <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg py-1 z-50">
+                      <Link
+                        href="/freebie"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                        onClick={() => setGuideDropdownOpen(false)}
+                      >
+                        Minimalismus
+                      </Link>
+                      <Link
+                        href="/stoffwechsel-freebie"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                        onClick={() => setGuideDropdownOpen(false)}
+                      >
+                        Stoffwechsel
+                      </Link>
+                    </div>
+                  )}
+                </div>
                 <Link href="/about" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   About me
                 </Link>
@@ -72,13 +108,23 @@ export default function Home() {
                 className="md:hidden py-4 border-t border-gray-100"
               >
                 <div className="flex flex-col space-y-4">
-                  <Link 
-                    href="/freebie" 
-                    className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Kostenloser Guide
-                  </Link>
+                  <div className="flex flex-col space-y-2">
+                    <span className="text-sm font-normal text-gray-700">Kostenloser Guide</span>
+                    <Link
+                      href="/freebie"
+                      className="text-sm text-gray-600 hover:text-gray-900 transition-colors pl-3 border-l border-gray-200"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Minimalismus
+                    </Link>
+                    <Link
+                      href="/stoffwechsel-freebie"
+                      className="text-sm text-gray-600 hover:text-gray-900 transition-colors pl-3 border-l border-gray-200"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Stoffwechsel
+                    </Link>
+                  </div>
                   <Link 
                     href="/about" 
                     className="text-sm text-gray-600 hover:text-gray-900 transition-colors"

@@ -5,7 +5,11 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
-  const { token } = req.query
+  const { token, source } = req.query
+  const isStoffwechsel = source === 'stoffwechsel'
+  const listId = isStoffwechsel ? 5 : 2
+  const freebieBackLink = isStoffwechsel ? '/stoffwechsel-freebie' : '/freebie'
+  const downloadLink = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://crm-funnel-prototype.vercel.app'}/downloads/${isStoffwechsel ? 'stoffwechsel-freebie' : 'freebie'}.pdf`
 
   if (!token) {
     return res.status(400).setHeader('Content-Type', 'text/html').send(`
@@ -28,7 +32,7 @@ export default async function handler(req, res) {
         <div class="container">
           <h1>Ungültiger Bestätigungslink</h1>
           <p>Dieser Bestätigungslink ist ungültig. Bitte melde dich erneut an.</p>
-          <a href="/freebie">Zurück zur Anmeldung</a>
+          <a href="${freebieBackLink}">Zurück zur Anmeldung</a>
         </div>
       </body>
       </html>
@@ -79,7 +83,7 @@ export default async function handler(req, res) {
           <div class="container">
             <h1>Bestätigungslink abgelaufen</h1>
             <p>Dieser Bestätigungslink ist leider abgelaufen. Bitte melde dich erneut an.</p>
-            <a href="/freebie">Zurück zur Anmeldung</a>
+            <a href="${freebieBackLink}">Zurück zur Anmeldung</a>
           </div>
         </body>
         </html>
@@ -102,7 +106,7 @@ export default async function handler(req, res) {
       DOUBLE_OPT_IN: true, // Jetzt bestätigt!
       OPT_IN_DATE: new Date().toISOString()
     }
-    createContact.listIds = [2] // Füge zu Liste hinzu
+    createContact.listIds = [listId] // Liste #2 (Minimalismus) oder #5 (Stoffwechsel)
     createContact.updateEnabled = true
 
     try {
@@ -118,7 +122,7 @@ export default async function handler(req, res) {
           DOUBLE_OPT_IN: true,
           OPT_IN_DATE: new Date().toISOString()
         }
-        updateContact.listIds = [2]
+        updateContact.listIds = [listId]
         await contactsApi.updateContact(email, updateContact)
         console.log('Bestehender Kontakt aktualisiert:', email)
       } catch (updateError) {
@@ -130,9 +134,8 @@ export default async function handler(req, res) {
     try {
       const freebieApi = new SibApiV3Sdk.TransactionalEmailsApi()
       const freebieEmail = new SibApiV3Sdk.SendSmtpEmail()
-      const downloadLink = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://crm-funnel-prototype.vercel.app'}/downloads/freebie.pdf`
 
-      freebieEmail.subject = 'Dein kostenloser Guide ist da'
+      freebieEmail.subject = isStoffwechsel ? 'Dein kostenloser Stoffwechsel-Guide ist da' : 'Dein kostenloser Guide ist da'
       freebieEmail.sender = { name: 'Stefanie Dinçer', email: 'gerd_meyer@tutavi.com' }
       freebieEmail.to = [{ email: email, name: `${firstName} ${lastName}`.trim() }]
       freebieEmail.htmlContent = `
@@ -287,7 +290,7 @@ Diese Nachricht wurde automatisch vom CRM Funnel System gesendet.
         <div class="container">
           <h1>Ein Fehler ist aufgetreten</h1>
           <p>Leider konnte deine E-Mail-Adresse nicht bestätigt werden. Bitte versuche es erneut oder kontaktiere uns.</p>
-          <a href="/freebie">Zurück zur Anmeldung</a>
+          <a href="${freebieBackLink}">Zurück zur Anmeldung</a>
         </div>
       </body>
       </html>
