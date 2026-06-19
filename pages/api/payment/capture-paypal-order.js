@@ -95,7 +95,21 @@ export default async function handler(req, res) {
     const payerEmail = data.payer?.email_address
     const payerName = `${data.payer?.name?.given_name || ''} ${data.payer?.name?.surname || ''}`.trim()
     const customData = JSON.parse(payment.custom_id || '{}')
-    const { courseId, courseName } = customData
+    let { courseId, courseName, courseSlug } = customData
+
+    if (!courseId) {
+      try {
+        if (courseSlug) {
+          const result = await query('SELECT id, title FROM courses WHERE slug = $1', [courseSlug])
+          if (result.rows.length > 0) {
+            courseId = result.rows[0].id
+            courseName = courseName || result.rows[0].title
+          }
+        }
+      } catch (e) {
+        console.error('Error resolving course by slug:', e)
+      }
+    }
 
     if (!courseId || !courseName) {
       console.error('Missing course info in custom_id:', customData)
@@ -242,6 +256,7 @@ Dein Team von Einfach bewusster leben
               <p>Vielen Dank für deinen Kauf von <strong>${courseName}</strong>!</p>
               
               <p>Der Kurs wurde deinem Account hinzugefügt und steht dir ab sofort zur Verfügung.</p>
+              ${courseSlug === 'stoffwechselkur-ebook' ? `<p><strong>Hinweis:</strong> Dein E‑Book kannst du nach dem Login direkt hier herunterladen: <a href="${process.env.NEXT_PUBLIC_APP_URL}/api/member/downloads/stoffwechsel-ebook">Download</a></p>` : ''}
               
               <div style="text-align: center;">
                 <a href="${dashboardUrl}" class="button">
@@ -264,6 +279,8 @@ Vielen Dank für deinen Kauf von ${courseName}!
 Der Kurs wurde deinem Account hinzugefügt und steht dir ab sofort zur Verfügung.
 
 Dashboard: ${dashboardUrl}
+
+${courseSlug === 'stoffwechselkur-ebook' ? `Direkter E‑Book Download (nach Login): ${process.env.NEXT_PUBLIC_APP_URL}/api/member/downloads/stoffwechsel-ebook` : ''}
 
 Viel Erfolg!
 Dein Team von Einfach bewusster leben

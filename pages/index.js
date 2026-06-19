@@ -289,7 +289,7 @@ export default function Home() {
                 <h3 className="text-xl font-bold mb-2">Reset für Körper und Geist: Die Stoffwechselkur</h3>
                 <p className="text-sm text-gray-600 mb-6">&nbsp;</p>
                 <Link 
-                  href="/checkout?courseId=2&courseName=Reset+für+Körper+und+Geist&price=29&description=Ebook+Stoffwechselkur"
+                  href="/checkout?courseSlug=stoffwechselkur-ebook&courseName=Stoffwechselkur+(E-Book)&price=29&description=Ebook+Stoffwechselkur"
                   className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition text-center block"
                 >
                   Jetzt anmelden

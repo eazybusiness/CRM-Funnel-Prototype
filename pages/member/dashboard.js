@@ -257,12 +257,21 @@ export default function MemberDashboard() {
                     </div>
                   )}
 
-                  <Link
-                    href={`/member/course/${enrollment.course.slug}`}
-                    className="w-full bg-gray-900 text-white font-light py-2 rounded-lg hover:bg-gray-800 transition-colors text-center block"
-                  >
-                    {enrollment.progress_percentage > 0 ? 'Weiterlernen' : 'Kurs starten'}
-                  </Link>
+                  {enrollment.course.slug === 'stoffwechselkur-ebook' ? (
+                    <Link
+                      href="/api/member/downloads/stoffwechsel-ebook"
+                      className="w-full bg-gray-900 text-white font-light py-2 rounded-lg hover:bg-gray-800 transition-colors text-center block"
+                    >
+                      E‑Book herunterladen
+                    </Link>
+                  ) : (
+                    <Link
+                      href={`/member/course/${enrollment.course.slug}`}
+                      className="w-full bg-gray-900 text-white font-light py-2 rounded-lg hover:bg-gray-800 transition-colors text-center block"
+                    >
+                      {enrollment.progress_percentage > 0 ? 'Weiterlernen' : 'Kurs starten'}
+                    </Link>
+                  )}
                 </div>
               </div>
             ))}

@@ -1,3 +1,4 @@
+import { query } from '../../../lib/db'
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
@@ -24,14 +25,31 @@ export default async function handler(req, res) {
     }
   }
 
-  const { amount, currency = 'EUR', description, courseId, courseName } = req.body
+  let { amount, currency = 'EUR', description, courseId, courseName, courseSlug } = req.body
 
   if (!amount || amount <= 0) {
     return res.status(400).json({ error: 'Ungültiger Betrag' })
   }
 
+  try {
+    // If slug provided, resolve ID and canonical data from DB
+    if (!courseId && courseSlug) {
+      const result = await query('SELECT id, title, price FROM courses WHERE slug = $1 AND is_active = true', [courseSlug])
+      if (result.rows.length === 0) {
+        return res.status(400).json({ error: 'Unbekannter Kurs (Slug)' })
+      }
+      courseId = result.rows[0].id
+      courseName = result.rows[0].title
+      amount = parseFloat(result.rows[0].price)
+      description = description || `Kurs: ${courseName}`
+    }
+  } catch (e) {
+    console.error('DB lookup error:', e)
+    return res.status(500).json({ error: 'Kurs konnte nicht ermittelt werden' })
+  }
+
   if (!courseId || !courseName) {
-    return res.status(400).json({ error: 'Kurs-ID und Kursname erforderlich' })
+    return res.status(400).json({ error: 'Kursdaten unvollständig' })
   }
 
   try {
@@ -56,7 +74,7 @@ export default async function handler(req, res) {
                 value: amount.toFixed(2),
               },
               description: description || `Kurs: ${courseName}`,
-              custom_id: JSON.stringify({ courseId, courseName }),
+              custom_id: JSON.stringify({ courseId, courseName, courseSlug }),
             },
           ],
           application_context: {

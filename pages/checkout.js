@@ -16,6 +16,7 @@ export default function CourseCheckout() {
   // Get course data from query params
   const course = {
     id: router.query.courseId || '',
+    slug: router.query.courseSlug || '',
     name: router.query.courseName || 'Kurs',
     price: parseFloat(router.query.price) || 0,
     description: router.query.description || '',
@@ -39,6 +40,7 @@ export default function CourseCheckout() {
           currency: 'EUR',
           description: `Kurs: ${course.name}`,
           courseId: course.id,
+          courseSlug: course.slug,
           courseName: course.name,
         }),
       })
