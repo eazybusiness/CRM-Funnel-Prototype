@@ -18,6 +18,12 @@
 |---|---|---|---|
 | 3 | **Zweiter Freebie-Funnel (Stoffwechsel)** | Eigene Landingpage `/stoffwechsel`, Anmeldeformular, Double-Opt-In, Brevo-Automation mit 5 E-Mails, PDF-Download nach Bestätigung – nicht im ursprünglichen Bid enthalten | **150,00 €** |
 
+## Inklusive Leistungen
+
+| # | Position | Beschreibung |
+|---|---|---|
+| - | **Vimeo-Integration** | Einbettung der Kursvideos sobald Stefanie liefert (im Mitgliederbereich enthalten) |
+
 ---
 
 ## Zusammenfassung
@@ -33,7 +39,7 @@
 ## Hinweise
 
 - **Social-Media-Verknüpfung** (Instagram, Facebook, WhatsApp – ursprünglich im Bid erwähnt) wurde auf Wunsch der Kundin nicht umgesetzt, da kein Cookie-Banner gewünscht wurde. Kein Aufpreis, kein Abzug.
-- **Vimeo-Integration:** Sobald Stefanie die Kursvideos liefert, werden diese eingebettet. Kleiner Aufwand, im Mitgliederbereich (Pos. 2) enthalten.
+- **Vimeo-Integration:** Inklusive – Sobald Stefanie die Kursvideos liefert, werden diese eingebettet.
 - **PayPal Live:** Aktivierung nach Übergabe der Live-Zugangsdaten durch Stefanie – im Basisauftrag enthalten.
 - **DKIM/DMARC:** Einrichtung bei IONOS durch Stefanie selbst (Anleitung wird mitgeliefert) oder gegen Aufwandspauschale.
 
