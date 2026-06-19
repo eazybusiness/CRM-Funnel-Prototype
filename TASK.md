@@ -1,6 +1,22 @@
 # Task Log - CRM Funnel Prototype
 
-## Latest Update: 2026-06-18
+## Latest Update: 2026-06-19
+
+---
+
+### ✅ Erledigt – Session 19. Juni 2026
+
+#### Zweiter Freebie-Funnel (Stoffwechsel)
+- [x] Navigation-Dropdown auf Startseite: „Kostenloser Guide" → Untermenü mit „Minimalismus" und „Stoffwechsel" (Desktop + Mobile)
+- [x] Neue Landingpage `/stoffwechsel-freebie` erstellt (Kopie von `/freebie` mit angepasstem Text für Stoffwechsel-Guide)
+- [x] Neue API-Route `/api/subscribe-stoffwechsel` erstellt (eigene Double-Opt-In Flow mit `source=stoffwechsel`)
+- [x] `/api/confirm` erweitert: liest `source`-Parameter → Liste #5 (Stoffwechsel-Interessenten) + `stoffwechsel-freebie.pdf`
+- [x] Brevo Liste #5 „Stoffwechsel-Interessenten" ist vorhanden (vom User bereits eingerichtet)
+
+#### Offene Aufgaben für Stoffwechsel-Funnel
+- [ ] Brevo Automation für Stoffwechsel anlegen und Templates 13–17 zuordnen
+- [ ] PDF-Datei `stoffwechsel-freebie.pdf` unter `/public/downloads/` ablegen
+- [ ] Template 17 (Mail 5): E-Book-Link einsetzen (aktuell Platzhalter `LINK_EBOOK_HIER_EINSETZEN`)
 
 ---
 
@@ -30,9 +46,13 @@
 
 #### Zweiter Funnel (Stoffwechsel)
 - [x] 5 Brevo-Templates erstellt (IDs 13–17): `Stoffwechsel_Mail1` bis `Stoffwechsel_Mail5`
+- [x] Landingpage `/stoffwechsel-freebie` erstellt mit angepasstem Text
+- [x] API-Route `/api/subscribe-stoffwechsel` erstellt
+- [x] `/api/confirm` erweitert für source=stoffwechsel → Liste #5
+- [x] Navigation-Dropdown auf Startseite (Minimalismus / Stoffwechsel)
 - [ ] **Template 17 (Mail 5):** E-Book-Link einsetzen – aktuell Platzhalter `LINK_EBOOK_HIER_EINSETZEN`. Stefanie muss zuerst den Link in Canva ins PDF einbauen, dann neues PDF hochladen, dann Link per API updaten (1 Minute Aufwand)
 - [ ] Neue Brevo Automation anlegen für Stoffwechsel-Funnel und Templates 13–17 zuordnen
-- [ ] Eigene Landingpage für Stoffwechsel-Freebie bauen (`client_input/Freebie2_Stoffwechsel.pdf` liegt bereits vor)
+- [ ] PDF-Datei `stoffwechsel-freebie.pdf` unter `/public/downloads/` ablegen
 
 #### PayPal
 - [ ] PayPal Live-Credentials von Stefanie einholen und in Vercel eintragen
