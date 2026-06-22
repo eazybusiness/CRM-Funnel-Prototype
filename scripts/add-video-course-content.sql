@@ -140,13 +140,11 @@ WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 3;
 -- Show the created structure
 SELECT 
   c.title as course_title,
-  c.slug as course_slug,
   m.title as module_title,
   m.sort_order as module_order,
   l.title as lesson_title,
   l.sort_order as lesson_order,
-  l.video_url,
-  l.is_free
+  l.video_url
 FROM courses c
 JOIN modules m ON c.id = m.course_id
 JOIN lessons l ON m.id = l.module_id
