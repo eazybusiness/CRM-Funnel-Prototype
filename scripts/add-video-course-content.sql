@@ -1,3 +1,14 @@
+-- STEP 0: Run this first to confirm actual column names in live DB
+SELECT column_name, data_type 
+FROM information_schema.columns 
+WHERE table_name = 'lessons' 
+ORDER BY ordinal_position;
+
+-- Also check courses and modules while we're at it:
+-- SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'courses' ORDER BY ordinal_position;
+-- SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'modules' ORDER BY ordinal_position;
+
+-- =====================================================================
 -- Add Video Course Content - Stoffwechselkur Video Course
 -- This script creates the complete video course structure with 3 modules and 11 videos
 
@@ -66,76 +77,65 @@ ON CONFLICT DO NOTHING
 RETURNING id as module3_id;
 
 -- Add lessons for each module with Vimeo URLs
--- Note: lessons table has no description or updated_at columns in live DB
+-- Live DB columns: module_id, title, content, video_url, sort_order, created_at, updated_at
 
 -- Module 1 Lessons (4 videos including the free preview)
-INSERT INTO lessons (module_id, title, video_url, sort_order, duration_minutes, is_free, created_at)
-SELECT m.id, '1.0 Einführung und Vorschau', 'https://vimeo.com/1201351155', 0, 15, true, NOW()
+INSERT INTO lessons (module_id, title, video_url, sort_order, created_at, updated_at)
+SELECT m.id, '1.0 Einführung und Vorschau', 'https://vimeo.com/1201351155', 0, NOW(), NOW()
 FROM modules m JOIN courses c ON m.course_id = c.id
-WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 1
-ON CONFLICT DO NOTHING;
+WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 1;
 
-INSERT INTO lessons (module_id, title, video_url, sort_order, duration_minutes, is_free, created_at)
-SELECT m.id, '1.1 Was ist die Stoffwechselkur?', 'https://vimeo.com/1198043715/3a4e4cfe9b', 1, 20, false, NOW()
+INSERT INTO lessons (module_id, title, video_url, sort_order, created_at, updated_at)
+SELECT m.id, '1.1 Was ist die Stoffwechselkur?', 'https://vimeo.com/1198043715/3a4e4cfe9b', 1, NOW(), NOW()
 FROM modules m JOIN courses c ON m.course_id = c.id
-WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 1
-ON CONFLICT DO NOTHING;
+WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 1;
 
-INSERT INTO lessons (module_id, title, video_url, sort_order, duration_minutes, is_free, created_at)
-SELECT m.id, '1.2 Vorbereitung auf die Kur', 'https://vimeo.com/1200692921', 2, 25, false, NOW()
+INSERT INTO lessons (module_id, title, video_url, sort_order, created_at, updated_at)
+SELECT m.id, '1.2 Vorbereitung auf die Kur', 'https://vimeo.com/1200692921', 2, NOW(), NOW()
 FROM modules m JOIN courses c ON m.course_id = c.id
-WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 1
-ON CONFLICT DO NOTHING;
+WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 1;
 
-INSERT INTO lessons (module_id, title, video_url, sort_order, duration_minutes, is_free, created_at)
-SELECT m.id, '1.3 Die ersten Schritte', 'https://vimeo.com/1200363004', 3, 18, false, NOW()
+INSERT INTO lessons (module_id, title, video_url, sort_order, created_at, updated_at)
+SELECT m.id, '1.3 Die ersten Schritte', 'https://vimeo.com/1200363004', 3, NOW(), NOW()
 FROM modules m JOIN courses c ON m.course_id = c.id
-WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 1
-ON CONFLICT DO NOTHING;
+WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 1;
 
 -- Module 2 Lessons (3 videos)
-INSERT INTO lessons (module_id, title, video_url, sort_order, duration_minutes, is_free, created_at)
-SELECT m.id, '2.1 Ernährung während der Kur', 'https://vimeo.com/1199753614', 1, 22, false, NOW()
+INSERT INTO lessons (module_id, title, video_url, sort_order, created_at, updated_at)
+SELECT m.id, '2.1 Ernährung während der Kur', 'https://vimeo.com/1199753614', 1, NOW(), NOW()
 FROM modules m JOIN courses c ON m.course_id = c.id
-WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 2
-ON CONFLICT DO NOTHING;
+WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 2;
 
-INSERT INTO lessons (module_id, title, video_url, sort_order, duration_minutes, is_free, created_at)
-SELECT m.id, '2.2 Bewegung und Aktivität', 'https://vimeo.com/1200703298', 2, 15, false, NOW()
+INSERT INTO lessons (module_id, title, video_url, sort_order, created_at, updated_at)
+SELECT m.id, '2.2 Bewegung und Aktivität', 'https://vimeo.com/1200703298', 2, NOW(), NOW()
 FROM modules m JOIN courses c ON m.course_id = c.id
-WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 2
-ON CONFLICT DO NOTHING;
+WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 2;
 
-INSERT INTO lessons (module_id, title, video_url, sort_order, duration_minutes, is_free, created_at)
-SELECT m.id, '2.3 Umgang mit Herausforderungen', 'https://vimeo.com/1200720213', 3, 20, false, NOW()
+INSERT INTO lessons (module_id, title, video_url, sort_order, created_at, updated_at)
+SELECT m.id, '2.3 Umgang mit Herausforderungen', 'https://vimeo.com/1200720213', 3, NOW(), NOW()
 FROM modules m JOIN courses c ON m.course_id = c.id
-WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 2
-ON CONFLICT DO NOTHING;
+WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 2;
 
 -- Module 3 Lessons (4 videos incl. Abschluss)
-INSERT INTO lessons (module_id, title, video_url, sort_order, duration_minutes, is_free, created_at)
-SELECT m.id, '3.1 Erfolge messen und feiern', 'https://vimeo.com/1199794591', 1, 18, false, NOW()
+INSERT INTO lessons (module_id, title, video_url, sort_order, created_at, updated_at)
+SELECT m.id, '3.1 Erfolge messen und feiern', 'https://vimeo.com/1199794591', 1, NOW(), NOW()
 FROM modules m JOIN courses c ON m.course_id = c.id
-WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 3
-ON CONFLICT DO NOTHING;
+WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 3;
 
-INSERT INTO lessons (module_id, title, video_url, sort_order, duration_minutes, is_free, created_at)
-SELECT m.id, '3.2 Nach der Kur - Was nun?', 'https://vimeo.com/1200360445', 2, 25, false, NOW()
+INSERT INTO lessons (module_id, title, video_url, sort_order, created_at, updated_at)
+SELECT m.id, '3.2 Nach der Kur - Was nun?', 'https://vimeo.com/1200360445', 2, NOW(), NOW()
 FROM modules m JOIN courses c ON m.course_id = c.id
-WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 3
-ON CONFLICT DO NOTHING;
+WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 3;
 
-INSERT INTO lessons (module_id, title, video_url, sort_order, duration_minutes, is_free, created_at)
-SELECT m.id, '3.3 Langfristige Lebensstiländerung', 'https://vimeo.com/1200749962', 3, 22, false, NOW()
+INSERT INTO lessons (module_id, title, video_url, sort_order, created_at, updated_at)
+SELECT m.id, '3.3 Langfristige Lebensstiländerung', 'https://vimeo.com/1200749962', 3, NOW(), NOW()
 FROM modules m JOIN courses c ON m.course_id = c.id
-WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 3
-ON CONFLICT DO NOTHING;
+WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 3;
 
-INSERT INTO lessons (module_id, title, video_url, sort_order, duration_minutes, is_free, created_at)
-SELECT m.id, 'Abschluss: Dein Weg geht weiter', 'https://vimeo.com/1201347287/f59726c8ef', 4, 15, false, NOW()
+INSERT INTO lessons (module_id, title, video_url, sort_order, created_at, updated_at)
+SELECT m.id, 'Abschluss: Dein Weg geht weiter', 'https://vimeo.com/1201347287/f59726c8ef', 4, NOW(), NOW()
 FROM modules m JOIN courses c ON m.course_id = c.id
-WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 3
-ON CONFLICT DO NOTHING;
+WHERE c.slug = 'stoffwechselkur-video' AND m.sort_order = 3;
 
 -- Show the created structure
 SELECT 

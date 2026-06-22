@@ -51,9 +51,7 @@ export default async function handler(req, res) {
         m.sort_order as module_sort,
         l.id as lesson_id,
         l.title as lesson_title,
-        l.description as lesson_description,
         l.video_url,
-        l.is_free,
         l.sort_order as lesson_sort
       FROM modules m
       JOIN courses c ON m.course_id = c.id
@@ -78,9 +76,7 @@ export default async function handler(req, res) {
         modulesMap[row.module_id].lessons.push({
           id: row.lesson_id,
           title: row.lesson_title,
-          description: row.lesson_description,
           videoUrl: row.video_url || null,
-          isFree: row.is_free,
           sortOrder: row.lesson_sort
         })
       }
