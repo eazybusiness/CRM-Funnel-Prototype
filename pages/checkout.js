@@ -157,6 +157,31 @@ export default function CourseCheckout() {
                 </div>
               </div>
 
+              {/* Free Preview Video - Only for Video Course */}
+              {course.slug === 'stoffwechselkur-video' && (
+                <div className="bg-white rounded-2xl shadow-sm p-8 mb-6">
+                  <h3 className="text-lg font-normal text-gray-900 mb-4">
+                    Kostenlose Vorschau
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Schau dir eine kostenlose Vorschau des Video-Kursinhalts an:
+                  </p>
+                  <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                    <iframe
+                      src="https://player.vimeo.com/video/1201351155?h=1234567890&badge=0&autopause=0&player_id=0&app_id=58479"
+                      className="absolute top-0 left-0 w-full h-full rounded-lg"
+                      frameBorder="0"
+                      allow="autoplay; fullscreen; picture-in-picture"
+                      allowFullScreen
+                      title="Video-Kurs Vorschau"
+                    ></iframe>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-3">
+                    Dieses Video ist eine Vorschau. Nach dem Kauf erhältst du Zugang zu allen {11} Lektionen in 3 Modulen.
+                  </p>
+                </div>
+              )}
+
               {/* Features */}
               <div className="bg-white rounded-2xl shadow-sm p-8">
                 <h3 className="text-lg font-normal text-gray-900 mb-4">

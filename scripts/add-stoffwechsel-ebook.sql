@@ -1,21 +1,19 @@
 -- Insert or update Stoffwechsel E-Book as a course-like product
 -- Run this in your Neon/Vercel Postgres SQL editor
 
-INSERT INTO courses (title, description, slug, price, is_active, created_at, updated_at)
+INSERT INTO courses (title, description, slug, price, is_published)
 VALUES (
   'Stoffwechselkur (E-Book)',
   'E-Book: Reset für Körper und Geist – Die Stoffwechselkur',
   'stoffwechselkur-ebook',
   29.00,
-  true,
-  NOW(),
-  NOW()
+  true
 )
 ON CONFLICT (slug) DO UPDATE SET
   title = EXCLUDED.title,
   description = EXCLUDED.description,
   price = EXCLUDED.price,
-  is_active = EXCLUDED.is_active,
+  is_published = EXCLUDED.is_published,
   updated_at = NOW();
 
 -- Optional: ensure a minimal module/lesson structure if you want it to appear as a course (not required for direct download)

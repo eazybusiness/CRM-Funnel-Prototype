@@ -1,6 +1,50 @@
 # Task Log - CRM Funnel Prototype
 
-## Latest Update: 2026-06-19
+## Latest Update: 2026-06-20
+
+---
+
+### ✅ Erledigt – Session 20. Juni 2026 (Vimeo Integration)
+
+#### Vimeo Video Integration
+- [x] Kostenlose Vorschau-Video auf Checkout-Seite eingebettet (Vimeo ID: 1201351155)
+- [x] Responsive Video-Player mit 16:9 Aspect Ratio und Domain-Privacy vorbereitet
+- [x] Sichere API für bezahlte Vimeo-Videos erstellt (`/api/member/videos/[courseSlug].js`)
+  - Prüft User-Authentifizierung und Kurs-Zugangsberechtigung
+  - Liefert strukturierte Video-URLs nach Modulen und Lektionen
+- [x] Datenbank-Struktur für Vimeo URLs vorbereitet (`video_url` Feld in lessons Tabelle)
+- [x] SQL-Skript erstellt (`scripts/add-vimeo-urls.sql`) für das Hinzufügen geschützter Video-URLs
+- [x] Umfassende Anleitung für Stefanie erstellt (`docs/vimeo-setup-guide.md`)
+  - Schritt-für-Schritt Anleitung für Vimeo Domain Restrictions
+  - Security Best Practices und Troubleshooting
+  - Embed-Parameter und Datenschutz-Einstellungen
+
+#### Test & Vorbereitung
+- [x] Entwicklungsserver gestartet und Checkout-Seite mit Video-Preview getestet
+- [x] Browser-Preview unter http://localhost:3000 verfügbar
+- [x] Todo-Liste aktualisiert und Aufgaben als erledigt markiert
+
+#### Video-Kurs Struktur (11 Videos, 3 Module)
+- [x] Vollständige Video-Kurs-Struktur in Datenbank erstellt (SQL: `scripts/add-video-course-content.sql`)
+- [x] Modul 1: Grundlagen (4 Videos: 1.0 Vorschau, 1.1-1.3)
+- [x] Modul 2: Umsetzung (3 Videos: 2.1-2.3)  
+- [x] Modul 3: Nachhaltigkeit (4 Videos: 3.1-3.3 + Abschluss)
+- [x] Video-Kurs auf Homepage hinzugefügt (97€, 11 Videos in 3 Modulen)
+- [x] Checkout-Seite aktualisiert: Video-Vorschau nur für Video-Kurs (nicht für Ebook)
+- [x] Video-Übersichtsseite erstellt (`/member/course/[slug]/videos`) mit Karten-Ansicht
+- [x] "Alle Videos" Button auf Kurs-Seite für Video-Kurs hinzugefügt
+- [x] Sichere Video-API implementiert mit Zugriffsprüfung für zahlende Nutzer
+
+#### Test & Vorbereitung
+- [x] Entwicklungsserver läuft und bereit für Tests
+- [x] Vollständiger User-Flow implementiert: Homepage → Checkout → Kauf → Mitgliederbereich → Videos
+
+#### Nächste Schritte (wenn Stefanie bereit ist)
+- [ ] Domain Restrictions in Vimeo für alle Video-IDs konfigurieren
+- [ ] SQL-Skript `scripts/add-video-course-content.sql` in Datenbank ausführen
+- [ ] Vollständigen User-Flow mit echtem Kauf testen
+
+---
 
 ---
 
@@ -65,8 +109,12 @@
 - [ ] Neon-Datenbank auf Stefanies Account übertragen
 
 #### Vimeo / Kursinhalte
-- [ ] Echte Kursvideos von Stefanie via Vimeo einbetten
-- [ ] Vimeo: „Bei Vimeo ausblenden" + Domain-Restriction konfigurieren
+- [x] Kostenlose Vorschau-Video auf Checkout-Seite eingebettet (Vimeo ID: 1201351155)
+- [x] Sichere API für bezahlte Vimeo-Videos erstellt (`/api/member/videos/[courseSlug].js`)
+- [x] Datenbank-Struktur für Vimeo URLs vorbereitet (`video_url` Feld in lessons Tabelle)
+- [x] Anleitung für Stefanie erstellt: `docs/vimeo-setup-guide.md`
+- [ ] Echte Kursvideos von Stefanie via Vimeo einbetten (wenn URLs bereitgestellt)
+- [ ] Vimeo: Domain-Restriction konfigurieren (Anleitung bereitgestellt)
 
 ### 💰 Offene Rechnungen (Stand 18. Juni 2026)
 - Kernprojekt Restbetrag: **250€**

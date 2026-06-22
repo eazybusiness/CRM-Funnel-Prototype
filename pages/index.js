@@ -296,6 +296,19 @@ export default function Home() {
                 </Link>
               </div>
 
+              {/* Video Course */}
+              <div className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+                <span className="inline-block text-xs font-medium text-gray-500 uppercase tracking-wider mb-3">Video-Kurs</span>
+                <h3 className="text-xl font-bold mb-2">Stoffwechselkur Video-Kurs</h3>
+                <p className="text-sm text-gray-600 mb-6">11 Videos in 3 Modulen</p>
+                <Link 
+                  href="/checkout?courseSlug=stoffwechselkur-video&courseName=Stoffwechselkur+(Video-Kurs)&price=97&description=Video-Kurs+Stoffwechselkur"
+                  className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition text-center block"
+                >
+                  Jetzt anmelden
+                </Link>
+              </div>
+
               {/* Ebook 2 - demnächst */}
               <div className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow opacity-75">
                 <span className="inline-block text-xs font-medium text-gray-500 uppercase tracking-wider mb-3">Ebook</span>
