@@ -25,7 +25,7 @@ async function sendEmail(to, subject, html, text) {
       body: JSON.stringify({
         sender: {
           name: 'Einfach bewusster leben',
-          email: process.env.EMAIL_FROM || 'noreply@einfachbewusstleben.de',
+          email: process.env.EMAIL_FROM || 'noreply@einfachbewussterleben.de',
         },
         to: [{ email: to }],
         subject,

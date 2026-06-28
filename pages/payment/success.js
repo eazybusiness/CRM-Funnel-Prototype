@@ -218,7 +218,7 @@ export default function PaymentSuccess() {
               <div className="text-center mt-8">
                 <p className="text-sm text-gray-600">
                   Fragen oder Probleme?{' '}
-                  <a href="mailto:support@einfachbewusstleben.de" className="text-gray-900 hover:underline">
+                  <a href="mailto:support@einfachbewussterleben.de" className="text-gray-900 hover:underline">
                     Kontaktiere uns
                   </a>
                 </p>
