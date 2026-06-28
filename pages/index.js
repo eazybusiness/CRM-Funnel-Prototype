@@ -54,7 +54,7 @@ export default function Home() {
                     onClick={() => setGuideDropdownOpen(!guideDropdownOpen)}
                     className="flex items-center space-x-1 text-sm text-gray-600 hover:text-gray-900 transition-colors"
                   >
-                    <span>Kostenloser Guide</span>
+                    <span>Kostenlose Guides</span>
                     <ChevronDown className={`w-4 h-4 transition-transform ${guideDropdownOpen ? 'rotate-180' : ''}`} />
                   </button>
                   {guideDropdownOpen && (
@@ -109,7 +109,7 @@ export default function Home() {
               >
                 <div className="flex flex-col space-y-4">
                   <div className="flex flex-col space-y-2">
-                    <span className="text-sm font-normal text-gray-700">Kostenloser Guide</span>
+                    <span className="text-sm font-normal text-gray-700">Kostenlose Guides</span>
                     <Link
                       href="/freebie"
                       className="text-sm text-gray-600 hover:text-gray-900 transition-colors pl-3 border-l border-gray-200"

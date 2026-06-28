@@ -221,7 +221,7 @@ export default function StoffwechselFreebie() {
               </div>
 
               <h1 className="text-4xl md:text-5xl font-light text-gray-900 mb-6 leading-tight">
-                Dein kostenloser Schnellstart-Guide für einen aktiven Stoffwechsel
+                Dein kostenloser Schnellstart Guide für einen aktiven Stoffwechsel
               </h1>
 
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
@@ -231,14 +231,14 @@ export default function StoffwechselFreebie() {
               </p>
 
               {/* Image */}
-              <div className="relative h-64 md:h-80 rounded-3xl overflow-hidden mb-8 shadow-2xl">
+              <div className="relative rounded-2xl overflow-hidden mb-8 shadow-lg" style={{ maxWidth: '400px' }}>
                 <Image
-                  src="/stefanie.jpg"
+                  src="/images/stefanie.jpeg"
                   alt="Stefanie - Stoffwechsel und bewusstes Essen"
-                  fill
-                  className="object-cover"
+                  width={400}
+                  height={500}
+                  className="object-cover w-full h-auto"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
               </div>
 
               <div className="space-y-6 mb-8">
