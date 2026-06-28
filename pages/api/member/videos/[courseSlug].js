@@ -1,4 +1,5 @@
-import { getSession } from '@auth0/nextjs-auth0'
+import { getServerSession } from 'next-auth/next'
+import { authOptions } from '../../../../lib/auth.js'
 import { query } from '../../../../lib/db'
 
 export default async function handler(req, res) {
@@ -8,7 +9,7 @@ export default async function handler(req, res) {
 
   try {
     // Check if user is authenticated
-    const session = await getSession(req, res)
+    const session = await getServerSession(req, res, authOptions)
     if (!session?.user?.email) {
       return res.status(401).json({ error: 'Nicht authentifiziert' })
     }

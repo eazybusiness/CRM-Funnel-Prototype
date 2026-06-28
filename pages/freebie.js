@@ -281,14 +281,14 @@ export default function Freebie() {
               </p>
 
               {/* Image */}
-              <div className="relative h-64 md:h-80 rounded-3xl overflow-hidden mb-8 shadow-2xl">
+              <div className="relative rounded-2xl overflow-hidden mb-8 shadow-lg" style={{ maxWidth: '400px' }}>
                 <Image
-                  src="/stefanie.jpg"
+                  src="/images/stefanie.jpeg"
                   alt="Stefanie - Minimalismus und Achtsamkeit"
-                  fill
-                  className="object-cover"
+                  width={400}
+                  height={500}
+                  className="object-cover w-full h-auto"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
               </div>
 
               <div className="space-y-6 mb-8">
