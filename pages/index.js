@@ -302,7 +302,7 @@ export default function Home() {
                 <h3 className="text-xl font-bold mb-2">Stoffwechselkur Video-Kurs</h3>
                 <p className="text-sm text-gray-600 mb-6">11 Videos in 3 Modulen</p>
                 <Link 
-                  href="/checkout?courseSlug=stoffwechselkur-video&courseName=Stoffwechselkur+(Video-Kurs)&price=97&description=Video-Kurs+Stoffwechselkur"
+                  href="/checkout?courseSlug=stoffwechselkur-video&courseName=Stoffwechselkur+(Video-Kurs)&price=59&description=Video-Kurs+Stoffwechselkur"
                   className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition text-center block"
                 >
                   Jetzt anmelden
